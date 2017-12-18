@@ -21,8 +21,8 @@
 # 			   Some configuration may be required in the Makefile variables to accomodate the
 # 			   settings of a given OS.
 #
-# AUTHOR: Alberto Ibarrondo (github @ibarrond)
-# DATE: 16/10/2017
+# AUTHOR: Remy AUDA
+# DATE: 17/12/2017
 #
 # LICENSE:	
 # 	Copyright (C) 2012-2017 IBM Corp.

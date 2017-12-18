@@ -1,0 +1,76 @@
+*** CheckFeatures log ***
+g++ -I../include -I. -march=native -g -O2 -o TestGetTime TestGetTime.cpp GetTime1.cpp -lm
+running
+g++ -I../include -I. -march=native -g -O2 -o TestGetPID TestGetPID.cpp GetPID1.cpp -lm
+g++ -I../include -I. -march=native -g -O2 CheckALIGNED_ARRAY.cpp -o CheckFeatures -lm
+g++ -I../include -I. -march=native -g -O2 CheckBUILTIN_CLZL.cpp -o CheckFeatures -lm
+g++ -I../include -I. -march=native -g -O2 CheckLL_TYPE.cpp -o CheckFeatures -lm
+g++ -I../include -I. -march=native -g -O2 CheckSSSE3.cpp -o CheckFeatures -lm
+g++ -I../include -I. -march=native -g -O2 CheckAVX.cpp -o CheckFeatures -lm
+g++ -I../include -I. -march=native -g -O2 CheckPCLMUL.cpp -o CheckFeatures -lm
+g++ -I../include -I. -march=native -g -O2 CheckAVX2.cpp -o CheckFeatures -lm
+CheckAVX2.cpp:9:2: error: #error "AVX2 not supported"
+ #error "AVX2 not supported"
+  ^
+g++ -I../include -I. -march=native -g -O2 CheckFMA.cpp -o CheckFeatures -lm
+CheckFMA.cpp:10:2: error: #error "AVX2 with FMA not supported"
+ #error "AVX2 with FMA not supported"
+  ^
+g++ -I../include -I. -march=native -g -O2 CheckCOPY_TRAITS1.cpp -o CheckFeatures -lm
+In file included from /usr/include/c++/5/type_traits:35:0,
+                 from CheckCOPY_TRAITS1.cpp:1:
+/usr/include/c++/5/bits/c++0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C++ 2011 standard. This support must be enabled with the -std=c++11 or -std=gnu++11 compiler options.
+ #error This file requires compiler and library support \
+  ^
+CheckCOPY_TRAITS1.cpp:4:1: error: ‘constexpr’ does not name a type
+ constexpr bool Relocate_aux_has_trivial_copy(T*)
+ ^
+CheckCOPY_TRAITS1.cpp:4:1: note: C++11 ‘constexpr’ only available with -std=c++11 or -std=gnu++11
+CheckCOPY_TRAITS1.cpp:11:26: warning: defaulted and deleted functions only available with -std=c++11 or -std=gnu++11
+ struct A { A(const A&) = delete; };
+                          ^
+CheckCOPY_TRAITS1.cpp:15:35: warning: defaulted and deleted functions only available with -std=c++11 or -std=gnu++11
+ struct E { private: E(const E&) = default; };
+                                   ^
+CheckCOPY_TRAITS1.cpp: In function ‘int main()’:
+CheckCOPY_TRAITS1.cpp:28:46: error: ‘Relocate_aux_has_trivial_copy’ was not declared in this scope
+          !Relocate_aux_has_trivial_copy((A*)0) &&
+                                              ^
+g++ -I../include -I. -march=native -g -O2 CheckCOPY_TRAITS2.cpp -o CheckFeatures -lm
+In file included from /usr/include/c++/5/type_traits:35:0,
+                 from CheckCOPY_TRAITS2.cpp:1:
+/usr/include/c++/5/bits/c++0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C++ 2011 standard. This support must be enabled with the -std=c++11 or -std=gnu++11 compiler options.
+ #error This file requires compiler and library support \
+  ^
+CheckCOPY_TRAITS2.cpp:14:76: error: ‘true_type’ is not a member of ‘std’
+      static typename Relocate_aux_Failable<(unsigned(sizeof U(*MakeT()))), std::true_type>::type copy(int);
+                                                                            ^
+CheckCOPY_TRAITS2.cpp:14:76: error: ‘true_type’ is not a member of ‘std’
+CheckCOPY_TRAITS2.cpp:14:90: error: template argument 2 is invalid
+      static typename Relocate_aux_Failable<(unsigned(sizeof U(*MakeT()))), std::true_type>::type copy(int);
+                                                                                          ^
+CheckCOPY_TRAITS2.cpp:17:48: error: ‘false_type’ is not a member of ‘std’
+      static typename Relocate_aux_Failable<0U, std::false_type>::type copy(...);
+                                                ^
+CheckCOPY_TRAITS2.cpp:17:48: error: ‘false_type’ is not a member of ‘std’
+CheckCOPY_TRAITS2.cpp:17:63: error: template argument 2 is invalid
+      static typename Relocate_aux_Failable<0U, std::false_type>::type copy(...);
+                                                               ^
+CheckCOPY_TRAITS2.cpp:19:6: error: ‘constexpr’ does not name a type
+      constexpr static bool value = decltype( copy<T>(0) )::value;
+      ^
+CheckCOPY_TRAITS2.cpp:19:6: note: C++11 ‘constexpr’ only available with -std=c++11 or -std=gnu++11
+CheckCOPY_TRAITS2.cpp:23:1: error: ‘constexpr’ does not name a type
+ constexpr bool Relocate_aux_has_trivial_copy(T*)
+ ^
+CheckCOPY_TRAITS2.cpp:23:1: note: C++11 ‘constexpr’ only available with -std=c++11 or -std=gnu++11
+CheckCOPY_TRAITS2.cpp:30:26: warning: defaulted and deleted functions only available with -std=c++11 or -std=gnu++11
+ struct A { A(const A&) = delete; };
+                          ^
+CheckCOPY_TRAITS2.cpp:34:35: warning: defaulted and deleted functions only available with -std=c++11 or -std=gnu++11
+ struct E { private: E(const E&) = default; };
+                                   ^
+CheckCOPY_TRAITS2.cpp: In function ‘int main()’:
+CheckCOPY_TRAITS2.cpp:47:46: error: ‘Relocate_aux_has_trivial_copy’ was not declared in this scope
+          !Relocate_aux_has_trivial_copy((A*)0) &&
+                                              ^

@@ -8,7 +8,7 @@
  *  Cyfhel implements a higher level of abstraction than HElib, and handles
  *  Cyphertexts using an unordered map (key-value pairs) that is accessed
  *  via keys of type string. This is done in order to manage Cyphertext 
- *  using references (the keys), which will allow Pyfhel to work only 
+ *  using references (the keys), which will allow Cyfhel to work only 
  *  using strings (keeping the Cyphertexts in C++). Cyfhel also compresses
  *  the Context setup and Key generation into one single KeyGen function
  *  with multiple parameter selection.
@@ -33,31 +33,79 @@
  *  --------------------------------------------------------------------
  */
 
-
-#include <NTL/ZZ.h>
-#include <NTL/ZZX.h>
-#include <NTL/BasicThreadPool.h>
-#include <NTL/lzz_pXFactoring.h>
-#include <cassert>
-#include <cstdio>
-#include <fstream>
-#include <unistd.h>
-#include <iostream>
-#include <cstddef>
-#include <sys/time.h>
-
-#include <FHE.h>
-#include <timing.h>
-#include <EncryptedArray.h>
 #include "Cyfhel.h"
 
 using namespace std;
 
+/******CONSTRUCTOR BY DEFAULT******/
 Cyfhel::Cyfhel(){}
+
+/******DESTRUCTOR BY DEFAULT******/
 Cyfhel::~Cyfhel(){}
 
-// ------------------------------ CRYPTOGRAPHY --------------------------------
+/******GETTERS******/
 
+/**
+  * @brief Number of plaintext slots 
+  * @return number of plaintext slots
+  */
+long Cyfhel::numSlots() {
+  return ea->size();
+}
+
+/**
+  * @brief Getters for global parameters of the class
+  */
+long Cyfhel::getM(){
+  return global_m;
+}
+
+/**
+  * @brief Getters for global parameters of the class
+  */
+long Cyfhel::getP(){
+  return global_p; 
+}
+
+/**
+  * @brief Getters for global parameters of the class
+  */
+long Cyfhel::getR(){ 
+  return global_r; 
+}
+
+/******SETTERS******/
+/**
+  * @brief Create a new ciphertext and set it equal to the ciphertext 
+  * stored in unordered map under ID id1
+  * @param id1 ID of ctxt in unordered map ctxtMap
+  * @return ID corresponding to new ciphertext
+  */
+string Cyfhel::set(string id1){
+    Ctxt ctxt = ctxtMap.at(id1);
+    return store(&ctxt);
+}
+
+/******IMPLEMENTATION OF PRIVATE METHODS******/
+/**
+  * @brief Store the ciphertext in the unordered map and return key where 
+  * it was stored
+  * @param ctxt Ciphertext to store in unordered map
+  * @return the ID used to locate this ciphertext in the unordered map
+*/
+string Cyfhel::store(Ctxt* ctxt) {
+    struct timeval tp;
+    gettimeofday(&tp, NULL);
+    long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+    string id1 = boost::lexical_cast<string>(ms);
+    ctxtMap.insert(make_pair(id1, *ctxt));
+    return id1;
+}
+
+
+/******IMPLEMENTATION OF PUBLIC METHODS******/
+
+//------ENCRYPTION------
 // KEY GENERATION
 /**
   * @brief Performs Key Generation using HElib functions
@@ -101,23 +149,33 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
         global_r = r;
         context = new FHEcontext(m, p, r, gens, ords);  // Initialize context
         buildModChain(*context, L, c);                  // Add primes to modulus chain
-        if(flagPrint){std::cout << "  - Created Context: " 
-            << "p="   << p        << ", r=" << r
-            << ", d=" << d        << ", c=" << c
-            << ", sec=" << sec    << ", w=" << w
-            << ", L=" << L        << ", m=" << m
-            << ", gens=" << gens  << ", ords=" << ords <<  endl;}
+        if(flagPrint){
+		std::cout << "  - Created Context: " 
+		<< "p="   << p        << ", r=" << r
+		<< ", d=" << d        << ", c=" << c
+		<< ", sec=" << sec    << ", w=" << w
+		<< ", L=" << L        << ", m=" << m
+		<< ", gens=" << gens  << ", ords=" << ords <<  endl;
+	}
 
         // ZZX Polynomial creation
-        if (d == 0){  G = context->alMod.getFactorsOverZZ()[0];}
-        else       {  G = makeIrredPoly(p, d);}
-        if(flagPrint){std::cout << "  - Created ZZX poly from NTL lib" <<endl;}
+        if (d == 0){
+		G = context->alMod.getFactorsOverZZ()[0];
+	}
+        else{
+		G = makeIrredPoly(p, d);
+	}
+        if(flagPrint){
+		std::cout << "  - Created ZZX poly from NTL lib" <<endl;
+	}
 
         // Secret/Public key pair creation
         secretKey = new FHESecKey(*context);// Initialize object
         publicKey = (FHEPubKey*) secretKey;// Upcast: FHESecKey to FHEPubKey
         secretKey->GenSecKey(w);// Hamming-weight-w secret key
-        if(flagPrint){std::cout << "  - Created Public/Private Key Pair" << endl;} 
+        if(flagPrint){
+		std::cout << "  - Created Public/Private Key Pair" << endl;
+	} 
 
         // Additional initializations
         addSome1DMatrices(*secretKey);// Key-switch matrices for relin.
@@ -125,7 +183,9 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
         nslots = ea->size();
 
 
-        if(flagPrint){std::cout << "Cyfhel::keyGen COMPLETED" << endl;}
+        if(flagPrint){
+		std::cout << "Cyfhel::keyGen COMPLETED" << endl;
+	}
 }
 
 //ENCRYPTION
@@ -161,6 +221,101 @@ vector<long> Cyfhel::decrypt(string id1) {
             std::cout << "  Cyfhel::decrypt({ID" << id1 << "}[" << res << "])" << endl;
         }
         return res;
+}
+
+//------AUXILIARY------
+/**
+  * @brief Retrieve the ciphertext object from the unordered map
+  * @param id1 ID of ctxt in unordered map ctxtMap
+  * @return the ciphertext corresponding to the one stored with ID id1
+  */
+Ctxt Cyfhel::retrieve(string id1) {
+    return ctxtMap.at(id1);
+}
+
+/**
+  * Replace the ciphertext at id1 with the new one provided
+  * @param id1 ID of ctxt in unordered map ctxtMap
+  * @param new_ctxt new Ctxt object to store in the unordered map
+  */
+void Cyfhel::replace(string id1, Ctxt new_ctxt) {
+    boost::unordered_map<string, Ctxt>::const_iterator i = ctxtMap.find(id1);
+    if(i != ctxtMap.end()) {
+        ctxtMap.at(id1) = new_ctxt;
+    }
+}
+
+/**
+  * @brief Delete from the unordered map the entry at key
+  * @param id1 ID of ctxt in unordered map ctxtMap
+  */
+void Cyfhel::erase(string id1) {
+    if(ctxtMap.find(id1) != ctxtMap.end()) {
+        ctxtMap.erase(id1);
+    }
+}
+
+//------I/O------
+//SAVE ENVIRONMENT
+/**
+  * @brief Saves the context, SecretKey and G polynomial in a .aenv file
+  * @param fileName name of the file without the extention
+  * @return BOOL 1 if all ok, 0 otherwise
+  */
+bool Cyfhel::saveEnv(string fileName){
+    bool res=1;
+    try{
+        fstream keyFile(fileName+".aenv", fstream::out|fstream::trunc);
+        assert(keyFile.is_open());
+
+        writeContextBase(keyFile, *context);    // Write m, p, r, gens, ords
+        keyFile << *context << endl;            // Write the rest of the context
+        keyFile << *secretKey << endl;          // Write Secret key
+        keyFile << G <<endl;                    // Write G poly (ea can't be written, we save
+                                                //  G in order to reconstruct ea in restoreEnv)
+        keyFile.close();
+    }
+    catch(exception& e){
+        res=0;
+    }
+    return res;                                 // 1 if all OK, 0 otherwise
+}
+
+//RESTORE ENVIRONMENT
+/**
+  * @brief Restores the context, SecretKey and G polynomial from a .aenv file.
+  *  Then it reconstucts publicKey and ea (EncriptedArray) with SecretKey & G.
+  * @param fileName name of the file without the extention
+  * @return BOOL 1 if all ok, 0 otherwise
+  */
+bool Cyfhel::restoreEnv(string fileName){
+    bool res=1;
+    unsigned long m1, p1, r1;
+    vector<long> gens, ords;
+    try{
+        fstream keyFile(fileName+".aenv", fstream::in);
+        assert(keyFile.is_open());
+
+        readContextBase(keyFile, m1, p1, r1, gens, ords);   
+                                                            // Read m, p, r, gens, ords
+        context = new FHEcontext(m1, p1, r1, gens, ords);   
+                                                            // Prepare empty context object
+        secretKey = new FHESecKey(*context);                // Prepare empty FHESecKey object
+        
+        keyFile >> *context;                    // Read the rest of the context
+        keyFile >> *secretKey;                  // Read Secret Key
+        keyFile >> G;                           // Read G Poly
+        ea = new EncryptedArray(*context, G);   // Reconstruct ea using G
+        publicKey = (FHEPubKey*) secretKey;     // Reconstruct Public Key from Secret Key
+        nslots = ea->size();                    // Refill nslots
+        global_m = m1;
+        global_p = p1; 
+        global_r = r1;
+    }
+    catch(exception& e){
+        res=0;
+    }
+    return res;                                 // 1 if all OK, 0 otherwise
 }
 
 
@@ -281,106 +436,6 @@ void Cyfhel::shift(string id1, long c){
 }
 
 
-// ------------------------------------- I/O ----------------------------------
-// SAVE ENVIRONMENT
-bool Cyfhel::saveEnv(string fileName){
-    bool res=1;
-    try{
-        fstream keyFile(fileName+".aenv", fstream::out|fstream::trunc);
-        assert(keyFile.is_open());
-
-        writeContextBase(keyFile, *context);    // Write m, p, r, gens, ords
-        keyFile << *context << endl;            // Write the rest of the context
-        keyFile << *secretKey << endl;          // Write Secret key
-        keyFile << G <<endl;                    // Write G poly (ea can't be written, we save
-                                                //  G in order to reconstruct ea in restoreEnv)
-        keyFile.close();
-    }
-    catch(exception& e){
-        res=0;
-    }
-    return res;                                 // 1 if all OK, 0 otherwise
-}
-
-// RESTORE ENVIRONMENT
-bool Cyfhel::restoreEnv(string fileName){
-    bool res=1;
-    unsigned long m1, p1, r1;
-    vector<long> gens, ords;
-    try{
-        fstream keyFile(fileName+".aenv", fstream::in);
-        assert(keyFile.is_open());
-
-        readContextBase(keyFile, m1, p1, r1, gens, ords);   
-                                                            // Read m, p, r, gens, ords
-        context = new FHEcontext(m1, p1, r1, gens, ords);   
-                                                            // Prepare empty context object
-        secretKey = new FHESecKey(*context);                // Prepare empty FHESecKey object
-        
-        keyFile >> *context;                    // Read the rest of the context
-        keyFile >> *secretKey;                  // Read Secret Key
-        keyFile >> G;                           // Read G Poly
-        ea = new EncryptedArray(*context, G);   // Reconstruct ea using G
-        publicKey = (FHEPubKey*) secretKey;     // Reconstruct Public Key from Secret Key
-        nslots = ea->size();                    // Refill nslots
-        global_m = m1;
-        global_p = p1; 
-        global_r = r1;
-    }
-    catch(exception& e){
-        res=0;
-    }
-    return res;                                 // 1 if all OK, 0 otherwise
-}
-
-
-// --------------------------------- AUXILIARY --------------------------------
-
-long Cyfhel::numSlots() {
-    return ea->size();
-}
-
-long Cyfhel::getM(){ return global_m; }
-long Cyfhel::getP(){ return global_p; }
-long Cyfhel::getR(){ return global_r; }
-
-
-/**
-  * @brief Store the ciphertext in the unordered map and return key where 
-  * it was stored
-  * @param ctxt Ciphertext to store in unordered map
-  * @return the ID used to locate this ciphertext in the unordered map
-*/
-string Cyfhel::store(Ctxt* ctxt) {
-    struct timeval tp;
-    gettimeofday(&tp, NULL);
-    long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
-    string id1 = boost::lexical_cast<string>(ms);
-    ctxtMap.insert(make_pair(id1, *ctxt));
-    return id1;
-}
-
-string Cyfhel::set(string id1){
-    Ctxt ctxt = ctxtMap.at(id1);
-    return store(&ctxt);
-}
-
-Ctxt Cyfhel::retrieve(string id1) {
-    return ctxtMap.at(id1);
-}
-
-void Cyfhel::replace(string id1, Ctxt new_ctxt) {
-    boost::unordered_map<string, Ctxt>::const_iterator i = ctxtMap.find(id1);
-    if(i != ctxtMap.end()) {
-        ctxtMap.at(id1) = new_ctxt;
-    }
-}
-
-void Cyfhel::erase(string id1) {
-    if(ctxtMap.find(id1) != ctxtMap.end()) {
-        ctxtMap.erase(id1);
-    }
-}
 
 // AUXILIARY TIMER FUNCTION FOR TESTS
 
@@ -397,4 +452,3 @@ double Timer::my_clock() {
     struct timeval tv;
     gettimeofday(&tv, NULL);
     return tv.tv_sec + tv.tv_usec * 1e-6;}
-

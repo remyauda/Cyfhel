@@ -111,6 +111,7 @@ packages:
 	sudo apt-get install m4
 
 libdownloads:
+	rm -f GMP_NTL/Lib_GMP_NTL/installFile
 	cp GMP_NTL/Makefile GMP_NTL/Lib_GMP_NTL/Makefile
 	$(MAKE) -C GMP_NTL/Lib_GMP_NTL
 	rm GMP_NTL/Lib_GMP_NTL/Makefile

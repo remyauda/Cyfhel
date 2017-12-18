@@ -154,11 +154,11 @@ CyfhelUpgrade:
 
 clean:
 	$(MAKE) clean -C HElib/src/
-	$(MAKE) clean -C Cyfhel/
+	$(MAKE) clean -C src/Cyfhel/
 
 uninstall:
 	$(MAKE) uninstall -C HElib/src/
-	$(MAKE) uninstall -C Cyfhel/
+	$(MAKE) uninstall -C src/Cyfhel/
 
 cleanexe:
 	-rm -f *.aenv *_x

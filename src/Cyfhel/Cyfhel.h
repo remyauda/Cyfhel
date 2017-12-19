@@ -39,8 +39,7 @@ class Cyfhel {
         EncryptedArray *ea;// Array used for encryption
         boost::unordered_map<string, Ctxt> ctxtMap; // Unordered map which stores the ciphertexts
         long global_m, global_p, global_r;
-        bool flagPrint = false;// Flag to print messages on console
-        long nslots;// Nº of slots in scheme
+        
 
 
 	/******PROTOTYPES OF PRIVATE METHODS******/
@@ -48,6 +47,9 @@ class Cyfhel {
 
 
  public:
+	
+	bool flagPrint = false;// Flag to print messages on console
+        long nslots;// Nº of slots in scheme
 
 	/******CONSTRUCTOR BY DEFAULT******/
         Cyfhel();

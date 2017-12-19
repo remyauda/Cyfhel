@@ -1,0 +1,7 @@
+#!/bin/sh
+
+rm -f HElib/src/Makefile
+cp .Makefiles/Makefile_HElib HElib/src/Makefile
+cp .Makefiles/Makefile_Main Makefile
+cp .Makefiles/Makefile_Demos src/Demo_Test/Makefile
+cp .Makefiles/Makefile_Cyfhel src/Cyfhel/Makefile

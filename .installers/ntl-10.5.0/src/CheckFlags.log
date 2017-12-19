@@ -1,4 +1,0 @@
-*** CheckFlags log ***
-make[2]: Entering directory '/home/alexandre/Cyfhel/.installers/ntl-10.5.0/src'
-g++ -I../include -I.  -march=native -g -O2  -o  CheckCompile CheckCompile.cpp -lm
-make[2]: Leaving directory '/home/alexandre/Cyfhel/.installers/ntl-10.5.0/src'

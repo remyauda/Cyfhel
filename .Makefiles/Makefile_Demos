@@ -1,14 +1,14 @@
 ##############################################################################################
 ##############################################################################################
 ###########################                                     ##############################
-###########################    Afhel Binary Creator Makefile    ##############################
+###########################    Cyfhel Binary Creator Makefile    ##############################
 ###########################                                     ##############################
 ##############################################################################################
 ##############################################################################################
 # 
-# DESCRIPTION: Makefile for creation of Binaries based on Afhel.
-# 			   In order to use Afhel library in your own .cpp code, use this formula:
-# 			   		#include <Afhel.h>
+# DESCRIPTION: Makefile for creation of Binaries based on Cyfhel.
+# 			   In order to use Cyfhel library in your own .cpp code, use this formula:
+# 			   		#include <Cyfhel.h>
 #
 # 			   This makefile allows the compilation&linking of .cpp files. A file called
 # 			   fname.cpp can be target if this recipe in order to create an executable:
@@ -17,20 +17,20 @@
 # 			   Some configuration may be required in the Makefile Variables to accomodate the
 # 			   settings to a given OS.
 #
-# AUTHOR: Alberto Ibarrondo (github @ibarrond)
-# DATE: 16/10/2017
+# AUTHOR: Remy AUDA
+# DATE: 17/12/2017
 #	
 #	
 # LICENSE: GNU GPL v3
 #  
-#  This file is part of Afhel
+#  This file is part of Cyfhel
 #
-#  Afhel is free software: you can redistribute it and/or modify
+#  Cyfhel is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
 #  the Free Software Foundation, either version 3 of the License, or
 #  (at your option) any later version.
 #
-#  Afhel is distributed in the hope that it will be useful,
+#  Cyfhel is distributed in the hope that it will be useful,
 #  but WITHOUT ANY WARRANTY; without even the implied warranty of
 #  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #  GNU General Public License for more details.
@@ -40,8 +40,8 @@
 #
 
 
-$(info ------------------AFHEL BIN COMPILER MAKEFILE--------------------------)
-$(info Afhel requires HElib, NTL version 10.0.0 or higher and GMP)
+$(info ------------------CYFHEL BIN COMPILER MAKEFILE--------------------------)
+$(info Cyfhel requires HElib, NTL version 10.0.0 or higher and GMP)
 $(info If you get compilation errors, try to add/remove -std=c++11 in Makefile)
 $(info For a list if all the available commands, run >make info)
 
@@ -90,17 +90,17 @@ CFLAGS = -g -O2 -std=c++11 -I/usr/local/include \
 GMP=-lgmp
 NTL=-lntl
 HELIB=-lfhe
-AFHEL=-lafhel
-LDLIBS = $(NTL) $(GMP) $(HELIB) $(AFHEL) -lm
+CYFHEL=-lcyfhel
+LDLIBS = $(NTL) $(GMP) $(HELIB) $(CYFHEL) -lm
 
 
 #...................................... HEADER FILES .........................................
-HEADER = Afhel.h
+HEADER = Cyfhel.h
 
 
 
 ##############################################################################################
-#                                  CREATE BINARIES WITH AFHEL                                #
+#                                  CREATE BINARIES WITH CYFHEL                                #
 ##############################################################################################
 
 %_x: %.cpp
@@ -123,10 +123,10 @@ clean:
 
 
 info:
-	: Afhel requires HElib, NTL version 10.0.0 or higher and GMP
+	: Cyfhel requires HElib, NTL version 10.0.0 or higher and GMP
 	: Compilation flags are 'CFLAGS=$(CFLAGS)'
 	: Commands Available:
-	: * make fileName_x - Compile & Link binary filename.cpp with Afhel and its dependencies 
+	: * make fileName_x - Compile & Link binary filename.cpp with Cyfhel and its dependencies 
 	: * make clean - remove all library files from the folder
 	: If errors occur, try adding/removing '-std=c++11' in Makefile
 										    

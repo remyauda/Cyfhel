@@ -123,16 +123,16 @@ RPATH=-rpath $(LIBDIR)
 
 
 #...................................... HEADER FILES .........................................
-HEADER = Cyfhel.h
+HEADER = Cyfhel.h Timer.h
 
 #...................................... SOURCE FILES .........................................
-SRC = Cyfhel.cpp
+SRC = Cyfhel.cpp Timer.cpp
 
 #............................... LIBRARY INTERMEDIATE FILES ..................................
-LOBJ = Cyfhel.lo
+LOBJ = Cyfhel.lo Timer.lo
 
 #.................................. LIBRARY  FINAL FILES .....................................
-LIB_LA = lib$(LIBNAME).la
+LIB_LA = lib$(LIBNAME).la libTimer.la
 
 
 ##############################################################################################

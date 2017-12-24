@@ -38,7 +38,14 @@
 using namespace std;
 
 /******CONSTRUCTOR BY DEFAULT******/
-Cyfhel::Cyfhel(){}
+Cyfhel::Cyfhel(){
+	m_isVerbose = false;
+}
+
+/******CONSTRUCTOR WITH PARAMETERS******/
+Cyfhel::Cyfhel(bool isVerbose){
+	m_isVerbose = isVerbose;
+}
 
 /******DESTRUCTOR BY DEFAULT******/
 Cyfhel::~Cyfhel(){}
@@ -126,7 +133,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
                        long L, long m, long R, long s,
                        const vector<long>& gens,
                        const vector<long>& ords){
-        if(flagPrint){std::cout << "Cyfhel::keyGen START" << endl;}
+        if(m_isVerbose){std::cout << "Cyfhel::keyGen START" << endl;}
         
         // Initializing possible empty parameters for context
         //  - L -> Heuristic computation
@@ -135,12 +142,12 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
             if(p>2 || r>1){
                  L += R * 2*ceil(log((double)p)*r*3)/(log(2.0)*FHE_p2Size) +1;
             }
-            if(flagPrint){std::cout << "  - calculated L: " << L <<endl;}
+            if(m_isVerbose){std::cout << "  - calculated L: " << L <<endl;}
         }
         //  - m -> use HElib method FindM with other parameters
         if(m==-1){
             m = FindM(sec, L, c, p, d, 0, 0);
-            if(flagPrint){std::cout << "  - Calculated m: " << m <<endl;}
+            if(m_isVerbose){std::cout << "  - Calculated m: " << m <<endl;}
         }
 
         // Context creation
@@ -149,7 +156,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
         global_r = r;
         context = new FHEcontext(m, p, r, gens, ords);  // Initialize context
         buildModChain(*context, L, c);                  // Add primes to modulus chain
-        if(flagPrint){
+        if(m_isVerbose){
 		std::cout << "  - Created Context: " 
 		<< "p="   << p        << ", r=" << r
 		<< ", d=" << d        << ", c=" << c
@@ -165,7 +172,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
         else{
 		G = makeIrredPoly(p, d);
 	}
-        if(flagPrint){
+        if(m_isVerbose){
 		std::cout << "  - Created ZZX poly from NTL lib" <<endl;
 	}
 
@@ -173,7 +180,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
         secretKey = new FHESecKey(*context);// Initialize object
         publicKey = (FHEPubKey*) secretKey;// Upcast: FHESecKey to FHEPubKey
         secretKey->GenSecKey(w);// Hamming-weight-w secret key
-        if(flagPrint){
+        if(m_isVerbose){
 		std::cout << "  - Created Public/Private Key Pair" << endl;
 	} 
 
@@ -183,7 +190,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
         nslots = ea->size();
 
 
-        if(flagPrint){
+        if(m_isVerbose){
 		std::cout << "Cyfhel::keyGen COMPLETED" << endl;
 	}
 }
@@ -201,7 +208,7 @@ string Cyfhel::encrypt(vector<long> plaintext) {
         //TODO: create a vector of size nddSlots and fill it first with values from plaintext, then with zeros
         ea->encrypt(cyphertext, *publicKey, plaintext);// Encrypt plaintext
         string id1 = store(&cyphertext);
-        if(flagPrint){
+        if(m_isVerbose){
             std::cout << "  Cyfhel::encrypt({ID" << id1 << "}[" << plaintext <<  "])" << endl;
         }
         return id1;
@@ -217,7 +224,7 @@ string Cyfhel::encrypt(vector<long> plaintext) {
 vector<long> Cyfhel::decrypt(string id1) {
         vector<long> res(nslots, 0);// Empty vector of values
         ea->decrypt(ctxtMap.at(id1), *secretKey, res);// Decrypt cyphertext
-        if(flagPrint){
+        if(m_isVerbose){
             std::cout << "  Cyfhel::decrypt({ID" << id1 << "}[" << res << "])" << endl;
         }
         return res;
@@ -434,21 +441,3 @@ void Cyfhel::rotate(string id1, long c){
 void Cyfhel::shift(string id1, long c){
         ea->shift(ctxtMap.at(id1), c);
 }
-
-
-
-// AUXILIARY TIMER FUNCTION FOR TESTS
-
-Timer::Timer(bool print){flagPrint=print;}
-Timer::~Timer(){}
-
-void Timer::start() { this->m_start = my_clock();}
-void Timer::stop()  { this->m_stop = my_clock(); }
-double Timer::elapsed_time() {
-double dt = this->m_stop - this->m_start;
-    if(flagPrint){std::cout << "Elapsed time: " << dt << endl;}
-    return dt;      }
-double Timer::my_clock() {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec + tv.tv_usec * 1e-6;}

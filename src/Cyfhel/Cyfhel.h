@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
+#include <cmath>
 #include <sys/time.h>
 #include <string.h>
 
@@ -39,6 +40,7 @@ class Cyfhel {
         EncryptedArray *ea;// Array used for encryption
         boost::unordered_map<string, Ctxt> ctxtMap; // Unordered map which stores the ciphertexts
         long global_m, global_p, global_r;
+	bool m_isVerbose;// Flag to print messages on console
         
 
 
@@ -48,23 +50,25 @@ class Cyfhel {
 
  public:
 	
-	bool flagPrint = false;// Flag to print messages on console
         long nslots;// Nº of slots in scheme
 
 	/******CONSTRUCTOR BY DEFAULT******/
         Cyfhel();
 
+	/******CONSTRUCTOR WITH PARAMETERS******/
+	Cyfhel(bool isVerbose);
+
 	/******DESTRUCTOR BY DEFAULT******/
         virtual ~Cyfhel();
 
-    /******GETTERS******/
+    	/******GETTERS******/
         long numSlots();
 
         long getM();
         long getP();
         long getR();
 
-    /******SETTERS******/
+    	/******SETTERS******/
         string set(string id1);
 
        
@@ -94,7 +98,7 @@ class Cyfhel {
         bool restoreEnv(string fileName);//Restore environment
 
         
-    /******OPERATORS OVERLOAD******/
+    	/******OPERATORS OVERLOAD******/
     	void add(string id1, string id2, bool negative=false);//Addition overload
             
     	void mult(string id1, string id2);//Multiplication overload
@@ -116,40 +120,6 @@ class Cyfhel {
     	void rotate(string id1, long c);//Rotate overload
             
     	void shift(string id1, long c);//Shift overload
-};
-
-#endif
-
-
-#ifndef TIMER_H
-#define TIMER_H
-
-#include <sys/time.h>
-#include <cstddef>
-
-class Timer{
-
- private:
-    /******ATTRIBUTES******/
-        double m_start;
-        double m_stop;
-
-    /******PROTOTYPES OF PRIVATE METHODS******/
-        double my_clock();
-
- public:
-
-    /******CONSTRUCTOR WHITH PARAMETERS******/
-        Timer(bool print=false);
-
-    /******DESTRUCTOR BY DEFAULT******/
-        virtual ~Timer();
-
-    /******PROTOTYPES OF PUBLIC METHODS******/
-        void start();
-        void stop();
-        double elapsed_time();
-        bool flagPrint=false;
 };
 
 #endif

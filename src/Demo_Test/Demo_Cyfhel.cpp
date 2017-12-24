@@ -6,6 +6,7 @@
 #include <NTL/lzz_pXFactoring.h>
 
 #include <Cyfhel.h>
+#include "Timer.h"
 
 #include <cassert>
 #include <cstdio>
@@ -14,8 +15,7 @@
 int main()
 {
 //    string fileName = "DemoCyfhelEnv";
-    Cyfhel he;
-    he.flagPrint = true;    // Enable print for all functions
+    Cyfhel he = new Cyfhel(true);// Create object Cyfhel and enable print for all functions  
     // Values for the modulus p (size of p):
     //   - 2 (Binary)
     //   - 257 (Byte)
@@ -29,15 +29,27 @@ int main()
     long w = 64;
     long L = 40;
 
+    Timer timerDemo = new Timer(true);
+    timerDemo.start();
     he.keyGen(p, r, c, d, sec, w, L);
     vector<long> v1;
     vector<long> v2;
     for(int i=0; i<he.nslots; i++){
-        if(i<VECTOR_SIZE)   { v1.push_back(i);  }
-        else                { v1.push_back(0);  }}
+        if(i<VECTOR_SIZE){
+		v1.push_back(i);
+	}
+        else{
+		v1.push_back(0);
+	}
+    }
     for(int i=0; i<he.nslots; i++){
-        if(i<VECTOR_SIZE)   { v2.push_back(2);  }
-        else                { v2.push_back(0);  }}
+        if(i<VECTOR_SIZE){
+		v2.push_back(2);
+	}
+        else{
+		v2.push_back(0);
+	}
+    }
 
     // Sum
     string k1 = he.encrypt(v1);
@@ -63,10 +75,13 @@ int main()
     he.square(k1);
     vector<long> vRes4 = he.decrypt(k1);
 
+    timerDemo.stop();
+    timerDemo.benchmarkInSeconds();
+    timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
+
     // Store & retrieve environment
 //    he.saveEnv(fileName);
-    std::cout << "Saved env with values: m=" << he.getM() <<
-        ", p=" << he.getP() << ", r=" << he.getR() << endl;
+    std::cout << "Saved env with values: m=" << he.getM() <<", p=" << he.getP() << ", r=" << he.getR() << endl;
     std::cout << "END OF DEMO" << endl;
 };
 

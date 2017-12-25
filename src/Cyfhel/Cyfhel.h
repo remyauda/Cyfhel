@@ -56,7 +56,7 @@ class Cyfhel {
         Cyfhel();
 
 	/******CONSTRUCTOR WITH PARAMETERS******/
-	Cyfhel(bool isVerbose);
+	Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L);
 
 	/******DESTRUCTOR BY DEFAULT******/
         virtual ~Cyfhel();

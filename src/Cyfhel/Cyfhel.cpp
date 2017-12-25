@@ -43,8 +43,9 @@ Cyfhel::Cyfhel(){
 }
 
 /******CONSTRUCTOR WITH PARAMETERS******/
-Cyfhel::Cyfhel(bool isVerbose){
+Cyfhel::Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L){
 	m_isVerbose = isVerbose;
+	keyGen(p, r, c, d, sec, w, L);
 }
 
 /******DESTRUCTOR BY DEFAULT******/

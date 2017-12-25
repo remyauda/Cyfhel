@@ -15,7 +15,7 @@
 int main()
 {
 //    string fileName = "DemoCyfhelEnv";
-    Cyfhel cy(true);// Create object Cyfhel and enable print for all functions  
+     
     // Values for the modulus p (size of p):
     //   - 2 (Binary)
     //   - 257 (Byte)
@@ -31,7 +31,7 @@ int main()
 
     Timer timerDemo(true);
     timerDemo.start();
-    cy.keyGen(p, r, c, d, sec, w, L);
+    Cyfhel cy(true, p, r, c, d, sec, w, L);// Create object Cyfhel and enable print for all functions 
     vector<long> v1;
     vector<long> v2;
     for(int i=0; i<cy.nslots; i++){

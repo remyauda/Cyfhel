@@ -29,7 +29,7 @@ int main()
     long w = 64;
     long L = 40;
 
-    Timer timerDemo = new Timer(true);
+    Timer timerDemo(true);
     timerDemo.start();
     cy.keyGen(p, r, c, d, sec, w, L);
     vector<long> v1;

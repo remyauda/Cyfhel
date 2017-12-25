@@ -15,7 +15,7 @@
 int main()
 {
 //    string fileName = "DemoCyfhelEnv";
-    Cyfhel cy = new Cyfhel(true);// Create object Cyfhel and enable print for all functions  
+    Cyfhel cy(true);// Create object Cyfhel and enable print for all functions  
     // Values for the modulus p (size of p):
     //   - 2 (Binary)
     //   - 257 (Byte)

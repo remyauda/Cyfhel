@@ -83,7 +83,7 @@ class Cyfhel {
 	/******PROTOTYPES OF PUBLIC METHODS******/
         //------ENCRYPTION------
         
-        string encrypt(vector<long> ptxt_vect);//Encryption
+        string encrypt(vector<long> &ptxt_vect);//Encryption
         
         vector<long> decrypt(string id1);//Decryption
 

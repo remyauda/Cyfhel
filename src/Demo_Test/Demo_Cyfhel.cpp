@@ -34,22 +34,6 @@ int main()
     Cyfhel cy(true);// Create object Cyfhel and enable print for all functions 
     vector<long> v1;
     vector<long> v2;
-    for(int i=0; i<cy.nslots; i++){
-        if(i<VECTOR_SIZE){
-		v1.push_back(i);
-	}
-        else{
-		v1.push_back(0);
-	}
-    }
-    for(int i=0; i<cy.nslots; i++){
-        if(i<VECTOR_SIZE){
-		v2.push_back(2);
-	}
-        else{
-		v2.push_back(0);
-	}
-    }
 
     // Sum
     string c1 = cy.encrypt(v1);

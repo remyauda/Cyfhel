@@ -255,9 +255,15 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
   * @param ptxt_vect plaintext vector to encrypt
   * @return id (string) used to access ciphertext in the ctxtMap.
   */
-string Cyfhel::encrypt(vector<long> ptxt_vect) {
+string Cyfhel::encrypt(vector<long> &ptxt_vect) {
         Ctxt ctxt_vect(*publicKey);// Empty cyphertext object
         //TODO: create a vector of size nddSlots and fill it first with values from plaintext, then with zeros
+        long vector_size = ptxt_vect.size();
+        for(int i=0; i<nslots; i++){
+        	if(i>=vector_size){
+			ptxt_vect.push_back(0);
+		}
+   	}
         ea->encrypt(ctxt_vect, *publicKey, ptxt_vect);// Encrypt plaintext
         string id1 = store(&ctxt_vect);
         if(m_isVerbose){

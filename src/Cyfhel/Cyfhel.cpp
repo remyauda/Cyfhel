@@ -255,13 +255,13 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
   * @param ptxt_vect plaintext vector to encrypt
   * @return id (string) used to access ciphertext in the ctxtMap.
   */
-string Cyfhel::encrypt(vector<long> plaintext) {
-        Ctxt cyphertext(*publicKey);// Empty cyphertext object
+string Cyfhel::encrypt(vector<long> ptxt_vect) {
+        Ctxt ctxt_vect(*publicKey);// Empty cyphertext object
         //TODO: create a vector of size nddSlots and fill it first with values from plaintext, then with zeros
-        ea->encrypt(cyphertext, *publicKey, plaintext);// Encrypt plaintext
-        string id1 = store(&cyphertext);
+        ea->encrypt(ctxt_vect, *publicKey, ptxt_vect);// Encrypt plaintext
+        string id1 = store(&ctxt_vect);
         if(m_isVerbose){
-            std::cout << "  Cyfhel::encrypt({ID" << id1 << "}[" << plaintext <<  "])" << endl;
+            std::cout << "  Cyfhel::encrypt({ID" << id1 << "}[" << ptxt_vect <<  "])" << endl;
         }
         return id1;
 }
@@ -274,12 +274,12 @@ string Cyfhel::encrypt(vector<long> plaintext) {
   * @return plaintext, the result of decrypting the ciphertext
   */
 vector<long> Cyfhel::decrypt(string id1) {
-        vector<long> res(nslots, 0);// Empty vector of values
-        ea->decrypt(ctxtMap.at(id1), *secretKey, res);// Decrypt cyphertext
+        vector<long> ptxt_vect(nslots, 0);// Empty vector of values
+        ea->decrypt(ctxtMap.at(id1), *secretKey, ptxt_vect);// Decrypt cyphertext
         if(m_isVerbose){
-            std::cout << "  Cyfhel::decrypt({ID" << id1 << "}[" << res << "])" << endl;
+            std::cout << "  Cyfhel::decrypt({ID" << id1 << "}[" << ptxt_vect << "])" << endl;
         }
-        return res;
+        return ptxt_vect;
 }
 
 //------AUXILIARY------

@@ -38,9 +38,7 @@
 using namespace std;
 
 /******CONSTRUCTOR BY DEFAULT******/
-Cyfhel::Cyfhel(){
-	m_isVerbose = false;
-}
+
 
 /******CONSTRUCTOR WITH PARAMETERS******/
 Cyfhel::Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L){

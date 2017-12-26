@@ -45,6 +45,11 @@ class Cyfhel {
 
 
 	/******PROTOTYPES OF PRIVATE METHODS******/
+        void keyGen(long p, long r, long c, long d, long sec, long w = 64,
+                    long L = -1, long m = -1, long R = 3, long s = 0, 
+                    const vector<long>& gens = vector<long>(),
+                    const vector<long>& ords = vector<long>());
+
         string store(Ctxt* ctxt);//Store the ciphertext in the unordered map and return key where * it was stored
 
 
@@ -73,15 +78,10 @@ class Cyfhel {
         long getR();
 
     	/******SETTERS******/
-        string set(string id1);
 
        
 	/******PROTOTYPES OF PUBLIC METHODS******/
         //------ENCRYPTION------
-        void keyGen(long p, long r, long c, long d, long sec, long w = 64,
-                    long L = -1, long m = -1, long R = 3, long s = 0, 
-                    const vector<long>& gens = vector<long>(),
-                    const vector<long>& ords = vector<long>());
         
         string encrypt(vector<long> ptxt_vect);//Encryption
         
@@ -89,11 +89,6 @@ class Cyfhel {
 
 
         //------AUXILIARY------
-        Ctxt retrieve(string id1);
-
-        void replace(string id1, Ctxt new_ctxt);
-            
-        void erase(string id1);
 
     
         //------I/O------

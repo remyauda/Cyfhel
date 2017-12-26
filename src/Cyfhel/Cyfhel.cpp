@@ -51,6 +51,7 @@ Cyfhel::Cyfhel(long p, long r, long c, long d, long sec, long w, long L, bool is
 	keyGen(p, r, c, d, sec, w, L);
 }
 
+// TODO: MUST be tested.
 Cyfhel::Cyfhel(vector<long> cryptoParameters, bool isVerbose){
 	// TODO: We should be able to provide just some parameters and the rest will be initialize by default.
         if(cryptoParameters.size() < 7){
@@ -142,16 +143,7 @@ long Cyfhel::getR(){
 }
 
 /******SETTERS******/
-/**
-  * @brief Create a new ciphertext and set it equal to the ciphertext 
-  * stored in unordered map under ID id1
-  * @param id1 ID of ctxt in unordered map ctxtMap
-  * @return ID corresponding to new ciphertext
-  */
-string Cyfhel::set(string id1){
-    Ctxt ctxt = ctxtMap.at(id1);
-    return store(&ctxt);
-}
+
 
 /******IMPLEMENTATION OF PRIVATE METHODS******/
 /**
@@ -291,36 +283,7 @@ vector<long> Cyfhel::decrypt(string id1) {
 }
 
 //------AUXILIARY------
-/**
-  * @brief Retrieve the ciphertext object from the unordered map
-  * @param id1 ID of ctxt in unordered map ctxtMap
-  * @return the ciphertext corresponding to the one stored with ID id1
-  */
-Ctxt Cyfhel::retrieve(string id1) {
-    return ctxtMap.at(id1);
-}
 
-/**
-  * Replace the ciphertext at id1 with the new one provided
-  * @param id1 ID of ctxt in unordered map ctxtMap
-  * @param new_ctxt new Ctxt object to store in the unordered map
-  */
-void Cyfhel::replace(string id1, Ctxt new_ctxt) {
-    boost::unordered_map<string, Ctxt>::const_iterator i = ctxtMap.find(id1);
-    if(i != ctxtMap.end()) {
-        ctxtMap.at(id1) = new_ctxt;
-    }
-}
-
-/**
-  * @brief Delete from the unordered map the entry at key
-  * @param id1 ID of ctxt in unordered map ctxtMap
-  */
-void Cyfhel::erase(string id1) {
-    if(ctxtMap.find(id1) != ctxtMap.end()) {
-        ctxtMap.erase(id1);
-    }
-}
 
 //------I/O------
 //SAVE ENVIRONMENT

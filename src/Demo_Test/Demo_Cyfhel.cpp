@@ -59,21 +59,21 @@ int main()
  
 
     // Multiplication
-    k1 = cy.encrypt(v1);
-    k2 = cy.encrypt(v2);
-    cy.mult(k1, k2);
-    vector<long> vRes2 = cy.decrypt(k1);
+    //k1 = cy.encrypt(v1);
+    //k2 = cy.encrypt(v2);
+    //cy.mult(k1, k2);
+    //vector<long> vRes2 = cy.decrypt(k1);
 
     // Scalar product
-    k1 = cy.encrypt(v1);
-    k2 = cy.encrypt(v2);
-    cy.scalarProd(k1, k2);
-    vector<long> vRes3 = cy.decrypt(k1);
+    //k1 = cy.encrypt(v1);
+    //k2 = cy.encrypt(v2);
+    //cy.scalarProd(k1, k2);
+    //vector<long> vRes3 = cy.decrypt(k1);
 
     // Square
-    k1 = cy.encrypt(v1);
-    cy.square(k1);
-    vector<long> vRes4 = cy.decrypt(k1);
+    //k1 = cy.encrypt(v1);
+    //cy.square(k1);
+    //vector<long> vRes4 = cy.decrypt(k1);
 
     timerDemo.stop();
     timerDemo.benchmarkInSeconds();

@@ -99,26 +99,6 @@ class Cyfhel {
         
     	/******OPERATORS OVERLOAD******/
     	void add(string id1, string id2, bool negative=false);//Addition overload
-            
-    	void mult(string id1, string id2);//Multiplication overload
-           
-    	void mult3(string id1, string id2, string id3);//Multiplication by 2 overload
-
-    	void cumSum(string id1);//Cumulative sum overload
-            
-    	void scalarProd(string id1, string id2, int partitionSize=0);//Scalar product overload
-
-    	void square(string id1);//Square overload
-
-    	void cube(string id1);//Cube overload
-
-    	void negate(string id1);//Negate overload
-            
-    	bool equalsTo(string id1, string id2, bool comparePkeys=true);//Compare equals overload
-
-    	void rotate(string id1, long c);//Rotate overload
-            
-    	void shift(string id1, long c);//Shift overload
 };
 
 #endif

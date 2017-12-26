@@ -53,10 +53,10 @@ class Cyfhel {
         long nslots;// Nº of slots in scheme
 
 	/******CONSTRUCTOR BY DEFAULT******/
-        Cyfhel();
+
 
 	/******CONSTRUCTOR WITH PARAMETERS******/
-	Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L);
+	Cyfhel(bool isVerbose = false, long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40);
 
 	/******DESTRUCTOR BY DEFAULT******/
         virtual ~Cyfhel();

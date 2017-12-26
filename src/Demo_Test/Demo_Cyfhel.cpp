@@ -21,17 +21,17 @@ int main()
     //   - 257 (Byte)
     //   - 65537 (Word)
     //   - 4294967311 (Long) 
-    long p = 2;
-    long r = 32;
-    long d = 1;
-    long c = 2;
-    long sec = 128;
-    long w = 64;
-    long L = 40;
+    //long p = 2;
+    //long r = 32;
+    //long d = 1;
+    //long c = 2;
+    //long sec = 128;
+    //long w = 64;
+    //long L = 40;
 
     Timer timerDemo(true);
     timerDemo.start();
-    Cyfhel cy(true, p, r, c, d, sec, w, L);// Create object Cyfhel and enable print for all functions 
+    Cyfhel cy(true);// Create object Cyfhel and enable print for all functions 
     vector<long> v1;
     vector<long> v2;
     for(int i=0; i<cy.nslots; i++){

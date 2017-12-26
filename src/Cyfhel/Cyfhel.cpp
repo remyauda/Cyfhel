@@ -46,6 +46,67 @@ Cyfhel::Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w,
 	keyGen(p, r, c, d, sec, w, L);
 }
 
+Cyfhel::Cyfhel(long p, long r, long c, long d, long sec, long w, long L, bool isVerbose){
+	m_isVerbose = isVerbose;
+	keyGen(p, r, c, d, sec, w, L);
+}
+
+Cyfhel::Cyfhel(vector<long> cryptoParameters, bool isVerbose){
+	// TODO: We should be able to provide just some parameters and the rest will be initialize by default.
+        if(cryptoParameters.size() < 7){
+		std::cout << "Error: Not enough parameters were given for the key Geneneration." << endl;
+		std::cout << "Use the default parameters." << endl;
+		long p = 2;
+		long r = 32;
+		long c = 2;
+		long d = 1;
+		long sec = 128;
+		long w = 64;
+		long L = 40;
+		m_isVerbose = isVerbose;
+		std::cout << "p=" << p << ", r=" << r
+		<< ", d=" << d << ", c=" << c
+		<< ", sec=" << sec << ", w=" << w
+		<< ", L=" << L <<  endl;
+
+		keyGen(p, r, c, d, sec, w, L);
+	}
+	// TODO: We should be able to provide other parameters like m etc...
+	else if(cryptoParameters.size() > 7){
+	std::cout << "Error: Too many parameters were given for the key Geneneration." << endl;
+		std::cout << "Use the default parameters." << endl;
+		long p = 2;
+		long r = 32;
+		long c = 2;
+		long d = 1;
+		long sec = 128;
+		long w = 64;
+		long L = 40;
+		m_isVerbose = isVerbose;
+		std::cout << "p=" << p << ", r=" << r
+		<< ", d=" << d << ", c=" << c
+		<< ", sec=" << sec << ", w=" << w
+		<< ", L=" << L <<  endl;
+
+		keyGen(p, r, c, d, sec, w, L);
+	}
+        else if(cryptoParameters.size() == 7){
+		m_isVerbose = isVerbose;
+		long p = cryptoParameters[0];
+		long r = cryptoParameters[1];
+		long c = cryptoParameters[2];
+		long d = cryptoParameters[3];
+		long sec = cryptoParameters[4];
+		long w = cryptoParameters[5];
+        	long L = cryptoParameters[6];
+	
+		keyGen(p, r, c, d, sec, w, L);
+	}
+	else{
+		std::cout << "Error: Unexpected number of parameters were given for the key Geneneration. Unable to completed the task." << endl;
+	}
+}
+
 /******DESTRUCTOR BY DEFAULT******/
 Cyfhel::~Cyfhel(){}
 

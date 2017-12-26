@@ -58,6 +58,10 @@ class Cyfhel {
 	/******CONSTRUCTOR WITH PARAMETERS******/
 	Cyfhel(bool isVerbose = false, long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40);
 
+        Cyfhel(long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40, bool isVerbose = false);
+
+        Cyfhel(vector<long> cryptoParameters, bool isVerbose = false);
+
 	/******DESTRUCTOR BY DEFAULT******/
         virtual ~Cyfhel();
 

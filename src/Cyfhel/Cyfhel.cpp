@@ -206,8 +206,8 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
         global_m = m;
         global_p = p;
         global_r = r;
-        context = new FHEcontext(m, p, r, gens, ords);  // Initialize context
-        buildModChain(*context, L, c);                  // Add primes to modulus chain
+        m_context = new FHEcontext(m, p, r, gens, ords);  // Initialize context
+        buildModChain(*m_context, L, c);                  // Add primes to modulus chain
         if(m_isVerbose){
 		std::cout << "  - Created Context: " 
 		<< "p="   << p        << ", r=" << r
@@ -219,7 +219,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
 
         // ZZX Polynomial creation
         if (d == 0){
-		G = context->alMod.getFactorsOverZZ()[0];
+		G = m_context->alMod.getFactorsOverZZ()[0];
 	}
         else{
 		G = makeIrredPoly(p, d);
@@ -229,7 +229,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
 	}
 
         // Secret/Public key pair creation
-        secretKey = new FHESecKey(*context);// Initialize object
+        secretKey = new FHESecKey(*m_context);// Initialize object
         publicKey = (FHEPubKey*) secretKey;// Upcast: FHESecKey to FHEPubKey
         secretKey->GenSecKey(w);// Hamming-weight-w secret key
         if(m_isVerbose){
@@ -238,7 +238,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
 
         // Additional initializations
         addSome1DMatrices(*secretKey);// Key-switch matrices for relin.
-        ea = new EncryptedArray(*context, G);// Object for packing in subfields
+        ea = new EncryptedArray(*m_context, G);// Object for packing in subfields
         nslots = ea->size();
 
 
@@ -304,8 +304,8 @@ bool Cyfhel::saveEnv(string fileName){
         fstream keyFile(fileName+".aenv", fstream::out|fstream::trunc);
         assert(keyFile.is_open());
 
-        writeContextBase(keyFile, *context);    // Write m, p, r, gens, ords
-        keyFile << *context << endl;            // Write the rest of the context
+        writeContextBase(keyFile, *m_context);    // Write m, p, r, gens, ords
+        keyFile << *m_context << endl;            // Write the rest of the context
         keyFile << *secretKey << endl;          // Write Secret key
         keyFile << G <<endl;                    // Write G poly (ea can't be written, we save
                                                 //  G in order to reconstruct ea in restoreEnv)
@@ -334,14 +334,14 @@ bool Cyfhel::restoreEnv(string fileName){
 
         readContextBase(keyFile, m1, p1, r1, gens, ords);   
                                                             // Read m, p, r, gens, ords
-        context = new FHEcontext(m1, p1, r1, gens, ords);   
+        m_context = new FHEcontext(m1, p1, r1, gens, ords);   
                                                             // Prepare empty context object
-        secretKey = new FHESecKey(*context);                // Prepare empty FHESecKey object
+        secretKey = new FHESecKey(*m_context);                // Prepare empty FHESecKey object
         
-        keyFile >> *context;                    // Read the rest of the context
+        keyFile >> *m_context;                    // Read the rest of the context
         keyFile >> *secretKey;                  // Read Secret Key
         keyFile >> G;                           // Read G Poly
-        ea = new EncryptedArray(*context, G);   // Reconstruct ea using G
+        ea = new EncryptedArray(*m_context, G);   // Reconstruct ea using G
         publicKey = (FHEPubKey*) secretKey;     // Reconstruct Public Key from Secret Key
         nslots = ea->size();                    // Refill nslots
         global_m = m1;

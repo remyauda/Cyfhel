@@ -52,10 +52,10 @@ int main()
     }
 
     // Sum
-    string k1 = cy.encrypt(v1);
-    string k2 = cy.encrypt(v2);
-    cy.add(k1, k2);
-    vector<long> vRes = cy.decrypt(k1);
+    string c1 = cy.encrypt(v1);
+    string c2 = cy.encrypt(v2);
+    cy.add(c1, c2);
+    vector<long> vRes = cy.decrypt(c1);
  
 
     // Multiplication

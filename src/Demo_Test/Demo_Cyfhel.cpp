@@ -80,5 +80,7 @@ int main()
 //    cy.saveEnv(fileName);
     std::cout << "Saved env with values: m=" << cy.getM() <<", p=" << cy.getP() << ", r=" << cy.getR() << endl;
     std::cout << "END OF DEMO" << endl;
+
+    return 0;
 };
 

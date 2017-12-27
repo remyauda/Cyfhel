@@ -33,7 +33,7 @@ class Cyfhel {
  private:
 
 	/******ATTRIBUTES******/
-        FHEcontext *m_context;// Required for key Generation
+        FHEcontext m_context;// Required for key Generation
         FHESecKey *m_secretKey;// Secret key of the Public-Secret key pair
         FHEPubKey *m_publicKey;// Public key of the public-secret key pair
         ZZX m_G;// NTL Poly used to create m_encryptedArray
@@ -51,6 +51,12 @@ class Cyfhel {
                     const vector<long>& ords = vector<long>());
 
         string store(Ctxt* ctxt);//Store the ciphertext in the unordered map and return key where * it was stored
+
+	long initm(long p, long r, long c, long d, long sec, long L, long m = -1, long R = 3);
+
+	long initp(long p, long r, long c, long d, long sec, long L, long m = -1, long R = 3);
+
+	long initr(long p, long r, long c, long d, long sec, long L, long m = -1, long R = 3);
 
 
  public:

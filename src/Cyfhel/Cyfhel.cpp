@@ -229,15 +229,15 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
 	}
 
         // Secret/Public key pair creation
-        secretKey = new FHESecKey(*m_context);// Initialize object
-        publicKey = (FHEPubKey*) secretKey;// Upcast: FHESecKey to FHEPubKey
-        secretKey->GenSecKey(w);// Hamming-weight-w secret key
+        m_secretKey = new FHESecKey(*m_context);// Initialize object
+        publicKey = (FHEPubKey*) m_secretKey;// Upcast: FHESecKey to FHEPubKey
+        m_secretKey->GenSecKey(w);// Hamming-weight-w secret key
         if(m_isVerbose){
 		std::cout << "  - Created Public/Private Key Pair" << endl;
 	} 
 
         // Additional initializations
-        addSome1DMatrices(*secretKey);// Key-switch matrices for relin.
+        addSome1DMatrices(*m_secretKey);// Key-switch matrices for relin.
         ea = new EncryptedArray(*m_context, G);// Object for packing in subfields
         nslots = ea->size();
 
@@ -281,7 +281,7 @@ string Cyfhel::encrypt(vector<long> &ptxt_vect) {
   */
 vector<long> Cyfhel::decrypt(string id1) {
         vector<long> ptxt_vect(nslots, 0);// Empty vector of values
-        ea->decrypt(ctxtMap.at(id1), *secretKey, ptxt_vect);// Decrypt cyphertext
+        ea->decrypt(ctxtMap.at(id1), *m_secretKey, ptxt_vect);// Decrypt cyphertext
         if(m_isVerbose){
             std::cout << "  Cyfhel::decrypt({ID" << id1 << "}[" << ptxt_vect << "])" << endl;
         }
@@ -294,7 +294,7 @@ vector<long> Cyfhel::decrypt(string id1) {
 //------I/O------
 //SAVE ENVIRONMENT
 /**
-  * @brief Saves the context, SecretKey and G polynomial in a .aenv file
+  * @brief Saves the context, m_secretKey and G polynomial in a .aenv file
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
@@ -306,7 +306,7 @@ bool Cyfhel::saveEnv(string fileName){
 
         writeContextBase(keyFile, *m_context);    // Write m, p, r, gens, ords
         keyFile << *m_context << endl;            // Write the rest of the context
-        keyFile << *secretKey << endl;          // Write Secret key
+        keyFile << *m_secretKey << endl;          // Write Secret key
         keyFile << G <<endl;                    // Write G poly (ea can't be written, we save
                                                 //  G in order to reconstruct ea in restoreEnv)
         keyFile.close();
@@ -319,8 +319,8 @@ bool Cyfhel::saveEnv(string fileName){
 
 //RESTORE ENVIRONMENT
 /**
-  * @brief Restores the context, SecretKey and G polynomial from a .aenv file.
-  *  Then it reconstucts publicKey and ea (EncriptedArray) with SecretKey & G.
+  * @brief Restores the context, m_secretKey and G polynomial from a .aenv file.
+  *  Then it reconstucts publicKey and ea (EncriptedArray) with m_secretKey & G.
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
@@ -336,13 +336,13 @@ bool Cyfhel::restoreEnv(string fileName){
                                                             // Read m, p, r, gens, ords
         m_context = new FHEcontext(m1, p1, r1, gens, ords);   
                                                             // Prepare empty context object
-        secretKey = new FHESecKey(*m_context);                // Prepare empty FHESecKey object
+        m_secretKey = new FHESecKey(*m_context);                // Prepare empty FHESecKey object
         
         keyFile >> *m_context;                    // Read the rest of the context
-        keyFile >> *secretKey;                  // Read Secret Key
+        keyFile >> *m_secretKey;                  // Read Secret Key
         keyFile >> G;                           // Read G Poly
         ea = new EncryptedArray(*m_context, G);   // Reconstruct ea using G
-        publicKey = (FHEPubKey*) secretKey;     // Reconstruct Public Key from Secret Key
+        publicKey = (FHEPubKey*) m_secretKey;     // Reconstruct Public Key from Secret Key
         nslots = ea->size();                    // Refill nslots
         global_m = m1;
         global_p = p1; 

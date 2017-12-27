@@ -34,7 +34,7 @@ class Cyfhel {
 
 	/******ATTRIBUTES******/
         FHEcontext *m_context;// Required for key Generation
-        FHESecKey *secretKey;// Secret key of the Public-Secret key pair
+        FHESecKey *m_secretKey;// Secret key of the Public-Secret key pair
         FHEPubKey *publicKey;// Public key of the public-secret key pair
         ZZX G;// NTL Poly used to create ea
         EncryptedArray *ea;// Array used for encryption

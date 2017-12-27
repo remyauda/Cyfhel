@@ -230,7 +230,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
 
         // Secret/Public key pair creation
         m_secretKey = new FHESecKey(*m_context);// Initialize object
-        publicKey = (FHEPubKey*) m_secretKey;// Upcast: FHESecKey to FHEPubKey
+        m_publicKey = (FHEPubKey*) m_secretKey;// Upcast: FHESecKey to FHEPubKey
         m_secretKey->GenSecKey(w);// Hamming-weight-w secret key
         if(m_isVerbose){
 		std::cout << "  - Created Public/Private Key Pair" << endl;
@@ -256,7 +256,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
   * @return id (string) used to access ciphertext in the ctxtMap.
   */
 string Cyfhel::encrypt(vector<long> &ptxt_vect) {
-        Ctxt ctxt_vect(*publicKey);// Empty cyphertext object
+        Ctxt ctxt_vect(*m_publicKey);// Empty cyphertext object
         // Create a vector of size nddSlots and fill it first with values from plaintext, then with zeros
         long vector_size = ptxt_vect.size();
         for(int i=0; i<nslots; i++){
@@ -264,7 +264,7 @@ string Cyfhel::encrypt(vector<long> &ptxt_vect) {
 			ptxt_vect.push_back(0);
 		}
    	}
-        ea->encrypt(ctxt_vect, *publicKey, ptxt_vect);// Encrypt plaintext
+        ea->encrypt(ctxt_vect, *m_publicKey, ptxt_vect);// Encrypt plaintext
         string id1 = store(&ctxt_vect);
         if(m_isVerbose){
             std::cout << "  Cyfhel::encrypt({ID" << id1 << "}[" << ptxt_vect <<  "])" << endl;
@@ -320,7 +320,7 @@ bool Cyfhel::saveEnv(string fileName){
 //RESTORE ENVIRONMENT
 /**
   * @brief Restores the context, m_secretKey and G polynomial from a .aenv file.
-  *  Then it reconstucts publicKey and ea (EncriptedArray) with m_secretKey & G.
+  *  Then it reconstucts m_publicKey and ea (EncriptedArray) with m_secretKey & G.
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
@@ -342,7 +342,7 @@ bool Cyfhel::restoreEnv(string fileName){
         keyFile >> *m_secretKey;                  // Read Secret Key
         keyFile >> G;                           // Read G Poly
         ea = new EncryptedArray(*m_context, G);   // Reconstruct ea using G
-        publicKey = (FHEPubKey*) m_secretKey;     // Reconstruct Public Key from Secret Key
+        m_publicKey = (FHEPubKey*) m_secretKey;     // Reconstruct Public Key from Secret Key
         nslots = ea->size();                    // Refill nslots
         global_m = m1;
         global_p = p1; 

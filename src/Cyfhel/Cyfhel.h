@@ -35,7 +35,7 @@ class Cyfhel {
 	/******ATTRIBUTES******/
         FHEcontext *m_context;// Required for key Generation
         FHESecKey *m_secretKey;// Secret key of the Public-Secret key pair
-        FHEPubKey *publicKey;// Public key of the public-secret key pair
+        FHEPubKey *m_publicKey;// Public key of the public-secret key pair
         ZZX G;// NTL Poly used to create ea
         EncryptedArray *ea;// Array used for encryption
         boost::unordered_map<string, Ctxt> ctxtMap; // Unordered map which stores the ciphertexts

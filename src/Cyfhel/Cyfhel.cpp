@@ -118,7 +118,7 @@ Cyfhel::~Cyfhel(){}
   * @return number of plaintext slots
   */
 long Cyfhel::numSlots() {
-  return ea->size();
+  return m_encryptedArray->size();
 }
 
 /**
@@ -157,7 +157,7 @@ string Cyfhel::store(Ctxt* ctxt) {
     gettimeofday(&tp, NULL);
     long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
     string id1 = boost::lexical_cast<string>(ms);
-    ctxtMap.insert(make_pair(id1, *ctxt));
+    m_ctxtMap.insert(make_pair(id1, *ctxt));
     return id1;
 }
 
@@ -219,10 +219,10 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
 
         // ZZX Polynomial creation
         if (d == 0){
-		G = m_context->alMod.getFactorsOverZZ()[0];
+		m_G = m_context->alMod.getFactorsOverZZ()[0];
 	}
         else{
-		G = makeIrredPoly(p, d);
+		m_G = makeIrredPoly(p, d);
 	}
         if(m_isVerbose){
 		std::cout << "  - Created ZZX poly from NTL lib" <<endl;
@@ -238,8 +238,8 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
 
         // Additional initializations
         addSome1DMatrices(*m_secretKey);// Key-switch matrices for relin.
-        ea = new EncryptedArray(*m_context, G);// Object for packing in subfields
-        nslots = ea->size();
+        m_encryptedArray = new EncryptedArray(*m_context, m_G);// Object for packing in subfields
+        nslots = m_encryptedArray->size();
 
 
         if(m_isVerbose){
@@ -253,7 +253,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
   * in the unordered map, returning the key(string) used to access it.
   * The encryption is carried out with HElib. 
   * @param ptxt_vect plaintext vector to encrypt
-  * @return id (string) used to access ciphertext in the ctxtMap.
+  * @return id (string) used to access ciphertext in the m_ctxtMap.
   */
 string Cyfhel::encrypt(vector<long> &ptxt_vect) {
         Ctxt ctxt_vect(*m_publicKey);// Empty cyphertext object
@@ -264,7 +264,7 @@ string Cyfhel::encrypt(vector<long> &ptxt_vect) {
 			ptxt_vect.push_back(0);
 		}
    	}
-        ea->encrypt(ctxt_vect, *m_publicKey, ptxt_vect);// Encrypt plaintext
+        m_encryptedArray->encrypt(ctxt_vect, *m_publicKey, ptxt_vect);// Encrypt plaintext
         string id1 = store(&ctxt_vect);
         if(m_isVerbose){
             std::cout << "  Cyfhel::encrypt({ID" << id1 << "}[" << ptxt_vect <<  "])" << endl;
@@ -274,14 +274,14 @@ string Cyfhel::encrypt(vector<long> &ptxt_vect) {
 
 //DECRYPTION
 /**
-  * @brief Decrypts the cyphertext accessed in the ctxtMap using the id.
+  * @brief Decrypts the cyphertext accessed in the m_ctxtMap using the id.
   * The decryption is carried out with HElib.
-  * @param id (string) used to access ciphertext in the ctxtMap.
+  * @param id (string) used to access ciphertext in the m_ctxtMap.
   * @return plaintext, the result of decrypting the ciphertext
   */
 vector<long> Cyfhel::decrypt(string id1) {
         vector<long> ptxt_vect(nslots, 0);// Empty vector of values
-        ea->decrypt(ctxtMap.at(id1), *m_secretKey, ptxt_vect);// Decrypt cyphertext
+        m_encryptedArray->decrypt(m_ctxtMap.at(id1), *m_secretKey, ptxt_vect);// Decrypt cyphertext
         if(m_isVerbose){
             std::cout << "  Cyfhel::decrypt({ID" << id1 << "}[" << ptxt_vect << "])" << endl;
         }
@@ -294,7 +294,7 @@ vector<long> Cyfhel::decrypt(string id1) {
 //------I/O------
 //SAVE ENVIRONMENT
 /**
-  * @brief Saves the context, m_secretKey and G polynomial in a .aenv file
+  * @brief Saves the context, m_secretKey and m_G polynomial in a .aenv file
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
@@ -307,8 +307,8 @@ bool Cyfhel::saveEnv(string fileName){
         writeContextBase(keyFile, *m_context);    // Write m, p, r, gens, ords
         keyFile << *m_context << endl;            // Write the rest of the context
         keyFile << *m_secretKey << endl;          // Write Secret key
-        keyFile << G <<endl;                    // Write G poly (ea can't be written, we save
-                                                //  G in order to reconstruct ea in restoreEnv)
+        keyFile << m_G <<endl;                    // Write m_G poly (m_encryptedArray can't be written, we save
+                                                //  m_G in order to reconstruct m_encryptedArray in restoreEnv)
         keyFile.close();
     }
     catch(exception& e){
@@ -319,8 +319,8 @@ bool Cyfhel::saveEnv(string fileName){
 
 //RESTORE ENVIRONMENT
 /**
-  * @brief Restores the context, m_secretKey and G polynomial from a .aenv file.
-  *  Then it reconstucts m_publicKey and ea (EncriptedArray) with m_secretKey & G.
+  * @brief Restores the context, m_secretKey and m_G polynomial from a .aenv file.
+  *  Then it reconstucts m_publicKey and m_encryptedArray (EncriptedArray) with m_secretKey & m_G.
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
@@ -340,10 +340,10 @@ bool Cyfhel::restoreEnv(string fileName){
         
         keyFile >> *m_context;                    // Read the rest of the context
         keyFile >> *m_secretKey;                  // Read Secret Key
-        keyFile >> G;                           // Read G Poly
-        ea = new EncryptedArray(*m_context, G);   // Reconstruct ea using G
+        keyFile >> m_G;                           // Read m_G Poly
+        m_encryptedArray = new EncryptedArray(*m_context, m_G);   // Reconstruct m_encryptedArray using G
         m_publicKey = (FHEPubKey*) m_secretKey;     // Reconstruct Public Key from Secret Key
-        nslots = ea->size();                    // Refill nslots
+        nslots = m_encryptedArray->size();                    // Refill nslots
         global_m = m1;
         global_p = p1; 
         global_r = r1;
@@ -365,7 +365,7 @@ bool Cyfhel::restoreEnv(string fileName){
   * @param negative if True then perform subtraction
   */
 void Cyfhel::add(string id1, string id2, bool negative){
-        ctxtMap.at(id1).addCtxt(ctxtMap.at(id2), negative);
+        m_ctxtMap.at(id1).addCtxt(m_ctxtMap.at(id2), negative);
 }
 
 

@@ -36,9 +36,9 @@ class Cyfhel {
         FHEcontext *m_context;// Required for key Generation
         FHESecKey *m_secretKey;// Secret key of the Public-Secret key pair
         FHEPubKey *m_publicKey;// Public key of the public-secret key pair
-        ZZX G;// NTL Poly used to create ea
-        EncryptedArray *ea;// Array used for encryption
-        boost::unordered_map<string, Ctxt> ctxtMap; // Unordered map which stores the ciphertexts
+        ZZX m_G;// NTL Poly used to create m_encryptedArray
+        EncryptedArray *m_encryptedArray;// Array used for encryption
+        boost::unordered_map<string, Ctxt> m_ctxtMap; // Unordered map which stores the ciphertexts
         long global_m, global_p, global_r;
 	bool m_isVerbose;// Flag to print messages on console
         

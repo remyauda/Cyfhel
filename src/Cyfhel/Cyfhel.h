@@ -67,11 +67,13 @@ class Cyfhel {
         virtual ~Cyfhel();
 
     /******GETTERS******/
-        long getm_numberOfSlots();
+        long getm_numberOfSlots();//Getter of attribute m_numberOfSlots
 
-        long getm_global_m();
-        long getm_global_p();
-        long getm_global_r();
+        long getm_global_m();//Getter of attribute m_global_m
+
+        long getm_global_p();//Getter of attribute m_global_p
+
+        long getm_global_r();//Getter of attribute m_global_r
 
     /******SETTERS******/
 

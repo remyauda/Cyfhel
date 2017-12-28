@@ -78,6 +78,7 @@ class Cyfhel {
 		bool getm_isVerbose();//Getter of attribute m_isVerbose
 
     /******SETTERS******/
+		void setm_numberOfSlots(long numberOfSlots);//Setter of attribute m_numberOfSlots
 
        
     /******PROTOTYPES OF PUBLIC METHODS******/

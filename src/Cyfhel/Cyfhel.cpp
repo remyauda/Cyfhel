@@ -154,6 +154,12 @@ bool Cyfhel::getm_isVerbose(){
 }
 
 /******SETTERS******/
+/**
+  * @brief Setters for attribute m_numberOfSlots
+  */
+void Cyfhel::setm_numberOfSlots(long numberOfSlots){
+	m_numberOfSlots = numberOfSlots;
+}
 
 
 /******IMPLEMENTATION OF PRIVATE METHODS******/

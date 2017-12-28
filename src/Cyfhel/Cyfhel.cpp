@@ -142,6 +142,13 @@ long Cyfhel::getm_global_r(){
   return m_global_r;
 }
 
+/**
+  * @brief Getter of attribute m_isVerbose
+  */
+bool Cyfhel::getm_isVerbose(){
+  return m_isVerbose;
+}
+
 /******SETTERS******/
 
 

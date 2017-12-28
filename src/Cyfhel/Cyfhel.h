@@ -75,6 +75,8 @@ class Cyfhel {
 
         long getm_global_r();//Getter of attribute m_global_r
 
+	bool getm_isVerbose();//Getter of attribute m_isVerbose
+
     /******SETTERS******/
 
        

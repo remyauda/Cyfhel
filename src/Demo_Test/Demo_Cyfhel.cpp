@@ -20,7 +20,7 @@ int main()
     //   - 2 (Binary)
     //   - 257 (Byte)
     //   - 65537 (Word)
-    //   - 4294967311 (Long) 
+    //   - 4294967311 (Long)
     //long p = 2;
     //long r = 32;
     //long d = 1;
@@ -31,26 +31,26 @@ int main()
 
     Timer timerDemo(true);
     timerDemo.start();
-    Cyfhel cy(true);// Create object Cyfhel and enable print for all functions 
+    Cyfhel cy(true);// Create object Cyfhel and enable print for all functions
     vector<long> v1;
     vector<long> v2;
     
     // Initialization of v1.
     for(int i=0; i<cy.nslots; i++){
-        if(i<VECTOR_SIZE){ 
-		v1.push_back(i);  
-	}
+        if(i<VECTOR_SIZE){
+        v1.push_back(i);  
+    }
     }
     // Initialization of v2.
     for(int i=0; i<cy.nslots; i++){
-        if(i<VECTOR_SIZE){ 
-		v2.push_back(2);  
-	}
+        if(i<VECTOR_SIZE){
+        v2.push_back(2);  
+    }
     }
 
     // Sum
-    string c1 = cy.encrypt(v1);
-    string c2 = cy.encrypt(v2);
+    Ctxt c1 = cy.encrypt(v1);
+    Ctxt c2 = cy.encrypt(v2);
     cy.add(c1, c2);
     vector<long> vRes = cy.decrypt(c1);
  
@@ -80,7 +80,6 @@ int main()
 //    cy.saveEnv(fileName);
     std::cout << "Saved env with values: m=" << cy.getM() <<", p=" << cy.getP() << ", r=" << cy.getR() << endl;
     std::cout << "END OF DEMO" << endl;
-
     return 0;
 };
 

@@ -14,7 +14,7 @@
 
 int main()
 {
-//    string fileName = "DemoCyfhelEnv";
+	//    string fileName = "DemoCyfhelEnv";
      
     // Values for the modulus p (size of p):
     //   - 2 (Binary)
@@ -36,16 +36,20 @@ int main()
     vector<long> v2;
     
     // Initialization of v1.
-    for(int i=0; i<cy.getm_numberOfSlots(); i++){
-        if(i<VECTOR_SIZE){
-        v1.push_back(i);  
-    }
+    for(int i=0; i<cy.getm_numberOfSlots(); i++)
+	{
+		if(i<VECTOR_SIZE)
+		{
+			v1.push_back(i);  
+		}
     }
     // Initialization of v2.
-    for(int i=0; i<cy.getm_numberOfSlots(); i++){
-        if(i<VECTOR_SIZE){
-        v2.push_back(2);  
-    }
+    for(int i=0; i<cy.getm_numberOfSlots(); i++)
+	{
+		if(i<VECTOR_SIZE)
+		{
+			v2.push_back(2);  
+		}
     }
 
     // Sum
@@ -77,7 +81,7 @@ int main()
     timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
 
     // Store & retrieve environment
-//    cy.saveEnv(fileName);
+	//    cy.saveEnv(fileName);
     std::cout << "Saved env with values: m=" << cy.getm_global_m() <<", p=" << cy.getm_global_p() << ", r=" << cy.getm_global_r() << endl;
     std::cout << "END OF DEMO" << endl;
     return 0;

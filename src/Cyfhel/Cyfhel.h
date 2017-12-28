@@ -34,11 +34,12 @@ class Cyfhel {
 
     /******ATTRIBUTES******/
         FHEcontext *m_context;// Required for key Generation
-        FHESecKey *secretKey;// Secret key of the Public-Secret key pair
-        FHEPubKey *publicKey;// Public key of the public-secret key pair
-        ZZX G;// NTL Poly used to create ea
-        EncryptedArray *ea;// Array used for encryption
-        long global_m, global_p, global_r;
+        FHESecKey *m_secretKey;// Secret key of the Public-Secret key pair
+        FHEPubKey *m_publicKey;// Public key of the public-secret key pair
+        ZZX m_G;// NTL Poly used to create m_encryptedArray
+        EncryptedArray *m_encryptedArray;// Array used for encryption
+        long m_global_m, m_global_p, m_global_r;
+	long m_numberOfSlots;// Nº of slots in scheme
 	bool m_isVerbose;// Flag to print messages on console
         
 
@@ -51,8 +52,6 @@ class Cyfhel {
 
 
  public:
-    
-        long nslots;// Nº of slots in scheme
 
     /******CONSTRUCTOR BY DEFAULT******/
 
@@ -68,7 +67,7 @@ class Cyfhel {
         virtual ~Cyfhel();
 
     /******GETTERS******/
-        long numSlots();
+        long getm_numberOfSlots();
 
         long getM();
         long getP();

@@ -36,13 +36,13 @@ int main()
     vector<long> v2;
     
     // Initialization of v1.
-    for(int i=0; i<cy.nslots; i++){
+    for(int i=0; i<cy.getm_numberOfSlots(); i++){
         if(i<VECTOR_SIZE){
         v1.push_back(i);  
     }
     }
     // Initialization of v2.
-    for(int i=0; i<cy.nslots; i++){
+    for(int i=0; i<cy.getm_numberOfSlots(); i++){
         if(i<VECTOR_SIZE){
         v2.push_back(2);  
     }

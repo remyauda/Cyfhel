@@ -117,29 +117,29 @@ Cyfhel::~Cyfhel(){}
   * @brief Number of plaintext slots
   * @return number of plaintext slots
   */
-long Cyfhel::numSlots() {
-  return ea->size();
+long Cyfhel::getm_numberOfSlots() {
+  return m_numberOfSlots;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
 long Cyfhel::getM(){
-  return global_m;
+  return m_global_m;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
 long Cyfhel::getP(){
-  return global_p;
+  return m_global_p;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
 long Cyfhel::getR(){
-  return global_r;
+  return m_global_r;
 }
 
 /******SETTERS******/
@@ -184,9 +184,9 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
         }
 
         // Context creation
-        global_m = m;
-        global_p = p;
-        global_r = r;
+        m_global_m = m;
+        m_global_p = p;
+        m_global_r = r;
         m_context = new FHEcontext(m, p, r, gens, ords);  // Initialize context
         buildModChain(*m_context, L, c);                  // Add primes to modulus chain
         if(m_isVerbose){
@@ -200,27 +200,27 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
 
         // ZZX Polynomial creation
         if (d == 0){
-        G = m_context->alMod.getFactorsOverZZ()[0];
+        m_G = m_context->alMod.getFactorsOverZZ()[0];
     }
         else{
-        G = makeIrredPoly(p, d);
+        m_G = makeIrredPoly(p, d);
     }
         if(m_isVerbose){
         std::cout << "  - Created ZZX poly from NTL lib" <<endl;
     }
 
         // Secret/Public key pair creation
-        secretKey = new FHESecKey(*m_context);// Initialize object
-        publicKey = (FHEPubKey*) secretKey;// Upcast: FHESecKey to FHEPubKey
-        secretKey->GenSecKey(w);// Hamming-weight-w secret key
+        m_secretKey = new FHESecKey(*m_context);// Initialize object
+        m_publicKey = (FHEPubKey*) m_secretKey;// Upcast: FHESecKey to FHEPubKey
+        m_secretKey->GenSecKey(w);// Hamming-weight-w secret key
         if(m_isVerbose){
         std::cout << "  - Created Public/Private Key Pair" << endl;
     }
 
         // Additional initializations
-        addSome1DMatrices(*secretKey);// Key-switch matrices for relin.
-        ea = new EncryptedArray(*m_context, G);// Object for packing in subfields
-        nslots = ea->size();
+        addSome1DMatrices(*m_secretKey);// Key-switch matrices for relin.
+        m_encryptedArray = new EncryptedArray(*m_context, m_G);// Object for packing in subfields
+        m_numberOfSlots = m_encryptedArray->size();
 
 
         if(m_isVerbose){
@@ -242,15 +242,15 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
   * @return id (string) used to access ciphertext in the ctxtMap.
   */
 Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) {
-        Ctxt ctxt_vect(*publicKey);// Empty cyphertext object
+        Ctxt ctxt_vect(*m_publicKey);// Empty cyphertext object
         // Create a vector of size nddSlots and fill it first with values from plaintext, then with zeros
         long vector_size = ptxt_vect.size();
-        for(int i=0; i<nslots; i++){
+        for(int i=0; i<m_numberOfSlots; i++){
             if(i>=vector_size){
             ptxt_vect.push_back(0);
         }
        }
-        ea->encrypt(ctxt_vect, *publicKey, ptxt_vect);// Encrypt plaintext
+        m_encryptedArray->encrypt(ctxt_vect, *m_publicKey, ptxt_vect);// Encrypt plaintext
         if(m_isVerbose){
             std::cout << "  Cyfhel::encrypt(" << ptxt_vect <<  ")" << endl;
         }
@@ -265,8 +265,8 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) {
   * @return plaintext, the result of decrypting the ciphertext
   */
 vector<long> Cyfhel::decrypt(Ctxt ctxt_vect) {
-        vector<long> ptxt_vect(nslots, 0);// Empty vector of values
-        ea->decrypt(ctxt_vect, *secretKey, ptxt_vect);// Decrypt cyphertext
+        vector<long> ptxt_vect(m_numberOfSlots, 0);// Empty vector of values
+        m_encryptedArray->decrypt(ctxt_vect, *m_secretKey, ptxt_vect);// Decrypt cyphertext
         if(m_isVerbose){
             std::cout << "  Cyfhel::decrypt(" << ptxt_vect << ")" << endl;
         }
@@ -279,7 +279,7 @@ vector<long> Cyfhel::decrypt(Ctxt ctxt_vect) {
 //------I/O------
 //SAVE ENVIRONMENT
 /**
-  * @brief Saves the context, SecretKey and G polynomial in a .aenv file
+  * @brief Saves the context, m_secretKey and m_G polynomial in a .aenv file
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
@@ -291,9 +291,9 @@ bool Cyfhel::saveEnv(string fileName){
 
         writeContextBase(keyFile, *m_context);    // Write m, p, r, gens, ords
         keyFile << *m_context << endl;            // Write the rest of the context
-        keyFile << *secretKey << endl;          // Write Secret key
-        keyFile << G <<endl;                    // Write G poly (ea can't be written, we save
-                                                //  G in order to reconstruct ea in restoreEnv)
+        keyFile << *m_secretKey << endl;          // Write Secret key
+        keyFile << m_G <<endl;                    // Write m_G poly (m_encryptedArray can't be written, we save
+                                                //  m_G in order to reconstruct m_encryptedArray in restoreEnv)
         keyFile.close();
     }
     catch(exception& e){
@@ -304,8 +304,8 @@ bool Cyfhel::saveEnv(string fileName){
 
 //RESTORE ENVIRONMENT
 /**
-  * @brief Restores the context, SecretKey and G polynomial from a .aenv file.
-  *  Then it reconstucts publicKey and ea (EncriptedArray) with SecretKey & G.
+  * @brief Restores the context, m_secretKey and m_G polynomial from a .aenv file.
+  *  Then it reconstucts m_publicKey and m_encryptedArray (EncriptedArray) with m_secretKey & m_G.
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
@@ -321,17 +321,17 @@ bool Cyfhel::restoreEnv(string fileName){
                                                             // Read m, p, r, gens, ords
         m_context = new FHEcontext(m1, p1, r1, gens, ords);   
                                                             // Prepare empty context object
-        secretKey = new FHESecKey(*m_context);                // Prepare empty FHESecKey object
+        m_secretKey = new FHESecKey(*m_context);                // Prepare empty FHESecKey object
         
         keyFile >> *m_context;                    // Read the rest of the context
-        keyFile >> *secretKey;                  // Read Secret Key
-        keyFile >> G;                           // Read G Poly
-        ea = new EncryptedArray(*m_context, G);   // Reconstruct ea using G
-        publicKey = (FHEPubKey*) secretKey;     // Reconstruct Public Key from Secret Key
-        nslots = ea->size();                    // Refill nslots
-        global_m = m1;
-        global_p = p1;
-        global_r = r1;
+        keyFile >> *m_secretKey;                  // Read Secret Key
+        keyFile >> m_G;                           // Read m_G Poly
+        m_encryptedArray = new EncryptedArray(*m_context, m_G);   // Reconstruct m_encryptedArray using m_G
+        m_publicKey = (FHEPubKey*) m_secretKey;     // Reconstruct Public Key from Secret Key
+        m_numberOfSlots = m_encryptedArray->size();                    // Refill m_numberOfSlots
+        m_global_m = m1;
+        m_global_p = p1;
+        m_global_r = r1;
     }
     catch(exception& e){
         res=0;

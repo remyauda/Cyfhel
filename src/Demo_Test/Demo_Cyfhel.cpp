@@ -78,7 +78,7 @@ int main()
 
     // Store & retrieve environment
 //    cy.saveEnv(fileName);
-    std::cout << "Saved env with values: m=" << cy.getM() <<", p=" << cy.getP() << ", r=" << cy.getR() << endl;
+    std::cout << "Saved env with values: m=" << cy.getm_global_m() <<", p=" << cy.getm_global_p() << ", r=" << cy.getm_global_r() << endl;
     std::cout << "END OF DEMO" << endl;
     return 0;
 };

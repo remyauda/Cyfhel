@@ -69,9 +69,9 @@ class Cyfhel {
     /******GETTERS******/
         long getm_numberOfSlots();
 
-        long getM();
-        long getP();
-        long getR();
+        long getm_global_m();
+        long getm_global_p();
+        long getm_global_r();
 
     /******SETTERS******/
 

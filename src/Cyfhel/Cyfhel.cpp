@@ -124,21 +124,21 @@ long Cyfhel::getm_numberOfSlots() {
 /**
   * @brief Getters for global parameters of the class
   */
-long Cyfhel::getM(){
+long Cyfhel::getm_global_m(){
   return m_global_m;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
-long Cyfhel::getP(){
+long Cyfhel::getm_global_p(){
   return m_global_p;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
-long Cyfhel::getR(){
+long Cyfhel::getm_global_r(){
   return m_global_r;
 }
 

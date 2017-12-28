@@ -40,7 +40,7 @@ class Cyfhel {
         EncryptedArray *ea;// Array used for encryption
         boost::unordered_map<string, Ctxt> ctxtMap; // Unordered map which stores the ciphertexts
         long global_m, global_p, global_r;
-    bool m_isVerbose;// Flag to print messages on console
+	bool m_isVerbose;// Flag to print messages on console
         
 
 
@@ -61,7 +61,7 @@ class Cyfhel {
 
 
     /******CONSTRUCTOR WITH PARAMETERS******/
-    Cyfhel(bool isVerbose = false, long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40);
+	Cyfhel(bool isVerbose = false, long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40);
 
         Cyfhel(long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40, bool isVerbose = false);
 
@@ -70,19 +70,18 @@ class Cyfhel {
     /******DESTRUCTOR BY DEFAULT******/
         virtual ~Cyfhel();
 
-        /******GETTERS******/
+    /******GETTERS******/
         long numSlots();
 
         long getM();
         long getP();
         long getR();
 
-        /******SETTERS******/
+    /******SETTERS******/
 
        
     /******PROTOTYPES OF PUBLIC METHODS******/
         //------ENCRYPTION------
-        
         Ctxt encrypt(vector<long> &ptxt_vect);//Encryption
         
         vector<long> decrypt(Ctxt ctxt_vect);//Decryption
@@ -97,7 +96,7 @@ class Cyfhel {
         bool restoreEnv(string fileName);//Restore environment
 
         
-        /******OPERATORS OVERLOAD******/
+    /******OPERATORS OVERLOAD******/
         void add(Ctxt& id1, Ctxt& id2, bool negative=false);//Addition overload
 };
 

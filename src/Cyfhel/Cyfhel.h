@@ -38,7 +38,6 @@ class Cyfhel {
         FHEPubKey *publicKey;// Public key of the public-secret key pair
         ZZX G;// NTL Poly used to create ea
         EncryptedArray *ea;// Array used for encryption
-        boost::unordered_map<string, Ctxt> ctxtMap; // Unordered map which stores the ciphertexts
         long global_m, global_p, global_r;
 	bool m_isVerbose;// Flag to print messages on console
         
@@ -49,8 +48,6 @@ class Cyfhel {
                     long L = -1, long m = -1, long R = 3, long s = 0,
                     const vector<long>& gens = vector<long>(),
                     const vector<long>& ords = vector<long>());
-
-        string store(Ctxt* ctxt);//Store the ciphertext in the unordered map and return key where * it was stored
 
 
  public:

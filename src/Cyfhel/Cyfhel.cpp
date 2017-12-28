@@ -228,20 +228,6 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w,
     }
 }
 
-/**
-  * @brief Store the ciphertext in the unordered map and return key where
-  * it was stored
-  * @param ctxt Ciphertext to store in unordered map
-  * @return the ID used to locate this ciphertext in the unordered map
-*/
-string Cyfhel::store(Ctxt* ctxt) {
-    struct timeval tp;
-    gettimeofday(&tp, NULL);
-    long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
-    string id1 = boost::lexical_cast<string>(ms);
-    ctxtMap.insert(make_pair(id1, *ctxt));
-    return id1;
-}
 
 
 /******IMPLEMENTATION OF PUBLIC METHODS******/
@@ -265,7 +251,6 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) {
         }
        }
         ea->encrypt(ctxt_vect, *publicKey, ptxt_vect);// Encrypt plaintext
-        //string id1 = store(&ctxt_vect);
         if(m_isVerbose){
             std::cout << "  Cyfhel::encrypt(" << ptxt_vect <<  ")" << endl;
         }

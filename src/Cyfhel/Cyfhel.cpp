@@ -297,6 +297,8 @@ void Cyfhel::keyGen(long const& p, long const& r, long const& c, long const& d, 
 
 	@param: The method encrypt takes one mandatory parameter: a vector of long.
 	-param1: a mandatory vector of long which corresponds to vector to encrypt.
+
+	@return: Return a Ctxt which corresponds to encrypted vector.
 */
 Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 	Ctxt ctxt_vect(*m_publicKey);// Empty cyphertext object

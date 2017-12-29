@@ -115,7 +115,7 @@ Cyfhel::Cyfhel(vector<long> cryptoParameters, bool isVerbose){
 /******DESTRUCTOR BY DEFAULT******/
 Cyfhel::~Cyfhel(){}
 
-/******GETTERS******/
+/******IMPLEMENTATION OF GETTERS******/
 
 /**
   * @brief Number of plaintext slots
@@ -153,7 +153,7 @@ bool Cyfhel::getm_isVerbose(){
 	return m_isVerbose;
 }
 
-/******SETTERS******/
+/******IMPLEMENTATION OF SETTERS******/
 /**
   * @brief Setters for attribute m_numberOfSlots
   */
@@ -185,20 +185,23 @@ void Cyfhel::setm_global_r(long global_r){
 
 /******IMPLEMENTATION OF PRIVATE METHODS******/
 // KEY GENERATION
-/**
-  * @brief Performs Key Generation using HElib functions
-  * @param p plaintext base
-  * @param r lifting
-  * @param c # of columns in key switching matrix
-  * @param d degree of field extension
-  * @param sec security parameter
-  * @param w Hamming weight of secret key
-  * @param L # of levels in modulus chain
-  * @param m (optional) use m'th cyclotomic polynomial
-  * @param R (=3) number of expected rounds of multiplication
-  * @param s (=0) minimum number of slots for vectors.
-  * @param gens (optional) Vector of Generators
-  * @param ords (optional) Vector of Orders
+/*
+	@name: keyGen
+	@description: Private method used in Cyfhel contructor which performs Key Generation using HElib functions.
+
+	@param: The method keyGen takes five mandatory parameters and seven optional parameters: five mandatory long, five optional long and two optional vector of long.
+	-param1: a long which corresponds to plaintext base.
+	-param2: a long which corresponds to lifting.
+	-param3: a long which corresponds to number of columns in key switching matrix.
+	-param4: a long which corresponds to degree of field extension.
+	-param5: a long which corresponds to security parameter.
+	-param6 (optional)(Default: w = 64): a optional long which corresponds to Hamming weight of secret key. By default, this parameter is such as w = 64.
+	-param7 (optional)(Default: L = -1): a optional long which corresponds to number of levels in modulus chain. By default, this parameter is such as L = -1.
+	-param8 (optional)(Default: m = -1): a optional long which used to m'th cyclotomic polynomial. By default, this parameter is such as m = -1.
+	-param9 (optional)(Default: R = 3): a optional long which corresponds to number of expected rounds of multiplication. By default, this parameter is such as R = 3.
+	-param10(optional)(Default: s = 0): a optional long which corresponds to minimum number of slots for vectors. By default, this parameter is such as s = 0.
+	-param11(optional)(Default: gens = []): a optional vector of long which corresponds to vector of generators. By default, this parameter is such as gens = [].
+	-param12(optional)(Default: ords = []): a optional vector of long which corresponds to vector of orders. By default, this parameter is such as ords = [].
   */
 void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w, long L, long m, long R, long s, const vector<long>& gens, const vector<long>& ords){
 	if(m_isVerbose)

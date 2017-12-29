@@ -161,6 +161,13 @@ void Cyfhel::setm_numberOfSlots(long numberOfSlots){
 	m_numberOfSlots = numberOfSlots;
 }
 
+/**
+  * @brief Setters for attribute m_global_m
+  */
+void Cyfhel::setm_global_m(long global_m){
+	m_global_m = global_m;
+}
+
 
 /******IMPLEMENTATION OF PRIVATE METHODS******/
 // KEY GENERATION

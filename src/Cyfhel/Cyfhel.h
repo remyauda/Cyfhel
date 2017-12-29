@@ -80,6 +80,8 @@ class Cyfhel {
     /******SETTERS******/
 		void setm_numberOfSlots(long numberOfSlots);//Setter of attribute m_numberOfSlots
 
+		void setm_global_m(long global_m);//Setter of attribute m_global_m
+
        
     /******PROTOTYPES OF PUBLIC METHODS******/
         //------ENCRYPTION------

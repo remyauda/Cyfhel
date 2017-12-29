@@ -318,12 +318,13 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 }
 
 //DECRYPTION
-/**
-  * @brief Decrypts the cyphertext accessed in the ctxtMap using the id.
-  * The decryption is carried out with HElib.
-  * @param id (string) used to access ciphertext in the ctxtMap.
-  * @return plaintext, the result of decrypting the ciphertext
-  */
+/*
+	@name: decrypt
+	@description: Public method which allow to decrypt a provided Ctxt which corresponds to vector to decrypt, creates the corresponding vector of long and return it.
+
+	@param: The method decrypt takes one mandatory parameter: a Ctxt.
+	-param1: a mandatory Ctxt which corresponds to vector to decrypt.
+*/
 vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) const {
 	vector<long> ptxt_vect(m_numberOfSlots, 0);// Empty vector of values
 	m_encryptedArray->decrypt(ctxt_vect, *m_secretKey, ptxt_vect);// Decrypt cyphertext

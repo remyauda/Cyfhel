@@ -204,7 +204,7 @@ void Cyfhel::setm_global_r(long global_r) {
 	-param10(optional)(Default: s = 0): a optional long which corresponds to minimum number of slots for vectors. By default, this parameter is such as s = 0.
 	-param11(optional)(Default: gens = []): a optional vector of long which corresponds to vector of generators. By default, this parameter is such as gens = [].
 	-param12(optional)(Default: ords = []): a optional vector of long which corresponds to vector of orders. By default, this parameter is such as ords = [].
-  */
+*/
 void Cyfhel::keyGen(long const& p, long const& r, long const& c, long const& d, long const& sec, long const& w, long L, long m, long const& R, long const& s, const vector<long>& gens, const vector<long>& ords) {
 	if(m_isVerbose)
 	{
@@ -291,13 +291,13 @@ void Cyfhel::keyGen(long const& p, long const& r, long const& c, long const& d, 
 
 //------ENCRYPTION------
 //ENCRYPTION
-/**
-  * @brief Enctypts a provided plaintext vector and stores the cyphertext
-  * in the unordered map, returning the key(string) used to access it.
-  * The encryption is carried out with HElib.
-  * @param ptxt_vect plaintext vector to encrypt
-  * @return id (string) used to access ciphertext in the ctxtMap.
-  */
+/*
+	@name: encrypt
+	@description: Public method which allow to encrypt a provided plaintext vector which corresponds to vector to encrypt, creates the corresponding Ctxt and return it.
+
+	@param: The method encrypt takes one mandatory parameter: a vector of long.
+	-param1: a mandatory vector of long which corresponds to vector to encrypt.
+*/
 Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 	Ctxt ctxt_vect(*m_publicKey);// Empty cyphertext object
 	// Create a vector of size nddSlots and fill it first with values from plaintext, then with zeros

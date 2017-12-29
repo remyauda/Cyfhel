@@ -89,22 +89,22 @@ class Cyfhel {
        
     /******PROTOTYPES OF PUBLIC METHODS******/
         //------ENCRYPTION------
-        Ctxt encrypt(vector<long> &ptxt_vect);//Encryption
+        Ctxt encrypt(vector<long> &ptxt_vect) const;//Encryption
         
-        vector<long> decrypt(Ctxt& ctxt_vect);//Decryption
+        vector<long> decrypt(Ctxt& ctxt_vect) const;//Decryption
 
 
         //------AUXILIARY------
 
     
         //------I/O------
-        bool saveEnv(string fileName);//Save environment
+        bool saveEnv(string const& fileName) const;//Save environment
 
-        bool restoreEnv(string fileName);//Restore environment
+        bool restoreEnv(string const& fileName);//Restore environment
 
         
     /******OPERATORS OVERLOAD******/
-        void add(Ctxt& id1, Ctxt& id2, bool negative=false);//Addition overload
+        void add(Ctxt& id1, Ctxt& id2, bool negative=false) const;//Addition overload
 };
 
 #endif

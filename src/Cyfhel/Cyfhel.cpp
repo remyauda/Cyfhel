@@ -296,7 +296,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w, long L, lo
   * @param ptxt_vect plaintext vector to encrypt
   * @return id (string) used to access ciphertext in the ctxtMap.
   */
-Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) {
+Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 	Ctxt ctxt_vect(*m_publicKey);// Empty cyphertext object
 	// Create a vector of size nddSlots and fill it first with values from plaintext, then with zeros
 	long vector_size = ptxt_vect.size();
@@ -322,7 +322,7 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) {
   * @param id (string) used to access ciphertext in the ctxtMap.
   * @return plaintext, the result of decrypting the ciphertext
   */
-vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) {
+vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) const {
 	vector<long> ptxt_vect(m_numberOfSlots, 0);// Empty vector of values
 	m_encryptedArray->decrypt(ctxt_vect, *m_secretKey, ptxt_vect);// Decrypt cyphertext
 	if(m_isVerbose)
@@ -342,7 +342,7 @@ vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) {
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
-bool Cyfhel::saveEnv(string fileName){
+bool Cyfhel::saveEnv(string const& fileName) const{
 	bool res=1;
 	try
 	{
@@ -370,7 +370,7 @@ bool Cyfhel::saveEnv(string fileName){
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
-bool Cyfhel::restoreEnv(string fileName){
+bool Cyfhel::restoreEnv(string const& fileName){
 	bool res=1;
 	unsigned long m1, p1, r1;
 	vector<long> gens, ords;
@@ -412,7 +412,7 @@ bool Cyfhel::restoreEnv(string fileName){
   * @param id2 ID of ctxt2 in unordered map
   * @param negative if True then perform subtraction
   */
-void Cyfhel::add(Ctxt& c1, Ctxt& c2, bool negative){
+void Cyfhel::add(Ctxt& c1, Ctxt& c2, bool negative) const{
 	c1.addCtxt(c2, negative);
 }
 

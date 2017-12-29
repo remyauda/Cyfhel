@@ -39,8 +39,8 @@ class Cyfhel {
         ZZX m_G;// NTL Poly used to create m_encryptedArray
         EncryptedArray *m_encryptedArray;// Array used for encryption
         long m_global_m, m_global_p, m_global_r;
-		long m_numberOfSlots;// Nº of slots in scheme
-		bool m_isVerbose;// Flag to print messages on console
+	long m_numberOfSlots;// Nº of slots in scheme
+	bool m_isVerbose;// Flag to print messages on console
         
 
 
@@ -57,7 +57,7 @@ class Cyfhel {
 
 
     /******CONSTRUCTOR WITH PARAMETERS******/
-		Cyfhel(bool isVerbose = false, long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40);
+	Cyfhel(bool isVerbose = false, long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40);
 
         Cyfhel(long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40, bool isVerbose = false);
 

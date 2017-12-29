@@ -41,18 +41,21 @@ using namespace std;
 
 
 /******CONSTRUCTOR WITH PARAMETERS******/
-Cyfhel::Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L){
+Cyfhel::Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0)
+{
 	m_isVerbose = isVerbose;
 	keyGen(p, r, c, d, sec, w, L);
 }
 
-Cyfhel::Cyfhel(long p, long r, long c, long d, long sec, long w, long L, bool isVerbose){
+Cyfhel::Cyfhel(long p, long r, long c, long d, long sec, long w, long L, bool isVerbose):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0)
+{
     m_isVerbose = isVerbose;
     keyGen(p, r, c, d, sec, w, L);
 }
 
 // TODO: MUST be tested.
-Cyfhel::Cyfhel(vector<long> cryptoParameters, bool isVerbose){
+Cyfhel::Cyfhel(vector<long> cryptoParameters, bool isVerbose):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0)
+{
 	// TODO: We should be able to provide just some parameters and the rest will be initialize by default.
 	if(cryptoParameters.size() < 7)
 	{
@@ -113,7 +116,9 @@ Cyfhel::Cyfhel(vector<long> cryptoParameters, bool isVerbose){
 }
 
 /******DESTRUCTOR BY DEFAULT******/
-Cyfhel::~Cyfhel(){}
+Cyfhel::~Cyfhel(){
+
+}
 
 /******IMPLEMENTATION OF GETTERS******/
 

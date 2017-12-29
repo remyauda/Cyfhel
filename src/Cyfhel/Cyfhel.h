@@ -67,31 +67,31 @@ class Cyfhel {
         virtual ~Cyfhel();
 
     /******GETTERS******/
-        long getm_numberOfSlots();//Getter of attribute m_numberOfSlots
+        long getm_numberOfSlots() const;//Getter of attribute m_numberOfSlots
 
-        long getm_global_m();//Getter of attribute m_global_m
+        long getm_global_m() const;//Getter of attribute m_global_m
 
-        long getm_global_p();//Getter of attribute m_global_p
+        long getm_global_p() const;//Getter of attribute m_global_p
 
-        long getm_global_r();//Getter of attribute m_global_r
+        long getm_global_r() const;//Getter of attribute m_global_r
 
-		bool getm_isVerbose();//Getter of attribute m_isVerbose
+	bool getm_isVerbose() const;//Getter of attribute m_isVerbose
 
     /******SETTERS******/
-		void setm_numberOfSlots(long numberOfSlots);//Setter of attribute m_numberOfSlots
+	void setm_numberOfSlots(long numberOfSlots);//Setter of attribute m_numberOfSlots
 
-		void setm_global_m(long global_m);//Setter of attribute m_global_m
+	void setm_global_m(long global_m);//Setter of attribute m_global_m
 
-		void setm_global_p(long global_p);//Setter of attribute m_global_p
+	void setm_global_p(long global_p);//Setter of attribute m_global_p
 
-		void setm_global_r(long global_r);//Setter of attribute m_global_r
+	void setm_global_r(long global_r);//Setter of attribute m_global_r
 
        
     /******PROTOTYPES OF PUBLIC METHODS******/
         //------ENCRYPTION------
         Ctxt encrypt(vector<long> &ptxt_vect);//Encryption
         
-        vector<long> decrypt(Ctxt ctxt_vect);//Decryption
+        vector<long> decrypt(Ctxt& ctxt_vect);//Decryption
 
 
         //------AUXILIARY------

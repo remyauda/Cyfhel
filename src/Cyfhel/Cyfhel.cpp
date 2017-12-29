@@ -121,35 +121,35 @@ Cyfhel::~Cyfhel(){}
   * @brief Number of plaintext slots
   * @return number of plaintext slots
   */
-long Cyfhel::getm_numberOfSlots() {
+long Cyfhel::getm_numberOfSlots() const {
 	return m_numberOfSlots;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
-long Cyfhel::getm_global_m(){
+long Cyfhel::getm_global_m() const{
 	return m_global_m;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
-long Cyfhel::getm_global_p(){
+long Cyfhel::getm_global_p() const{
 	return m_global_p;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
-long Cyfhel::getm_global_r(){
+long Cyfhel::getm_global_r() const{
 	return m_global_r;
 }
 
 /**
   * @brief Getter of attribute m_isVerbose
   */
-bool Cyfhel::getm_isVerbose(){
+bool Cyfhel::getm_isVerbose() const{
 	return m_isVerbose;
 }
 
@@ -158,28 +158,28 @@ bool Cyfhel::getm_isVerbose(){
   * @brief Setters for attribute m_numberOfSlots
   */
 void Cyfhel::setm_numberOfSlots(long numberOfSlots){
-	m_numberOfSlots = numberOfSlots;
+	this->m_numberOfSlots = numberOfSlots;
 }
 
 /**
   * @brief Setters for attribute m_global_m
   */
 void Cyfhel::setm_global_m(long global_m){
-	m_global_m = global_m;
+	this->m_global_m = global_m;
 }
 
 /**
   * @brief Setters for attribute m_global_p
   */
 void Cyfhel::setm_global_p(long global_p){
-	m_global_p = global_p;
+	this->m_global_p = global_p;
 }
 
 /**
   * @brief Setters for attribute m_global_r
   */
 void Cyfhel::setm_global_r(long global_r){
-	m_global_r = global_r;
+	this->m_global_r = global_r;
 }
 
 
@@ -322,7 +322,7 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) {
   * @param id (string) used to access ciphertext in the ctxtMap.
   * @return plaintext, the result of decrypting the ciphertext
   */
-vector<long> Cyfhel::decrypt(Ctxt ctxt_vect) {
+vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) {
 	vector<long> ptxt_vect(m_numberOfSlots, 0);// Empty vector of values
 	m_encryptedArray->decrypt(ctxt_vect, *m_secretKey, ptxt_vect);// Decrypt cyphertext
 	if(m_isVerbose)

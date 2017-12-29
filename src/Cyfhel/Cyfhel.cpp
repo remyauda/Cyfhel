@@ -324,6 +324,8 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 
 	@param: The method decrypt takes one mandatory parameter: a Ctxt.
 	-param1: a mandatory Ctxt which corresponds to vector to decrypt.
+
+	@return: Return a vector of long which corresponds to decrypted vector.
 */
 vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) const {
 	vector<long> ptxt_vect(m_numberOfSlots, 0);// Empty vector of values

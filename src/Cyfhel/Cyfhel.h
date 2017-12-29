@@ -84,6 +84,8 @@ class Cyfhel {
 
 		void setm_global_p(long global_p);//Setter of attribute m_global_p
 
+		void setm_global_r(long global_r);//Setter of attribute m_global_r
+
        
     /******PROTOTYPES OF PUBLIC METHODS******/
         //------ENCRYPTION------

@@ -175,6 +175,13 @@ void Cyfhel::setm_global_p(long global_p){
 	m_global_p = global_p;
 }
 
+/**
+  * @brief Setters for attribute m_global_r
+  */
+void Cyfhel::setm_global_r(long global_r){
+	m_global_r = global_r;
+}
+
 
 /******IMPLEMENTATION OF PRIVATE METHODS******/
 // KEY GENERATION

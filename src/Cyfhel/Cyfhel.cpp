@@ -340,11 +340,15 @@ vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) const {
 
 //------I/O------
 //SAVE ENVIRONMENT
-/**
-  * @brief Saves the context, m_secretKey and m_G polynomial in a .aenv file
-  * @param fileName name of the file without the extention
-  * @return BOOL 1 if all ok, 0 otherwise
-  */
+/*
+	@name: saveEnv
+	@description: Public method which allow to saves the context, m_secretKey and m_G polynomial in a .aenv file. The method return 1 if all ok and 0 otherwise.
+
+	@param: The method saveEnv takes one mandatory parameter: a string.
+	-param1: a mandatory string which corresponds to the name of the file without the extention.
+
+	@return: Return a bool which is equal to 1 if all ok and 0 otherwise.
+*/
 bool Cyfhel::saveEnv(string const& fileName) const {
 	bool res=1;
 	try

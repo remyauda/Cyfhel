@@ -41,21 +41,18 @@ using namespace std;
 
 
 /******CONSTRUCTOR WITH PARAMETERS******/
-Cyfhel::Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0)
-{
+Cyfhel::Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0) {
 	m_isVerbose = isVerbose;
 	keyGen(p, r, c, d, sec, w, L);
 }
 
-Cyfhel::Cyfhel(long p, long r, long c, long d, long sec, long w, long L, bool isVerbose):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0)
-{
-    m_isVerbose = isVerbose;
-    keyGen(p, r, c, d, sec, w, L);
+Cyfhel::Cyfhel(long p, long r, long c, long d, long sec, long w, long L, bool isVerbose):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0) {
+	m_isVerbose = isVerbose;
+	keyGen(p, r, c, d, sec, w, L);
 }
 
 // TODO: MUST be tested.
-Cyfhel::Cyfhel(vector<long> cryptoParameters, bool isVerbose):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0)
-{
+Cyfhel::Cyfhel(vector<long> cryptoParameters, bool isVerbose):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0) {
 	// TODO: We should be able to provide just some parameters and the rest will be initialize by default.
 	if(cryptoParameters.size() < 7)
 	{
@@ -133,28 +130,28 @@ long Cyfhel::getm_numberOfSlots() const {
 /**
   * @brief Getters for global parameters of the class
   */
-long Cyfhel::getm_global_m() const{
+long Cyfhel::getm_global_m() const {
 	return m_global_m;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
-long Cyfhel::getm_global_p() const{
+long Cyfhel::getm_global_p() const {
 	return m_global_p;
 }
 
 /**
   * @brief Getters for global parameters of the class
   */
-long Cyfhel::getm_global_r() const{
+long Cyfhel::getm_global_r() const {
 	return m_global_r;
 }
 
 /**
   * @brief Getter of attribute m_isVerbose
   */
-bool Cyfhel::getm_isVerbose() const{
+bool Cyfhel::getm_isVerbose() const {
 	return m_isVerbose;
 }
 
@@ -162,28 +159,28 @@ bool Cyfhel::getm_isVerbose() const{
 /**
   * @brief Setters for attribute m_numberOfSlots
   */
-void Cyfhel::setm_numberOfSlots(long numberOfSlots){
+void Cyfhel::setm_numberOfSlots(long numberOfSlots) {
 	this->m_numberOfSlots = numberOfSlots;
 }
 
 /**
   * @brief Setters for attribute m_global_m
   */
-void Cyfhel::setm_global_m(long global_m){
+void Cyfhel::setm_global_m(long global_m) {
 	this->m_global_m = global_m;
 }
 
 /**
   * @brief Setters for attribute m_global_p
   */
-void Cyfhel::setm_global_p(long global_p){
+void Cyfhel::setm_global_p(long global_p) {
 	this->m_global_p = global_p;
 }
 
 /**
   * @brief Setters for attribute m_global_r
   */
-void Cyfhel::setm_global_r(long global_r){
+void Cyfhel::setm_global_r(long global_r) {
 	this->m_global_r = global_r;
 }
 
@@ -208,7 +205,7 @@ void Cyfhel::setm_global_r(long global_r){
 	-param11(optional)(Default: gens = []): a optional vector of long which corresponds to vector of generators. By default, this parameter is such as gens = [].
 	-param12(optional)(Default: ords = []): a optional vector of long which corresponds to vector of orders. By default, this parameter is such as ords = [].
   */
-void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w, long L, long m, long R, long s, const vector<long>& gens, const vector<long>& ords){
+void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w, long L, long m, long R, long s, const vector<long>& gens, const vector<long>& ords) {
 	if(m_isVerbose)
 	{
 		std::cout << "Cyfhel::keyGen START" << endl;
@@ -231,11 +228,11 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w, long L, lo
 	//  - m -> use HElib method FindM with other parameters
 	if(m==-1)
 	{
-            m = FindM(sec, L, c, p, d, 0, 0);
-            if(m_isVerbose)
-			{
-				std::cout << "  - Calculated m: " << m <<endl;
-			}
+		m = FindM(sec, L, c, p, d, 0, 0);
+		if(m_isVerbose)
+		{
+			std::cout << "  - Calculated m: " << m <<endl;
+		}
 	}
 
 	// Context creation

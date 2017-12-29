@@ -213,7 +213,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w, long L, lo
         
 	// Initializing possible empty parameters for context
 	//  - L -> Heuristic computation
-	if(L==-1)
+	if(L == -1)
 	{
 		L=3*R+3;
 		if(p>2 || r>1)
@@ -226,7 +226,7 @@ void Cyfhel::keyGen(long p, long r, long c, long d, long sec, long w, long L, lo
 		}
 	}
 	//  - m -> use HElib method FindM with other parameters
-	if(m==-1)
+	if(m == -1)
 	{
 		m = FindM(sec, L, c, p, d, 0, 0);
 		if(m_isVerbose)
@@ -344,7 +344,7 @@ vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) const {
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
-bool Cyfhel::saveEnv(string const& fileName) const{
+bool Cyfhel::saveEnv(string const& fileName) const {
 	bool res=1;
 	try
 	{
@@ -372,7 +372,7 @@ bool Cyfhel::saveEnv(string const& fileName) const{
   * @param fileName name of the file without the extention
   * @return BOOL 1 if all ok, 0 otherwise
   */
-bool Cyfhel::restoreEnv(string const& fileName){
+bool Cyfhel::restoreEnv(string const& fileName) {
 	bool res=1;
 	unsigned long m1, p1, r1;
 	vector<long> gens, ords;
@@ -414,7 +414,7 @@ bool Cyfhel::restoreEnv(string const& fileName){
   * @param id2 ID of ctxt2 in unordered map
   * @param negative if True then perform subtraction
   */
-void Cyfhel::add(Ctxt& c1, Ctxt& c2, bool negative) const{
+void Cyfhel::add(Ctxt& c1, Ctxt& c2, bool negative) const {
 	c1.addCtxt(c2, negative);
 }
 

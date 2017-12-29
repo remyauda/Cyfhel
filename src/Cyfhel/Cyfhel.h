@@ -33,19 +33,19 @@ class Cyfhel {
  private:
 
     /******ATTRIBUTES******/
-        FHEcontext *m_context;// Required for key Generation
-        FHESecKey *m_secretKey;// Secret key of the Public-Secret key pair
-        FHEPubKey *m_publicKey;// Public key of the public-secret key pair
-        ZZX m_G;// NTL Poly used to create m_encryptedArray
-        EncryptedArray *m_encryptedArray;// Array used for encryption
-        long m_global_m, m_global_p, m_global_r;
+	FHEcontext *m_context;// Required for key Generation
+	FHESecKey *m_secretKey;// Secret key of the Public-Secret key pair
+	FHEPubKey *m_publicKey;// Public key of the public-secret key pair
+	ZZX m_G;// NTL Poly used to create m_encryptedArray
+	EncryptedArray *m_encryptedArray;// Array used for encryption
+	long m_global_m, m_global_p, m_global_r;
 	long m_numberOfSlots;// Nº of slots in scheme
 	bool m_isVerbose;// Flag to print messages on console
         
 
 
     /******PROTOTYPES OF PRIVATE METHODS******/
-        void keyGen(long p, long r, long c, long d, long sec, long w = 64,
+	void keyGen(long p, long r, long c, long d, long sec, long w = 64,
                     long L = -1, long m = -1, long R = 3, long s = 0,
                     const vector<long>& gens = vector<long>(),
                     const vector<long>& ords = vector<long>());

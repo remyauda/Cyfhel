@@ -53,31 +53,31 @@ class Cyfhel {
 
  public:
 
-    /******CONSTRUCTOR BY DEFAULT******/
+	/******CONSTRUCTOR BY DEFAULT******/
 
 
-    /******CONSTRUCTOR WITH PARAMETERS******/
+	/******CONSTRUCTOR WITH PARAMETERS******/
 	Cyfhel(bool isVerbose = false, long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40);
 
-        Cyfhel(long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40, bool isVerbose = false);
+	Cyfhel(long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40, bool isVerbose = false);
 
-        Cyfhel(vector<long> cryptoParameters, bool isVerbose = false);
+	Cyfhel(vector<long> cryptoParameters, bool isVerbose = false);
 
-    /******DESTRUCTOR BY DEFAULT******/
-        virtual ~Cyfhel();
+	/******DESTRUCTOR BY DEFAULT******/
+	virtual ~Cyfhel();
 
     /******GETTERS******/
-        long getm_numberOfSlots() const;//Getter of attribute m_numberOfSlots
+	long getm_numberOfSlots() const;//Getter of attribute m_numberOfSlots
 
-        long getm_global_m() const;//Getter of attribute m_global_m
+	long getm_global_m() const;//Getter of attribute m_global_m
 
-        long getm_global_p() const;//Getter of attribute m_global_p
+	long getm_global_p() const;//Getter of attribute m_global_p
 
-        long getm_global_r() const;//Getter of attribute m_global_r
+	long getm_global_r() const;//Getter of attribute m_global_r
 
 	bool getm_isVerbose() const;//Getter of attribute m_isVerbose
 
-    /******SETTERS******/
+	/******SETTERS******/
 	void setm_numberOfSlots(long numberOfSlots);//Setter of attribute m_numberOfSlots
 
 	void setm_global_m(long global_m);//Setter of attribute m_global_m
@@ -88,23 +88,23 @@ class Cyfhel {
 
        
     /******PROTOTYPES OF PUBLIC METHODS******/
-        //------ENCRYPTION------
-        Ctxt encrypt(vector<long> &ptxt_vect) const;//Encryption
+	//------ENCRYPTION------
+	Ctxt encrypt(vector<long> &ptxt_vect) const;//Encryption
         
-        vector<long> decrypt(Ctxt& ctxt_vect) const;//Decryption
+	vector<long> decrypt(Ctxt& ctxt_vect) const;//Decryption
 
 
-        //------AUXILIARY------
+	//------AUXILIARY------
 
     
-        //------I/O------
-        bool saveEnv(string const& fileName) const;//Save environment
+	//------I/O------
+	bool saveEnv(string const& fileName) const;//Save environment
 
-        bool restoreEnv(string const& fileName);//Restore environment
+	bool restoreEnv(string const& fileName);//Restore environment
 
         
     /******OPERATORS OVERLOAD******/
-        void add(Ctxt& id1, Ctxt& id2, bool negative=false) const;//Addition overload
+	void add(Ctxt& id1, Ctxt& id2, bool negative=false) const;//Addition overload
 };
 
 #endif

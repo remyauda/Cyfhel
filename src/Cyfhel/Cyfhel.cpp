@@ -244,11 +244,11 @@ void Cyfhel::keyGen(long const& p, long const& r, long const& c, long const& d, 
 	if(m_isVerbose)
 	{
 		std::cout << "  - Created Context: "
-		<< "p="   << p        << ", r=" << r
-		<< ", d=" << d        << ", c=" << c
-		<< ", sec=" << sec    << ", w=" << w
-		<< ", L=" << L        << ", m=" << m
-		<< ", gens=" << gens  << ", ords=" << ords <<  endl;
+		<< "p=" << p << ", r=" << r
+		<< ", d=" << d << ", c=" << c
+		<< ", sec=" << sec << ", w=" << w
+		<< ", L=" << L << ", m=" << m
+		<< ", gens=" << gens << ", ords=" << ords <<  endl;
 	}
 
 	// ZZX Polynomial creation

@@ -202,9 +202,13 @@ void Cyfhel::setm_global_p(long global_p) {
 	this->m_global_p = global_p;
 }
 
-/**
-  * @brief Setters for attribute m_global_r
-  */
+/*
+	@name: setm_global_r
+	@description: Setter of attribute m_global_r.
+
+	@param: The method setm_global_r takes one mandatory parameter: a long.
+	-param1: the new value for attribute m_global_r.
+*/
 void Cyfhel::setm_global_r(long global_r) {
 	this->m_global_r = global_r;
 }

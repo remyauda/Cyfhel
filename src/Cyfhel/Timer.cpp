@@ -82,22 +82,24 @@ void Timer::stop() {
 
 double Timer::benchmarkInSeconds() {
 	m_benchmarkSecond = m_stop - m_start;
-	if(m_isVerbose){
+	if(m_isVerbose)
+	{
 		std::cout << "Elapsed time: " << m_benchmarkSecond << endl;
 	}
 	return m_benchmarkSecond;
 }
 
-double Timer::benchmarkInSeconds(bool isVerbose) {
+double Timer::benchmarkInSeconds(bool const& isVerbose) {
 	m_benchmarkSecond = m_stop - m_start;
-	if(isVerbose){
+	if(isVerbose)
+	{
 		std::cout << "Elapsed time: " << m_benchmarkSecond << endl;
 	}
 	return m_benchmarkSecond;
 }
 
 
-void Timer::benchmarkInHoursMinutesSecondsMillisecondes(bool isVerbose) {
+void Timer::benchmarkInHoursMinutesSecondsMillisecondes(bool const& isVerbose) {
 	m_benchmarkSecond = m_stop - m_start;
 	int intBenchmarkSecond = m_benchmarkSecond;
 	int intBenchmarkMillisecond = ((m_benchmarkSecond - intBenchmarkSecond) * 1000);
@@ -105,8 +107,9 @@ void Timer::benchmarkInHoursMinutesSecondsMillisecondes(bool isVerbose) {
 	m_benchmarkHourMinuteSecondMillisecond[3] = intBenchmarkMillisecond;
 	m_benchmarkHourMinuteSecondMillisecond[2] = intBenchmarkSecond % 60;//Seconds
 	m_benchmarkHourMinuteSecondMillisecond[1] = (intBenchmarkSecond / 60) % 60;//Minutes
-	m_benchmarkHourMinuteSecondMillisecond[0] = (intBenchmarkSecond / 3600) % 60;//Hours
-	if(isVerbose){
+	m_benchmarkHourMinuteSecondMillisecond[0] = (intBenchmarkSecond / 3600);//Hours
+	if(isVerbose)
+	{
 		std::cout << "Elapsed time: " << m_benchmarkHourMinuteSecondMillisecond[0] << " hours " << m_benchmarkHourMinuteSecondMillisecond[1] << " minutes " << m_benchmarkHourMinuteSecondMillisecond[2] << " seconds " << m_benchmarkHourMinuteSecondMillisecond[3] << " millisecondes." << endl;
 	}
 }

@@ -406,7 +406,7 @@ bool Cyfhel::saveEnv(string const& fileName) const {
 		keyFile << *m_context << endl;            // Write the rest of the context
 		keyFile << *m_secretKey << endl;          // Write Secret key
 		keyFile << m_G <<endl;                    // Write m_G poly (m_encryptedArray can't be written, we save
-		                                          //  m_G in order to reconstruct m_encryptedArray in restoreEnv)
+		                                          // m_G in order to reconstruct m_encryptedArray in restoreEnv)
 		keyFile.close();
 	}
 	catch(exception& e)
@@ -435,18 +435,18 @@ bool Cyfhel::restoreEnv(string const& fileName) {
 		fstream keyFile(fileName+".aenv", fstream::in);
         assert(keyFile.is_open());
 
-        readContextBase(keyFile, m1, p1, r1, gens, ords);   
-                                                            // Read m, p, r, gens, ords
-        m_context = new FHEcontext(m1, p1, r1, gens, ords);   
-                                                            // Prepare empty context object
-        m_secretKey = new FHESecKey(*m_context);                // Prepare empty FHESecKey object
+        readContextBase(keyFile, m1, p1, r1, gens, ords);// Read m, p, r, gens, ords
+
+        m_context = new FHEcontext(m1, p1, r1, gens, ords);// Prepare empty context object
+
+        m_secretKey = new FHESecKey(*m_context);// Prepare empty FHESecKey object
         
-        keyFile >> *m_context;                    // Read the rest of the context
-        keyFile >> *m_secretKey;                  // Read Secret Key
-        keyFile >> m_G;                           // Read m_G Poly
-        m_encryptedArray = new EncryptedArray(*m_context, m_G);   // Reconstruct m_encryptedArray using m_G
-        m_publicKey = (FHEPubKey*) m_secretKey;     // Reconstruct Public Key from Secret Key
-        m_numberOfSlots = m_encryptedArray->size();                    // Refill m_numberOfSlots
+        keyFile >> *m_context;// Read the rest of the context
+        keyFile >> *m_secretKey;// Read Secret Key
+        keyFile >> m_G;// Read m_G Poly
+        m_encryptedArray = new EncryptedArray(*m_context, m_G);// Reconstruct m_encryptedArray using m_G
+        m_publicKey = (FHEPubKey*) m_secretKey;// Reconstruct Public Key from Secret Key
+        m_numberOfSlots = m_encryptedArray->size();// Refill m_numberOfSlots
         m_global_m = m1;
         m_global_p = p1;
         m_global_r = r1;
@@ -455,7 +455,7 @@ bool Cyfhel::restoreEnv(string const& fileName) {
 	{
 		res=0;
     }
-    return res;// 1 if all OK, 0 otherwise
+    return res;//1 if all OK, 0 otherwise
 }
 
 

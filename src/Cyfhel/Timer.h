@@ -7,35 +7,35 @@ class Timer{
 
  private:
     /******ATTRIBUTES******/
-        double m_start;
-        double m_stop;
+	double m_start;
+	double m_stop;
 	bool m_isVerbose;
 	double m_benchmarkSecond;
 	double m_benchmarkHourMinuteSecondMillisecond[4];
 
     /******PROTOTYPES OF PRIVATE METHODS******/
-        double getTime();
+	double getTime();
 
  public:
 
     /******CONSTRUCTOR BY DEFAULT******/
-        Timer();
+	Timer();
 
     /******CONSTRUCTOR WITH PARAMETERS******/
-        Timer(bool isVerbose=false);
+	Timer(bool isVerbose=false);
 
     /******DESTRUCTOR BY DEFAULT******/
-        virtual ~Timer();
+	virtual ~Timer();
 
     /******GETTERS******/
-	double getm_benchmarkSecond();
+	double getm_benchmarkSecond();//Getter of attribute m_benchmarkSecond
 
     /******PROTOTYPES OF PUBLIC METHODS******/
-        void start();
-        void stop();
-        double benchmarkInSeconds();
-	double benchmarkInSeconds(bool isVerbose);
-	void benchmarkInHoursMinutesSecondsMillisecondes(bool isVerbose);
+	void start();
+	void stop();
+	double benchmarkInSeconds();
+	double benchmarkInSeconds(bool const& isVerbose);
+	void benchmarkInHoursMinutesSecondsMillisecondes(bool const& isVerbose);
 };
 
 #endif

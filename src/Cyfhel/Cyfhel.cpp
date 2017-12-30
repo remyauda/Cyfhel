@@ -213,6 +213,17 @@ void Cyfhel::setm_global_r(long global_r) {
 	this->m_global_r = global_r;
 }
 
+/*
+	@name: setm_isVerbose
+	@description: Setter of attribute m_isVerbose.
+
+	@param: The method setm_isVerbose takes one mandatory parameter: a bool.
+	-param1: the new value for attribute m_isVerbose.
+*/
+void Cyfhel::setm_isVerbose(bool isVerbose) {
+	this->m_isVerbose = isVerbose;
+}
+
 
 /******IMPLEMENTATION OF PRIVATE METHODS******/
 // KEY GENERATION

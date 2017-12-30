@@ -86,6 +86,8 @@ class Cyfhel {
 
 	void setm_global_r(long global_r);//Setter of attribute m_global_r
 
+	void setm_isVerbose(bool isVerbose);//Setter of attribute m_isVerbose
+
        
     /******PROTOTYPES OF PUBLIC METHODS******/
 	//------ENCRYPTION------

@@ -185,15 +185,19 @@ void Cyfhel::setm_numberOfSlots(long numberOfSlots) {
 	@description: Setter of attribute m_global_m.
 
 	@param: The method setm_global_m takes one mandatory parameter: a long.
-	-param1: the new value for attributes m_global_m.
+	-param1: the new value for attribute m_global_m.
 */
 void Cyfhel::setm_global_m(long global_m) {
 	this->m_global_m = global_m;
 }
 
-/**
-  * @brief Setters for attribute m_global_p
-  */
+/*
+	@name: setm_global_p
+	@description: Setter of attribute m_global_p.
+
+	@param: The method setm_global_p takes one mandatory parameter: a long.
+	-param1: the new value for attribute m_global_p.
+*/
 void Cyfhel::setm_global_p(long global_p) {
 	this->m_global_p = global_p;
 }

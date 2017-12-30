@@ -118,47 +118,64 @@ Cyfhel::~Cyfhel(){
 }
 
 /******IMPLEMENTATION OF GETTERS******/
+/*
+	@name: getm_numberOfSlots
+	@description: Getter of attribute m_numberOfSlots. It corresponds to the number of plaintext slots.
 
-/**
-  * @brief Number of plaintext slots
-  * @return number of plaintext slots
-  */
+	@param: null.
+*/
 long Cyfhel::getm_numberOfSlots() const {
 	return m_numberOfSlots;
 }
 
-/**
-  * @brief Getters for global parameters of the class
-  */
+/*
+	@name: getm_global_m
+	@description: Getter of attribute m_global_m.
+
+	@param: null.
+*/
 long Cyfhel::getm_global_m() const {
 	return m_global_m;
 }
 
-/**
-  * @brief Getters for global parameters of the class
-  */
+/*
+	@name: getm_global_p
+	@description: Getter of attribute m_global_p.
+
+	@param: null.
+*/
 long Cyfhel::getm_global_p() const {
 	return m_global_p;
 }
 
-/**
-  * @brief Getters for global parameters of the class
-  */
+/*
+	@name: getm_global_r
+	@description: Getter of attribute m_global_r.
+
+	@param: null.
+*/
 long Cyfhel::getm_global_r() const {
 	return m_global_r;
 }
 
-/**
-  * @brief Getter of attribute m_isVerbose
-  */
+/*
+	@name: getm_isVerbose
+	@description: Getter of attribute m_isVerbose.
+
+	@param: null.
+*/
 bool Cyfhel::getm_isVerbose() const {
 	return m_isVerbose;
 }
 
 /******IMPLEMENTATION OF SETTERS******/
-/**
-  * @brief Setters for attribute m_numberOfSlots
-  */
+/*
+	@name: setm_numberOfSlots
+	@description: Setter of attribute m_numberOfSlots.
+
+	@param: The method setm_numberOfSlots takes one mandatory parameter: a long.
+	-param1: the new number of slots for m_numberOfSlots.
+*/
 void Cyfhel::setm_numberOfSlots(long numberOfSlots) {
 	this->m_numberOfSlots = numberOfSlots;
 }

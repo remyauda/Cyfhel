@@ -3,6 +3,7 @@
 
 #include "Cyfhel.h"
 
+//The Cyfhel Class
 class Timer{
 
  private:

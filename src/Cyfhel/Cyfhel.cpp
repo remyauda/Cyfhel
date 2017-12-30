@@ -415,19 +415,26 @@ bool Cyfhel::restoreEnv(string const& fileName) {
 	{
 		res=0;
     }
-    return res;                                 // 1 if all OK, 0 otherwise
+    return res;// 1 if all OK, 0 otherwise
 }
 
 
 //******OPERATORS OVERLOAD******/
 //ADDITION OVERLOAD
-/**
-  * @brief Add ciphertext at key to ciphertext at other_key and store result
-  * back in unordered map at key
-  * @param id1 ID of ctxt1 in unordered map
-  * @param id2 ID of ctxt2 in unordered map
-  * @param negative if True then perform subtraction
-  */
+/*
+	@name: add
+	@description: Public method which allow perform the += operation between two Ctxt. The method return 1 if all ok and 0 otherwise.
+
+	@param: The method add takes two mandatory parameters and one optional parameter: a Ctxt, a Ctxt and a optional bool.
+	-param1: a mandatory Ctxt which corresponds to c1 in the following assersion: c1 += c2 or c1 -= c2 where c1 and c2 are two Ctxt.
+			 This parameter is modify after the operation.
+	-param2: a mandatory Ctxt which corresponds to c2 in the following assersion: c1 += c2 or c1 -= c2 where c1 and c2 are two Ctxt.
+	-param3(optional)(Default: negative = false): a optional bool which is equal to false if the operation do the assersion: c1 += c2
+												  and true if the operation do the assersion: c1 -= c2 where c1 and c2 are two Ctxt.
+												  By default, this parameter is equal to false.
+
+	@return: null.
+*/
 void Cyfhel::add(Ctxt& c1, Ctxt& c2, bool negative) const {
 	c1.addCtxt(c2, negative);
 }

@@ -377,12 +377,15 @@ bool Cyfhel::saveEnv(string const& fileName) const {
 }
 
 //RESTORE ENVIRONMENT
-/**
-  * @brief Restores the context, m_secretKey and m_G polynomial from a .aenv file.
-  *  Then it reconstucts m_publicKey and m_encryptedArray (EncriptedArray) with m_secretKey & m_G.
-  * @param fileName name of the file without the extention
-  * @return BOOL 1 if all ok, 0 otherwise
-  */
+/*
+	@name: restoreEnv
+	@description: Public method which allow to restores the context, m_secretKey and m_G polynomial from a .aenv file. The method return 1 if all ok and 0 otherwise.
+
+	@param: The method restoreEnv takes one mandatory parameter: a string.
+	-param1: a mandatory string which corresponds to the name of the file without the extention to restore the context, m_secretKey and m_G polynomial.
+
+	@return: Return a bool which is equal to 1 if all ok and 0 otherwise.
+*/
 bool Cyfhel::restoreEnv(string const& fileName) {
 	bool res=1;
 	unsigned long m1, p1, r1;

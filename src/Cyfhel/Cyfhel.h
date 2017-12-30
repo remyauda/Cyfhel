@@ -48,7 +48,7 @@ class Cyfhel {
 	void keyGen(long const& p, long const& r, long const& c, long const& d, long const& sec, long const& w = 64,
                     long L = -1, long m = -1, long const& R = 3, long const& s = 0,
                     const vector<long>& gens = vector<long>(),
-                    const vector<long>& ords = vector<long>());
+                    const vector<long>& ords = vector<long>());//Performs Key Generation using HElib functions.
 
 
  public:

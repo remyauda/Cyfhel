@@ -12,6 +12,7 @@ class Timer{
 	bool m_isVerbose;
 	double m_benchmarkSecond;
 	double m_benchmarkHourMinuteSecondMillisecond[4];
+	double m_benchmarkYearMonthWeekDayHourMinSecMilli[8];
 
     /******PROTOTYPES OF PRIVATE METHODS******/
 	double getTime();
@@ -35,7 +36,8 @@ class Timer{
 	void stop();
 	double benchmarkInSeconds();
 	double benchmarkInSeconds(bool const& isVerbose);
-	void benchmarkInHoursMinutesSecondsMillisecondes(bool const& isVerbose);
+	void benchmarkInHoursMinutesSecondsMillisecondes(bool const& isVerbose=true);
+	void benchmarkInYearMonthWeekHourMinSecMilli(bool const& isVerbose=true);
 };
 
 #endif

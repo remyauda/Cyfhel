@@ -115,6 +115,26 @@ void Timer::benchmarkInHoursMinutesSecondsMillisecondes(bool const& isVerbose) {
 }
 
 
+void Timer::benchmarkInYearMonthWeekHourMinSecMilli(bool const& isVerbose) {
+	m_benchmarkSecond = m_stop - m_start;
+	int intBenchmarkSecond = m_benchmarkSecond;
+	int intBenchmarkMillisecond = ((m_benchmarkSecond - intBenchmarkSecond) * 1000);
+	intBenchmarkMillisecond %= 1000;//Milliseconds
+	m_benchmarkYearMonthWeekDayHourMinSecMilli[7] = intBenchmarkMillisecond;
+	m_benchmarkYearMonthWeekDayHourMinSecMilli[6] = intBenchmarkSecond % 60;//Seconds
+	m_benchmarkYearMonthWeekDayHourMinSecMilli[5] = (intBenchmarkSecond / 60) % 60;//Minutes
+	m_benchmarkYearMonthWeekDayHourMinSecMilli[4] = (intBenchmarkSecond / 3600) % 24;//Hours
+	m_benchmarkYearMonthWeekDayHourMinSecMilli[3] = (intBenchmarkSecond / 86400) % 7;//Days
+	m_benchmarkYearMonthWeekDayHourMinSecMilli[2] = (intBenchmarkSecond / 604800) % 4;//Weeks
+	m_benchmarkYearMonthWeekDayHourMinSecMilli[1] = (intBenchmarkSecond / 2419200) % 24;//Months
+	m_benchmarkYearMonthWeekDayHourMinSecMilli[0] = (intBenchmarkSecond / 58060800);//Years
+	if(isVerbose)
+	{
+		std::cout << "Elapsed time: " << m_benchmarkHourMinuteSecondMillisecond[0] << " years " << m_benchmarkHourMinuteSecondMillisecond[1] << " months " << m_benchmarkHourMinuteSecondMillisecond[2] << " weeks " << m_benchmarkHourMinuteSecondMillisecond[3] << " days " << m_benchmarkHourMinuteSecondMillisecond[4] << " hours " << m_benchmarkHourMinuteSecondMillisecond[5] << " minutes " << m_benchmarkHourMinuteSecondMillisecond[6] << " seconds " << m_benchmarkHourMinuteSecondMillisecond[7] << " milliseconds." << endl;
+	}
+}
+
+
 
 
 

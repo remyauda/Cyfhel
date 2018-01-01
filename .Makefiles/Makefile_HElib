@@ -129,14 +129,14 @@ SRC = KeySwitching.cpp EncryptedArray.cpp FHE.cpp Ctxt.cpp CModulus.cpp FHEConte
 	  replicate.cpp hypercube.cpp matching.cpp powerful.cpp BenesNetwork.cpp \
 	  permutations.cpp PermNetwork.cpp OptimizePermutations.cpp eqtesting.cpp polyEval.cpp \
 	  extractDigits.cpp EvalMap.cpp recryption.cpp debugging.cpp matmul.cpp matmul1D.cpp \
-	  blockMatmul.cpp blockMatmul1D.cpp
+	  blockMatmul.cpp blockMatmul1D.cpp CyCtxt.cpp
 
 #............................... LIBRARY INTERMEDIATE FILES ..................................
 LOBJ = NumbTh.lo timing.lo bluestein.lo PAlgebra.lo  CModulus.lo FHEContext.lo IndexSet.lo \
 	   DoubleCRT.lo FHE.lo KeySwitching.lo Ctxt.lo EncryptedArray.lo replicate.lo \
 	   hypercube.lo matching.lo powerful.lo BenesNetwork.lo permutations.lo PermNetwork.lo \
 	   OptimizePermutations.lo eqtesting.lo polyEval.lo extractDigits.lo EvalMap.lo \
-	   recryption.lo debugging.lo matmul.lo matmul1D.lo blockMatmul.lo blockMatmul1D.lo
+	   recryption.lo debugging.lo matmul.lo matmul1D.lo blockMatmul.lo blockMatmul1D.lo CyCtxt.lo
 
 #.................................. LIBRARY  FINAL FILES .....................................
 LIB_LA = lib$(LIBNAME).la

@@ -323,7 +323,7 @@ void Cyfhel::keyGen(long const& p, long const& r, long const& c, long const& d, 
 
 	if(m_isVerbose)
 	{
-		std::cout << "Cyfhel::keyGen COMPLETED" << endl;
+		std::cout << "Cyfhel::keyGen COMPLETED \n" << endl;
 	}
 }
 
@@ -346,6 +346,13 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 	Ctxt ctxt_vect(*m_publicKey);// Empty cyphertext object
 	// Create a vector of size nddSlots and fill it first with values from plaintext, then with zeros
 	long vector_size = ptxt_vect.size();
+	if(vector_size>m_numberOfSlots){
+		cerr<<"Error: the size of the plaintext vector to encrypt cannot be greater than the number of slot"<<m_numberOfSlots<<"of the Cyfhel object."<<endl;
+	}
+	/*if(m_isVerbose)
+	{
+		std::cout << "  Cyfhel::encrypt(" << ptxt_vect <<  ")\n" << endl;
+	}*/
 	for(int i=0; i<m_numberOfSlots; i++)
 	{
 		if(i>=vector_size)
@@ -354,10 +361,6 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 		}
 	}
 	m_encryptedArray->encrypt(ctxt_vect, *m_publicKey, ptxt_vect);// Encrypt plaintext
-	if(m_isVerbose)
-	{
-		std::cout << "  Cyfhel::encrypt(" << ptxt_vect <<  ")" << endl;
-	}
 	return ctxt_vect;
 }
 
@@ -374,10 +377,10 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) const {
 	vector<long> ptxt_vect(m_numberOfSlots, 0);// Empty vector of values
 	m_encryptedArray->decrypt(ctxt_vect, *m_secretKey, ptxt_vect);// Decrypt cyphertext
-	if(m_isVerbose)
+	/*if(m_isVerbose)
 	{
-		std::cout << "  Cyfhel::decrypt(" << ptxt_vect << ")" << endl;
-	}
+		std::cout << "  Cyfhel::decrypt(" << ptxt_vect << ")\n" << endl;
+	}*/
 	return ptxt_vect;
 }
 

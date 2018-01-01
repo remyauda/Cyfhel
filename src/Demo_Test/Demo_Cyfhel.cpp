@@ -135,7 +135,7 @@ int main()
     std::cout <<"Encrypted v2: Encrypt("<< v2<< ")"<<endl;
     std::cout <<"Performing Encrypt(v1) + Encrypt(v2)..."<<endl;
     // Sum of the two cypher text.
-    cy.add(c1, c2);
+    c1 += c2;
     // Decrypt the result of the addition of the two encrypted vectors.
     vector<long> v_add_v1_v2 = cy.decrypt(c1);
     // Resize the vector.

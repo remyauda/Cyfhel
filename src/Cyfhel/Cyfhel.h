@@ -106,7 +106,7 @@ class Cyfhel {
 
         
     /******OPERATORS OVERLOAD******/
-	void add(Ctxt& id1, Ctxt& id2, bool negative=false) const;//Addition overload
+	
 };
 
 #endif

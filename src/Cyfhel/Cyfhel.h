@@ -91,9 +91,9 @@ class Cyfhel {
        
     /******PROTOTYPES OF PUBLIC METHODS******/
 	//------ENCRYPTION------
-	Ctxt encrypt(vector<long> &ptxt_vect) const;//Encryption
+	Ctxt encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize = true) const;//Encryption
         
-	vector<long> decrypt(Ctxt& ctxt_vect) const;//Decryption
+	vector<long> decrypt(Ctxt& ctxt_vect, bool isDecryptedPtxt_vectResize = true) const;//Decryption
 
 
 	//------AUXILIARY------

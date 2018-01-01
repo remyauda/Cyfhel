@@ -342,10 +342,12 @@ void Cyfhel::keyGen(long const& p, long const& r, long const& c, long const& d, 
 
 	@return: Return a Ctxt which corresponds to encrypted vector.
 */
-Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
-	Ctxt ctxt_vect(*m_publicKey);// Empty cyphertext object
-	// Create a vector of size nddSlots and fill it first with values from plaintext, then with zeros
+Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize) const {
+	// Empty cyphertext object.
+	Ctxt ctxt_vect(*m_publicKey);
+	// Create a vector of size nddSlots and fill it first with values from plaintext, then with zeros.
 	long vector_size = ptxt_vect.size();
+	// If the user try to encrypt a vector with a size greater than the maximum slots we can encrypt, then return an error.
 	if(vector_size>m_numberOfSlots){
 		cerr<<"Error: the size of the plaintext vector to encrypt cannot be greater than the number of slot"<<m_numberOfSlots<<"of the Cyfhel object."<<endl;
 	}
@@ -353,6 +355,7 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 	{
 		std::cout << "  Cyfhel::encrypt(" << ptxt_vect <<  ")\n" << endl;
 	}*/
+	// Add (m_numberOfSlots - vector_size) zeros after the original vector.
 	for(int i=0; i<m_numberOfSlots; i++)
 	{
 		if(i>=vector_size)
@@ -360,7 +363,14 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 			ptxt_vect.push_back(0);
 		}
 	}
+	// Encryption of the ptxt_vect with the public key m_publicKey. Initialize the Ctxt ctxt_vect.
 	m_encryptedArray->encrypt(ctxt_vect, *m_publicKey, ptxt_vect);// Encrypt plaintext
+	// The vector ptxt_vect has been changed as we have add (m_numberOfSlots - vector_size) zeros after the original vector.
+	// So if the user want to, we resize the vector ptxt_vect to have the original vector.
+	if(isPtxt_vectResize){
+		ptxt_vect.resize(vector_size);
+	}
+	// Return the homeomorphic cypher vector of ptxt_vect: the Ctxt ctxt_vect.
 	return ctxt_vect;
 }
 
@@ -374,7 +384,7 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect) const {
 
 	@return: Return a vector of long which corresponds to decrypted vector.
 */
-vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect) const {
+vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect, bool isDecryptedPtxt_vectResize) const {
 	vector<long> ptxt_vect(m_numberOfSlots, 0);// Empty vector of values
 	m_encryptedArray->decrypt(ctxt_vect, *m_secretKey, ptxt_vect);// Decrypt cyphertext
 	/*if(m_isVerbose)

@@ -109,10 +109,11 @@ int main()
     std::cout <<"Encryption of v1..."<<endl;
     std::cout <<"Encryption of v2..."<<endl;
 
-    // Resize the vector.
-    // TODO: The resize must be done in an override of the encrypt and decrypt methods.
-    v1.resize(VECTOR_SIZE);
-    v2.resize(VECTOR_SIZE);
+    /* If the user has specified false for the second parameter of encrypt ie ispPtxt_vectResize, the plaintext vectors have been modified by the encrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the plaintext vectors. So, we have to resize the plaintext vectors to obtain the original ones.
+       Note: we recommand to doesn't specify the second parameter of encrypt because the resize will then be done automatically.*/
+    //v1.resize(VECTOR_SIZE);
+    //v2.resize(VECTOR_SIZE);
 
     std::cout << "Encrypted v1: Encrypt(" << v1 << ")"<<endl;
     std::cout << "Encrypted v2: Encrypt(" << v2 << ")"<<endl;

@@ -59,16 +59,55 @@ using namespace std;
 /******IMPLEMENTATION OF PUBLIC METHODS******/
 
 
-
 //------AUXILIARY------
 
 
 //------I/O------
 
 
+/******IMPLEMENTATION OF PUBLIC METHODS: COMPARISON OPERATORS OVERLOAD******/
 
 
-//******OPERATORS OVERLOAD******/
+/******IMPLEMENTATION OF PUBLIC METHODS: SHORTCUT OPERATORS OVERLOAD******/
+
+
+
+/******IMPLEMENTATION OF PUBLIC METHODS: ARITHMETIC OPERATORS OVERLOAD******/
+
+// Sum of two CyCtxt.
+CyCtxt operator+ (CyCtxt const& cy1, CyCtxt const& cy2){
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy1_copy(cy1);
+	// Called the operator += of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	cy1_copy += cy2;
+	// Return the result ie the sum of the two CyCtxt.
+	return cy1_copy;
+}
+
+// Substraction of two CyCtxt.
+CyCtxt operator- (CyCtxt const& cy1, CyCtxt const& cy2){
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy1_copy(cy1);
+	// Called the operator -= of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	cy1_copy -= cy2;
+	// Return the result ie the substraction of the two CyCtxt.
+	return cy1_copy;
+}
+
+// Multiplication of two CyCtxt.
+CyCtxt operator* (CyCtxt const& cy1, CyCtxt const& cy2){
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy1_copy(cy1);
+	// Called the operator *= of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	cy1_copy *= cy2;
+	// Return the result ie the multiplication of the two CyCtxt.
+	return cy1_copy;
+}
+
+
+/******IMPLEMENTATION OF PUBLIC METHODS: STREAM OPERATORS OVERLOAD******/
+
+
 
 
 

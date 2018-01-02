@@ -270,11 +270,53 @@ int main()
    std::cout <<"\n"<<endl;
 
 
-    // Multiplication
-    //k1 = cy.encrypt(v1);
-    //k2 = cy.encrypt(v2);
-    //cy.mult(k1, k2);
-    //vector<long> vRes2 = cy.decrypt(k1);
+    // Perform homeomorphic addition with operator + .
+    std::cout <<"*** Test of the homeomorphic addition with operator + ***"<<endl;
+    std::cout <<"Encrypted v5: Encrypt("<< v_mult_v4_v2<< ")"<<endl;
+    std::cout <<"Encrypted v2: Encrypt("<< v2<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v5) + Encrypt(v2)..."<<endl;
+    // Sum of the two cypher text.
+    CyCtxt cAdd1_2 = c1 + c2;
+    // Decrypt the result of the addition of the two encrypted vectors.
+    vector<long> v_add_v5_v2 = cy.decrypt(cAdd1_2);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    // TODO: The resize must be done in an override of the decrypt methods.
+    v_add_v5_v2.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the addition of the two encrypted vectors is the same that the addition of the two vectors without encryption.
+    std::cout <<"Decrypt(Encrypt(v5) + Encrypt(v2)) -> "<< v_add_v5_v2<<endl;
+    // Perform the sum += on the unencrypted vectors. 
+    // std::plus adds together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> v5Plusv2(VECTOR_SIZE, 0);
+    std::transform (v_mult_v4_v2.begin(), v_mult_v4_v2.end(), v2.begin(), v5Plusv2.begin(), std::plus<long>());
+    std::cout <<"v3 = v1 + v2 -> "<< v5Plusv2<<endl;
+    // If Decrypt(Encrypt(v5) + Encrypt(v2)) equal to v5 + v2, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_add_v5_v2 == v5Plusv2){
+   	std::cout <<"Homeomorphic operation add with operator + is a success: Decrypt(Encrypt(v1) + Encrypt(v2)) equal to v1 + v2."<<endl;
+   	number_success += 1;
+    }
+    else if (v_add_v5_v2 != v5Plusv2){
+   	std::cout <<"Homeomorphic operation add with operator + is a fail: Decrypt(Encrypt(v1) + Encrypt(v2)) not equal to v1 + v2."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_add_v5_v2 and v5Plusv2."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+
+    
 
     // Scalar product
     //k1 = cy.encrypt(v1);

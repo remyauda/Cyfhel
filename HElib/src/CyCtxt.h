@@ -8,12 +8,18 @@ class CyCtxt: public Ctxt {
 
  private:
 
-    /******ATTRIBUTES******/
+	/******ATTRIBUTES******/
 	
+
+	/******PROTOTYPES OF PRIVATE METHODS******/
+
         
+	/******COMPARISON OPERATORS OVERLOAD******/
 
 
-    /******PROTOTYPES OF PRIVATE METHODS******/
+	/******STREAM OPERATORS OVERLOAD******/
+	friend std::ostream& operator<< (std::ostream& flux, CyCtxt const& cy);
+	friend std::istream& operator<< (std::istream& in, CyCtxt& cy);
 	
 
 
@@ -29,14 +35,16 @@ class CyCtxt: public Ctxt {
 	/******DESTRUCTOR BY DEFAULT******/
 	
 
-    /******GETTERS******/
+	/******GETTERS******/
 	
 	/******SETTERS******/
 	
 
        
-    /******PROTOTYPES OF PUBLIC METHODS******/
+	/******PROTOTYPES OF PUBLIC METHODS******/
 
+
+	/******PROTOTYPES OF PUBLIC METHODS: SHORTCUT OPERATORS OVERLOAD******/
 
 
 	//------AUXILIARY------
@@ -44,11 +52,12 @@ class CyCtxt: public Ctxt {
     
 	//------I/O------
 
-
-        
-    /******OPERATORS OVERLOAD******/
-
-
 };
+
+	/******ARITHMETIC OPERATORS OVERLOAD******/
+	CyCtxt operator+(CyCtxt const& cy1, CyCtxt const& cy2);
+	CyCtxt operator-(CyCtxt const& cy1, CyCtxt const& cy2);
+	CyCtxt operator*(CyCtxt const& cy1, CyCtxt const& cy2);
+
 
 #endif

@@ -216,7 +216,53 @@ int main()
    	number_fail += 1;
     }
     else{
-   	std::cout <<"Error: unexpected result during the comparison of v_add_v1_v2 and v1Plusv2."<<endl;
+   	std::cout <<"Error: unexpected result during the comparison of v_minus_v3_v2 and v3Minusv2."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+
+    // Perform homeomorphic multiplication with operator *= .
+    std::cout <<"*** Test of the homeomorphic multiplication with operator *= ***"<<endl;
+    std::cout <<"Encrypted v4: Encrypt("<< v_minus_v3_v2<< ")"<<endl;
+    std::cout <<"Encrypted v2: Encrypt("<< v2<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v4) * Encrypt(v2)..."<<endl;
+    // Multiplication of the two cypher text.
+    c1 *= c2;
+    // Decrypt the result of the multiplication of the two encrypted vectors.
+    vector<long> v_mult_v4_v2  = cy.decrypt(c1);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    // TODO: The resize must be done in an override of the decrypt methods.
+    v_mult_v4_v2.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the addition of the two encrypted vectors is the same that the addition of the two vectors without encryption.
+    std::cout <<"Decrypt(Encrypt(v4) * Encrypt(v2)) -> "<< v_mult_v4_v2<<endl;
+    // Perform the multiplication *= on the unencrypted vectors. 
+    // std::multiplies multiplies together its two arguments elements by elements.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> v4Multv2(VECTOR_SIZE, 0);
+    std::transform (v_minus_v3_v2.begin(), v_minus_v3_v2.end(), v2.begin(), v4Multv2.begin(), std::multiplies<long>());
+    std::cout <<"v5 = v4 * v2 -> "<< v4Multv2<<endl;
+    // If Decrypt(Encrypt(v4) * Encrypt(v2)) equal to v4 * v2, The homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_mult_v4_v2 == v4Multv2){
+   	std::cout <<"Homeomorphic operation mult with operator *= is a success: Decrypt(Encrypt(v4) * Encrypt(v2)) equal to v4 * v2."<<endl;
+   	number_success += 1;
+    }
+    else if (v_mult_v4_v2 != v4Multv2){
+   	std::cout <<"Homeomorphic operation mult with operator *= is a fail: Decrypt(Encrypt(v4) * Encrypt(v2)) not equal to v4 * v2."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_mult_v4_v2 and v4Multv2."<<endl;
 	number_unexpeted_error += 1;
     }
 

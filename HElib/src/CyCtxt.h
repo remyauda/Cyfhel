@@ -42,8 +42,8 @@ class CyCtxt: public Ctxt {
 
        
 	/******PROTOTYPES OF PUBLIC METHODS******/
-	CyCtxt square() const;
-	CyCtxt cube() const;
+	CyCtxt returnSquare() const;
+	CyCtxt returnCube() const;
 
 	/******PROTOTYPES OF PUBLIC METHODS: SHORTCUT OPERATORS OVERLOAD******/
 

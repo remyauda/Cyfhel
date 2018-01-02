@@ -58,20 +58,20 @@ using namespace std;
 
 /******IMPLEMENTATION OF PUBLIC METHODS******/
 
-CyCtxt CyCtxt::square() const{
+CyCtxt CyCtxt::returnSquare() const{
     // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
     CyCtxt this_copy(*this);
     // Called the square method inherit from class Ctxt to modify the copy of current CyCtxt: this_copy.
-    this_copy = this->square();
+    this_copy.square();
     // Return the result ie the square of the initial CyCtxt.
     return this_copy;
 }
 
-CyCtxt CyCtxt::cube() const{
+CyCtxt CyCtxt::returnCube() const{
     // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
     CyCtxt this_copy(*this);
     // Called the cube method inherit from class Ctxt to modify the copy of current CyCtxt: this_copy.
-    this_copy = this->cube();
+    this_copy.cube();
     // Return the result ie the cube of the initial CyCtxt.
     return this_copy;
 }

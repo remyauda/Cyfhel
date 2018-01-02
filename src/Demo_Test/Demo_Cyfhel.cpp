@@ -447,7 +447,96 @@ int main()
    std::cout <<"\n"<<endl;
 
 
-    
+    // Perform homeomorphic returnSquare.
+    std::cout <<"*** Test of the homeomorphic returnSquare with operator returnSquare ***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v12)²..."<<endl;
+    // Square of the first cypher text.
+    CyCtxt cSquare12_22 = c12.returnSquare();
+    // Decrypt the result of the square of the encrypted vectors.
+    vector<long> v_square_v12_v22 = cy.decrypt(cSquare12_22);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    // TODO: The resize must be done in an override of the decrypt methods.
+    v_square_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the square of the encrypted vector is the same that the square of the vector without encryption.
+    std::cout <<"Decrypt(Encrypt(v12)²) -> "<< v_square_v12_v22<<endl;
+    // Perform the square ² on the unencrypted vector. 
+    // std::multiplies multiplies together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> v12Squarev22(VECTOR_SIZE, 0);
+    std::transform (v12.begin(), v12.end(), v12.begin(), v12Squarev22.begin(), std::multiplies<long>());
+    std::cout <<"v62 = v12² -> "<< v12Squarev22<<endl;
+    // If Decrypt(Encrypt(v12)²) equal to v12², the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_square_v12_v22 == v12Squarev22){
+   	std::cout <<"Homeomorphic operation square with operator ² is a success: Decrypt(Encrypt(v12)²) equal to v12²."<<endl;
+   	number_success += 1;
+    }
+    else if (v_square_v12_v22 != v12Squarev22){
+   	std::cout <<"Homeomorphic operation square with operator ² is a fail: Decrypt(Encrypt(v12)²) not equal to v12²."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_square_v12_v22 and v12Squarev22."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+    // Perform homeomorphic returnCube.
+    std::cout <<"*** Test of the returnCube returnSquare with operator returnCube ***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v12)³..."<<endl;
+    // Cube of the first cypher text.
+    CyCtxt cCube12_22 = c12.returnCube();
+    // Decrypt the result of the cube of the encrypted vectors.
+    vector<long> v_cube_v12_v22 = cy.decrypt(cCube12_22);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    // TODO: The resize must be done in an override of the decrypt methods.
+    v_cube_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the cube of the encrypted vector is the same that the cube of the vector without encryption.
+    std::cout <<"Decrypt(Encrypt(v12)³) -> "<< v_cube_v12_v22<<endl;
+    // Perform the cube ³ on the unencrypted vector. 
+    // std::multiplies multiplies together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> v12Cubev22_0(VECTOR_SIZE, 0);
+    vector<long> v12Cubev22(VECTOR_SIZE, 0);
+    std::transform (v12.begin(), v12.end(), v12.begin(), v12Cubev22_0.begin(), std::multiplies<long>());
+    std::transform (v12Cubev22_0.begin(), v12Cubev22_0.end(), v12.begin(), v12Cubev22.begin(), std::multiplies<long>());
+    std::cout <<"v72 = v12³ -> "<< v12Cubev22<<endl;
+    // If Decrypt(Encrypt(v12)³) equal to v12³, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_cube_v12_v22 == v12Cubev22){
+   	std::cout <<"Homeomorphic operation cube with operator ³ is a success: Decrypt(Encrypt(v12)³) equal to v12³."<<endl;
+   	number_success += 1;
+    }
+    else if (v_cube_v12_v22 != v12Cubev22){
+   	std::cout <<"Homeomorphic operation cube with operator ³ is a fail: Decrypt(Encrypt(v12)³) not equal to v12³."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_cube_v12_v22 and v12Cubev22."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
 
     // Scalar product
     //k1 = cy.encrypt(v1);

@@ -67,6 +67,11 @@ int main()
     Timer timerDemo(true);
     timerDemo.start();
 
+    // Define variables to count the number of succes and the number of fail.
+    int number_success = 0;
+    int number_fail = 0;
+    int number_unexpeted_error = 0;
+
     // Define two vectors that we will use for the tests (+=, -=, *=, ...).
     // Initialization of v1.
     vector<long> v1;
@@ -79,15 +84,28 @@ int main()
     vector<long> v2(VECTOR_SIZE, 2);
 
 
-    // Define variables to count the number of succes and the number of fail.
-    int number_success = 0;
-    int number_fail = 0;
-    int number_unexpeted_error = 0;
+    // Define two vectors that we will use for the tests (+, -, *, ...).
+    // Initialization of v12.
+    vector<long> v12;
+    for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v12.push_back(i+2);  
+	}
+
+    // Initialization of v22.
+    vector<long> v22(VECTOR_SIZE, 2);
 
 
-    std::cout <<"******Definition of the vectors used during the tests******"<<endl;
+    std::cout <<"******Definition of the vectors used during the tests +=, -=, *=, etc...******"<<endl;
     std::cout <<"v1: "<< v1<<endl;
     std::cout <<"v2: "<< v2<<endl;
+
+    // Skip a line.
+    std::cout <<"" <<endl;
+
+    std::cout <<"******Definition of the vectors used during the tests +, -, *, etc...******"<<endl;
+    std::cout <<"v12: "<< v12<<endl;
+    std::cout <<"v22: "<< v22<<endl;
 
 
     // Skip a line.
@@ -101,12 +119,11 @@ int main()
     Cyfhel cy(true);
 
 
-    std::cout <<"******Homeomorphic encryption of the two vectors used during the tests******"<<endl;
+    std::cout <<"******Homeomorphic encryption of the two vectors used during the tests +=, -=, *=, etc...******"<<endl;
     // Encrypted the two plaintexts to have two Cypher texts that are encrypted in an homeomorphic way with the key generated during the construction of object Cyfhel. 
     // These two Cypher txt will be use for the test on the homeomorphic operation (+=, -=, *=, ...).
     CyCtxt c1 = cy.encrypt(v1);
     CyCtxt c2 = cy.encrypt(v2);
-
 
     std::cout <<"Encryption of v1..."<<endl;
     std::cout <<"Encryption of v2..."<<endl;
@@ -119,6 +136,29 @@ int main()
 
     std::cout << "Encrypted v1: Encrypt(" << v1 << ")"<<endl;
     std::cout << "Encrypted v2: Encrypt(" << v2 << ")"<<endl;
+
+
+    // Skip a line.
+    std::cout <<"\n"<<endl;
+
+
+    std::cout <<"******Homeomorphic encryption of the two vectors used during the tests +, -, *, etc...******"<<endl;
+    // Encrypted the two plaintexts to have two Cypher texts that are encrypted in an homeomorphic way with the key generated during the construction of object Cyfhel. 
+    // These two Cypher txt will be use for the test on the homeomorphic operation (+, -, *, ...).
+    CyCtxt c12 = cy.encrypt(v12);
+    CyCtxt c22 = cy.encrypt(v22);
+
+    std::cout <<"Encryption of v12..."<<endl;
+    std::cout <<"Encryption of v22..."<<endl;
+
+    /* If the user has specified false for the second parameter of encrypt ie ispPtxt_vectResize, the plaintext vectors have been modified by the encrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the plaintext vectors. So, we have to resize the plaintext vectors to obtain the original ones.
+       Note: we recommand to doesn't specify the second parameter of encrypt because the resize will then be done automatically.*/
+    //v12.resize(VECTOR_SIZE);
+    //v22.resize(VECTOR_SIZE);
+
+    std::cout << "Encrypted v12: Encrypt(" << v12 << ")"<<endl;
+    std::cout << "Encrypted v22: Encrypt(" << v22 << ")"<<endl;
 
 
     // Skip a line.
@@ -272,43 +312,43 @@ int main()
 
     // Perform homeomorphic addition with operator + .
     std::cout <<"*** Test of the homeomorphic addition with operator + ***"<<endl;
-    std::cout <<"Encrypted v5: Encrypt("<< v_mult_v4_v2<< ")"<<endl;
-    std::cout <<"Encrypted v2: Encrypt("<< v2<< ")"<<endl;
-    std::cout <<"Performing Encrypt(v5) + Encrypt(v2)..."<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Encrypted v22: Encrypt("<< v22<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v12) + Encrypt(v22)..."<<endl;
     // Sum of the two cypher text.
-    CyCtxt cAdd1_2 = c1 + c2;
+    CyCtxt cAdd12_22 = c12 + c22;
     // Decrypt the result of the addition of the two encrypted vectors.
-    vector<long> v_add_v5_v2 = cy.decrypt(cAdd1_2);
+    vector<long> v_add_v12_v22 = cy.decrypt(cAdd12_22);
     /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
        decrypt method.
        Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
        the original ones.
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
     // TODO: The resize must be done in an override of the decrypt methods.
-    v_add_v5_v2.resize(VECTOR_SIZE);
+    v_add_v12_v22.resize(VECTOR_SIZE);
     // The user can then verify if the result of the addition of the two encrypted vectors is the same that the addition of the two vectors without encryption.
-    std::cout <<"Decrypt(Encrypt(v5) + Encrypt(v2)) -> "<< v_add_v5_v2<<endl;
-    // Perform the sum += on the unencrypted vectors. 
+    std::cout <<"Decrypt(Encrypt(v12) + Encrypt(v22)) -> "<< v_add_v12_v22<<endl;
+    // Perform the sum + on the unencrypted vectors. 
     // std::plus adds together its two arguments.
     /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
        The third is an input iterator to the initial position of the second range.
        The fourth is an output iterator of the initial position of the range where the operation results are stored.
        The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
        and returns some result value convertible to the type pointed by OutputIterator.*/
-    vector<long> v5Plusv2(VECTOR_SIZE, 0);
-    std::transform (v_mult_v4_v2.begin(), v_mult_v4_v2.end(), v2.begin(), v5Plusv2.begin(), std::plus<long>());
-    std::cout <<"v3 = v1 + v2 -> "<< v5Plusv2<<endl;
-    // If Decrypt(Encrypt(v5) + Encrypt(v2)) equal to v5 + v2, the homeomorphic operation works and so it is a success. Else, it is a fail.
-    if (v_add_v5_v2 == v5Plusv2){
-   	std::cout <<"Homeomorphic operation add with operator + is a success: Decrypt(Encrypt(v1) + Encrypt(v2)) equal to v1 + v2."<<endl;
+    vector<long> v12Plusv22(VECTOR_SIZE, 0);
+    std::transform (v12.begin(), v12.end(), v22.begin(), v12Plusv22.begin(), std::plus<long>());
+    std::cout <<"v32 = v12 + v22 -> "<< v12Plusv22<<endl;
+    // If Decrypt(Encrypt(v12) + Encrypt(v22)) equal to v12 + v22, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_add_v12_v22 == v12Plusv22){
+   	std::cout <<"Homeomorphic operation add with operator + is a success: Decrypt(Encrypt(v12) + Encrypt(v22)) equal to v12 + v22."<<endl;
    	number_success += 1;
     }
-    else if (v_add_v5_v2 != v5Plusv2){
-   	std::cout <<"Homeomorphic operation add with operator + is a fail: Decrypt(Encrypt(v1) + Encrypt(v2)) not equal to v1 + v2."<<endl;
+    else if (v_add_v12_v22 != v12Plusv22){
+   	std::cout <<"Homeomorphic operation add with operator + is a fail: Decrypt(Encrypt(v12) + Encrypt(v22)) not equal to v12 + v22."<<endl;
    	number_fail += 1;
     }
     else{
-   	std::cout <<"Error: unexpected result during the comparison of v_add_v5_v2 and v5Plusv2."<<endl;
+   	std::cout <<"Error: unexpected result during the comparison of v_add_v12_v22 and v12Plusv22."<<endl;
 	number_unexpeted_error += 1;
     }
 
@@ -331,11 +371,11 @@ int main()
 
 
    // Skip a line.
-std::cout <<"\n"<<endl;
-std::cout <<"Number of successful tests: "<< number_success<<endl;
-std::cout <<"Number of fail tests: "<< number_fail<<endl;
-std::cout <<"Number of unexpected errors during the tests: "<< number_unexpeted_error<<endl;
-std::cout <<"\n"<<endl;
+   std::cout <<"\n"<<endl;
+   std::cout <<"Number of successful tests: "<< number_success<<endl;
+   std::cout <<"Number of fail tests: "<< number_fail<<endl;
+   std::cout <<"Number of unexpected errors during the tests: "<< number_unexpeted_error<<endl;
+   std::cout <<"\n"<<endl;
 
 
     // Skip a line.

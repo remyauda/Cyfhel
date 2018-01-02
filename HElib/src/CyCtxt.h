@@ -9,7 +9,7 @@ class CyCtxt: public Ctxt {
  private:
 
 	/******ATTRIBUTES******/
-	
+	long m_sizeOfPlaintext;
 
 	/******PROTOTYPES OF PRIVATE METHODS******/
 
@@ -29,16 +29,17 @@ class CyCtxt: public Ctxt {
 
 
 	/******CONSTRUCTOR WITH PARAMETERS******/
-	CyCtxt(FHEPubKey const& newPubKey, long newPtxtSpace=0): Ctxt(newPubKey, newPtxtSpace){}//Constructor
+	CyCtxt(FHEPubKey const& newPubKey, long sizeOfPlaintext=0, long newPtxtSpace=0): Ctxt(newPubKey, newPtxtSpace), m_sizeOfPlaintext(sizeOfPlaintext){}//Constructor
 
 
 	/******DESTRUCTOR BY DEFAULT******/
 	
 
 	/******GETTERS******/
+	long getm_sizeOfPlaintext() const;//Getter of attribute m_sizeOfPlaintext
 	
 	/******SETTERS******/
-	
+	void setm_sizeOfPlaintext(long sizeOfPlaintext);//Setter of attribute m_sizeOfPlaintext
 
        
 	/******PROTOTYPES OF PUBLIC METHODS******/

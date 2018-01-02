@@ -47,10 +47,27 @@ using namespace std;
 
 
 /******IMPLEMENTATION OF GETTERS******/
+/*
+	@name: getm_sizeOfPlaintext
+	@description: Getter of attribute m_sizeOfPlaintext. It corresponds to the original size of the plaintext vector coresponding to the CyCtxt.
 
+	@param: null.
+*/
+long CyCtxt::getm_sizeOfPlaintext() const {
+	return m_sizeOfPlaintext;
+}
 
 /******IMPLEMENTATION OF SETTERS******/
+/*
+	@name: setm_sizeOfPlaintext
+	@description: Setter of attribute m_sizeOfPlaintext.
 
+	@param: The method setm_sizeOfPlaintext takes one mandatory parameter: a long.
+	-param1: the new size of the plaintext vector coresponding to the CyCtxt.
+*/
+void CyCtxt::setm_sizeOfPlaintext(long sizeOfPlaintext) {
+	this->m_sizeOfPlaintext = sizeOfPlaintext;
+}
 
 
 /******IMPLEMENTATION OF PRIVATE METHODS******/

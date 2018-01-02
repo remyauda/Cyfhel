@@ -185,8 +185,7 @@ int main()
        Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
        the original ones.
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
-    // TODO: The resize must be done in an override of the decrypt methods.
-    v_add_v1_v2.resize(VECTOR_SIZE);
+    //v_add_v1_v2.resize(VECTOR_SIZE);
     // The user can then verify if the result of the addition of the two encrypted vectors is the same that the addition of the two vectors without encryption.
     std::cout <<"Decrypt(Encrypt(v1) + Encrypt(v2)) -> "<< v_add_v1_v2<<endl;
     // Perform the sum += on the unencrypted vectors. 
@@ -232,8 +231,7 @@ int main()
        Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
        the original ones.
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
-    // TODO: The resize must be done in an override of the decrypt methods.
-    v_minus_v3_v2.resize(VECTOR_SIZE);
+    //v_minus_v3_v2.resize(VECTOR_SIZE);
     // The user can then verify if the result of the substraction of the two encrypted vectors is the same that the substraction of the two vectors without encryption.
     std::cout <<"Decrypt(Encrypt(v3) - Encrypt(v2)) -> "<< v_minus_v3_v2<<endl;
     // Perform the substraction -= on the unencrypted vectors. 
@@ -278,8 +276,7 @@ int main()
        Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
        the original ones.
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
-    // TODO: The resize must be done in an override of the decrypt methods.
-    v_mult_v4_v2.resize(VECTOR_SIZE);
+    //v_mult_v4_v2.resize(VECTOR_SIZE);
     // The user can then verify if the result of the addition of the two encrypted vectors is the same that the addition of the two vectors without encryption.
     std::cout <<"Decrypt(Encrypt(v4) * Encrypt(v2)) -> "<< v_mult_v4_v2<<endl;
     // Perform the multiplication *= on the unencrypted vectors. 
@@ -324,8 +321,7 @@ int main()
        Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
        the original ones.
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
-    // TODO: The resize must be done in an override of the decrypt methods.
-    v_add_v12_v22.resize(VECTOR_SIZE);
+    //v_add_v12_v22.resize(VECTOR_SIZE);
     // The user can then verify if the result of the addition of the two encrypted vectors is the same that the addition of the two vectors without encryption.
     std::cout <<"Decrypt(Encrypt(v12) + Encrypt(v22)) -> "<< v_add_v12_v22<<endl;
     // Perform the sum + on the unencrypted vectors. 
@@ -370,8 +366,7 @@ int main()
        Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
        the original ones.
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
-    // TODO: The resize must be done in an override of the decrypt methods.
-    v_minus_v12_v22.resize(VECTOR_SIZE);
+    //v_minus_v12_v22.resize(VECTOR_SIZE);
     // The user can then verify if the result of the addition of the two encrypted vectors is the same that the addition of the two vectors without encryption.
     std::cout <<"Decrypt(Encrypt(v12) - Encrypt(v22)) -> "<< v_minus_v12_v22<<endl;
     // Perform the substract - on the unencrypted vectors. 
@@ -415,8 +410,7 @@ int main()
        Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
        the original ones.
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
-    // TODO: The resize must be done in an override of the decrypt methods.
-    v_mult_v12_v22.resize(VECTOR_SIZE);
+    //v_mult_v12_v22.resize(VECTOR_SIZE);
     // The user can then verify if the result of the multiplication of the two encrypted vectors is the same that the multiplication of the two vectors without encryption.
     std::cout <<"Decrypt(Encrypt(v12) * Encrypt(v22)) -> "<< v_mult_v12_v22<<endl;
     // Perform the multiplication * on the unencrypted vectors. 
@@ -460,8 +454,7 @@ int main()
        Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
        the original ones.
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
-    // TODO: The resize must be done in an override of the decrypt methods.
-    v_square_v12_v22.resize(VECTOR_SIZE);
+    //v_square_v12_v22.resize(VECTOR_SIZE);
     // The user can then verify if the result of the square of the encrypted vector is the same that the square of the vector without encryption.
     std::cout <<"Decrypt(Encrypt(v12)²) -> "<< v_square_v12_v22<<endl;
     // Perform the square ² on the unencrypted vector. 
@@ -504,8 +497,7 @@ int main()
        Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
        the original ones.
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
-    // TODO: The resize must be done in an override of the decrypt methods.
-    v_cube_v12_v22.resize(VECTOR_SIZE);
+    //v_cube_v12_v22.resize(VECTOR_SIZE);
     // The user can then verify if the result of the cube of the encrypted vector is the same that the cube of the vector without encryption.
     std::cout <<"Decrypt(Encrypt(v12)³) -> "<< v_cube_v12_v22<<endl;
     // Perform the cube ³ on the unencrypted vector. 

@@ -80,8 +80,9 @@ int main()
 
 
     // Define variables to count the number of succes and the number of fail.
-    //int number_success = 0;
-    //int number_fail = 0;
+    int number_success = 0;
+    int number_fail = 0;
+    int number_unexpeted_error = 0;
 
 
     std::cout <<"******Definition of the vectors used during the tests******"<<endl;
@@ -96,6 +97,7 @@ int main()
     // Cyfhel is an object that create keys for homeomorphism encryption with the parameter used in its constructor. 
     // If no parameter are provided, uses default values for the generation of the keys.
     // Cyfhel is an object that allow the user to encrypt and decrypt vectors in a homeomorphism way.
+    std::cout <<"******Generation of the keys for encryption******"<<endl;
     Cyfhel cy(true);
 
 
@@ -138,11 +140,43 @@ int main()
     c1 += c2;
     // Decrypt the result of the addition of the two encrypted vectors.
     vector<long> v_add_v1_v2 = cy.decrypt(c1);
-    // Resize the vector.
-    // TODO: The resize must be done in an override of the encrypt and decrypt methods.
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    // TODO: The resize must be done in an override of the decrypt methods.
     v_add_v1_v2.resize(VECTOR_SIZE);
     // The user can then verify if the result of the addition of the two encrypted vectors is the same that the addition of the two vectors without encryption.
     std::cout <<"Decrypt(Encrypt(v1) + Encrypt(v2)) -> "<< v_add_v1_v2<<endl;
+    // Perform the sum += on the unencrypted vectors. 
+    // std::plus adds together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> v1Plusv2(VECTOR_SIZE, 0);
+    std::transform (v1.begin(), v1.end(), v2.begin(), v1Plusv2.begin(), std::plus<int>());
+    std::cout <<"v3 = v1 + v2 -> "<< v1Plusv2<<endl;
+    //If Decrypt(Encrypt(v1) + Encrypt(v2)) equal to v1 + v2, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_add_v1_v2 == v1Plusv2){
+   	std::cout <<"Homeomorphic operation add with operator += is a success: Decrypt(Encrypt(v1) + Encrypt(v2)) equal to v1 + v2."<<endl;
+   	number_success += 1;
+    }
+    else if (v_add_v1_v2 != v1Plusv2){
+   	std::cout <<"Homeomorphic operation add with operator += is a fail: Decrypt(Encrypt(v1) + Encrypt(v2)) not equal to v1 + v2."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpexted result during the comparison of v_add_v1_v2 and v1Plusv2."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+
 
     // Multiplication
     //k1 = cy.encrypt(v1);
@@ -160,6 +194,15 @@ int main()
     //k1 = cy.encrypt(v1);
     //cy.square(k1);
     //vector<long> vRes4 = cy.decrypt(k1);
+
+
+   // Skip a line.
+std::cout <<"\n"<<endl;
+std::cout <<"Number of successful tests: "<< number_success<<endl;
+std::cout <<"Number of fail tests: "<< number_fail<<endl;
+std::cout <<"Number of unexpeted errors during the tests: "<< number_unexpeted_error<<endl;
+std::cout <<"\n"<<endl;
+
 
     // Skip a line.
     std::cout <<"\n"<<endl;

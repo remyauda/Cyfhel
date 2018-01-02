@@ -1,6 +1,8 @@
 #ifndef DEF_CYCTXT
 #define DEF_CYCTXT
 
+#include "Ctxt.h"
+
 //The CyCtxt Class extend the Ctxt Class
 class CyCtxt: public Ctxt {
 

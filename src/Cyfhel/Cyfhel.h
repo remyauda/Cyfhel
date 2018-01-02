@@ -27,6 +27,8 @@
 #include "EncryptedArray.h"
 #include "PAlgebra.h"
 
+#include "CyCtxt.h"
+
 //The Cyfhel Class
 class Cyfhel {
 
@@ -91,9 +93,9 @@ class Cyfhel {
        
     /******PROTOTYPES OF PUBLIC METHODS******/
 	//------ENCRYPTION------
-	Ctxt encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize = true) const;//Encryption
+	CyCtxt encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize = true) const;//Encryption
         
-	vector<long> decrypt(Ctxt& ctxt_vect, bool isDecryptedPtxt_vectResize = true) const;//Decryption
+	vector<long> decrypt(CyCtxt& ctxt_vect, bool isDecryptedPtxt_vectResize = true) const;//Decryption
 
 
 	//------AUXILIARY------

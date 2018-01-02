@@ -335,16 +335,16 @@ void Cyfhel::keyGen(long const& p, long const& r, long const& c, long const& d, 
 //ENCRYPTION
 /*
 	@name: encrypt
-	@description: Public method which allow to encrypt a provided plaintext vector which corresponds to vector to encrypt, creates the corresponding Ctxt and return it.
+	@description: Public method which allow to encrypt a provided plaintext vector which corresponds to vector to encrypt, creates the corresponding CyCtxt and return it.
 
 	@param: The method encrypt takes one mandatory parameter: a vector of long.
 	-param1: a mandatory vector of long which corresponds to vector to encrypt.
 
-	@return: Return a Ctxt which corresponds to encrypted vector.
+	@return: Return a CyCtxt which corresponds to encrypted vector.
 */
-Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize) const {
+CyCtxt Cyfhel::encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize) const {
 	// Empty cyphertext object.
-	Ctxt ctxt_vect(*m_publicKey);
+	CyCtxt ctxt_vect(*m_publicKey);
 	// Create a vector of size nddSlots and fill it first with values from plaintext, then with zeros.
 	long vector_size = ptxt_vect.size();
 	// If the user try to encrypt a vector with a size greater than the maximum slots we can encrypt, then return an error.
@@ -363,28 +363,28 @@ Ctxt Cyfhel::encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize) const {
 			ptxt_vect.push_back(0);
 		}
 	}
-	// Encryption of the ptxt_vect with the public key m_publicKey. Initialize the Ctxt ctxt_vect.
+	// Encryption of the ptxt_vect with the public key m_publicKey. Initialize the CyCtxt ctxt_vect.
 	m_encryptedArray->encrypt(ctxt_vect, *m_publicKey, ptxt_vect);// Encrypt plaintext
 	// The vector ptxt_vect has been changed as we have add (m_numberOfSlots - vector_size) zeros after the original vector.
 	// So if the user want to, we resize the vector ptxt_vect to have the original vector.
 	if(isPtxt_vectResize){
 		ptxt_vect.resize(vector_size);
 	}
-	// Return the homeomorphic cypher vector of ptxt_vect: the Ctxt ctxt_vect.
+	// Return the homeomorphic cypher vector of ptxt_vect: the CyCtxt ctxt_vect.
 	return ctxt_vect;
 }
 
 //DECRYPTION
 /*
 	@name: decrypt
-	@description: Public method which allow to decrypt a provided Ctxt which corresponds to vector to decrypt, creates the corresponding vector of long and return it.
+	@description: Public method which allow to decrypt a provided CyCtxt which corresponds to vector to decrypt, creates the corresponding vector of long and return it.
 
-	@param: The method decrypt takes one mandatory parameter: a Ctxt.
-	-param1: a mandatory Ctxt which corresponds to vector to decrypt.
+	@param: The method decrypt takes one mandatory parameter: a CyCtxt.
+	-param1: a mandatory CyCtxt which corresponds to vector to decrypt.
 
 	@return: Return a vector of long which corresponds to decrypted vector.
 */
-vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect, bool isDecryptedPtxt_vectResize) const {
+vector<long> Cyfhel::decrypt(CyCtxt& ctxt_vect, bool isDecryptedPtxt_vectResize) const {
 	vector<long> ptxt_vect(m_numberOfSlots, 0);// Empty vector of values
 	m_encryptedArray->decrypt(ctxt_vect, *m_secretKey, ptxt_vect);// Decrypt cyphertext
 	/*if(m_isVerbose)

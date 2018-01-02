@@ -102,8 +102,8 @@ int main()
     std::cout <<"******Homeomorphic encryption of the two vectors used during the tests******"<<endl;
     // Encrypted the two plaintexts to have two Cypher texts that are encrypted in an homeomorphic way with the key generated during the construction of object Cyfhel. 
     // These two Cypher txt will be use for the test on the homeomorphic operation (+=, -=, *=, ...).
-    Ctxt c1 = cy.encrypt(v1);
-    Ctxt c2 = cy.encrypt(v2);
+    CyCtxt c1 = cy.encrypt(v1);
+    CyCtxt c2 = cy.encrypt(v2);
 
 
     std::cout <<"Encryption of v1..."<<endl;

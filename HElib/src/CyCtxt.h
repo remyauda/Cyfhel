@@ -42,15 +42,12 @@ class CyCtxt: public Ctxt {
 
        
 	/******PROTOTYPES OF PUBLIC METHODS******/
-
+	CyCtxt square() const;
+	CyCtxt cube() const;
 
 	/******PROTOTYPES OF PUBLIC METHODS: SHORTCUT OPERATORS OVERLOAD******/
 
 
-	//------AUXILIARY------
-
-    
-	//------I/O------
 
 };
 

@@ -401,6 +401,51 @@ int main()
    // Skip a line.
    std::cout <<"\n"<<endl;
 
+    // Perform homeomorphic multiplication with operator * .
+    std::cout <<"*** Test of the homeomorphic multiplication with operator * ***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Encrypted v22: Encrypt("<< v22<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v12) * Encrypt(v22)..."<<endl;
+    // Multiplication of the two cypher text.
+    CyCtxt cMult12_22 = c12 * c22;
+    // Decrypt the result of the multiplication of the two encrypted vectors.
+    vector<long> v_mult_v12_v22 = cy.decrypt(cMult12_22);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    // TODO: The resize must be done in an override of the decrypt methods.
+    v_mult_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the multiplication of the two encrypted vectors is the same that the multiplication of the two vectors without encryption.
+    std::cout <<"Decrypt(Encrypt(v12) * Encrypt(v22)) -> "<< v_mult_v12_v22<<endl;
+    // Perform the multiplication * on the unencrypted vectors. 
+    // std::plus adds together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> v12Multv22(VECTOR_SIZE, 0);
+    std::transform (v12.begin(), v12.end(), v22.begin(), v12Multv22.begin(), std::multiplies<long>());
+    std::cout <<"v52 = v12 * v22 -> "<< v12Multv22<<endl;
+    // If Decrypt(Encrypt(v12) * Encrypt(v22)) equal to v12 * v22, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_mult_v12_v22 == v12Multv22){
+   	std::cout <<"Homeomorphic operation multiplication with operator * is a success: Decrypt(Encrypt(v12) * Encrypt(v22)) equal to v12 * v22."<<endl;
+   	number_success += 1;
+    }
+    else if (v_mult_v12_v22 != v12Multv22){
+   	std::cout <<"Homeomorphic operation multiplication with operator * is a fail: Decrypt(Encrypt(v12) * Encrypt(v22)) not equal to v12 * v22."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_mult_v12_v22 and v12Multv22."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
 
     
 

@@ -157,9 +157,9 @@ int main()
        The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
        and returns some result value convertible to the type pointed by OutputIterator.*/
     vector<long> v1Plusv2(VECTOR_SIZE, 0);
-    std::transform (v1.begin(), v1.end(), v2.begin(), v1Plusv2.begin(), std::plus<int>());
+    std::transform (v1.begin(), v1.end(), v2.begin(), v1Plusv2.begin(), std::plus<long>());
     std::cout <<"v3 = v1 + v2 -> "<< v1Plusv2<<endl;
-    //If Decrypt(Encrypt(v1) + Encrypt(v2)) equal to v1 + v2, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    // If Decrypt(Encrypt(v1) + Encrypt(v2)) equal to v1 + v2, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_add_v1_v2 == v1Plusv2){
    	std::cout <<"Homeomorphic operation add with operator += is a success: Decrypt(Encrypt(v1) + Encrypt(v2)) equal to v1 + v2."<<endl;
    	number_success += 1;
@@ -169,13 +169,59 @@ int main()
    	number_fail += 1;
     }
     else{
-   	std::cout <<"Error: unexpexted result during the comparison of v_add_v1_v2 and v1Plusv2."<<endl;
+   	std::cout <<"Error: unexpected result during the comparison of v_add_v1_v2 and v1Plusv2."<<endl;
 	number_unexpeted_error += 1;
     }
 
    // Skip a line.
    std::cout <<"\n"<<endl;
 
+
+
+    // Perform homeomorphic substraction with operator -= .
+    std::cout <<"*** Test of the homeomorphic substraction with operator -= ***"<<endl;
+    std::cout <<"Encrypted v3: Encrypt("<< v_add_v1_v2<< ")"<<endl;
+    std::cout <<"Encrypted v2: Encrypt("<< v2<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v3) - Encrypt(v2)..."<<endl;
+    // Substraction of the two cypher text.
+    c1 -= c2;
+    // Decrypt the result of the substraction of the two encrypted vectors.
+    vector<long> v_minus_v3_v2 = cy.decrypt(c1);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    // TODO: The resize must be done in an override of the decrypt methods.
+    v_minus_v3_v2.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the substraction of the two encrypted vectors is the same that the substraction of the two vectors without encryption.
+    std::cout <<"Decrypt(Encrypt(v3) - Encrypt(v2)) -> "<< v_minus_v3_v2<<endl;
+    // Perform the substraction -= on the unencrypted vectors. 
+    // std::minus substracts together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> v3Minusv2(VECTOR_SIZE, 0);
+    std::transform (v_add_v1_v2.begin(), v_add_v1_v2.end(), v2.begin(), v3Minusv2.begin(), std::minus<long>());
+    std::cout <<"v4 = v3 - v2 -> "<< v3Minusv2<<endl;
+    // If Decrypt(Encrypt(v3) - Encrypt(v2)) equal to v3 - v2, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_minus_v3_v2 == v3Minusv2){
+   	std::cout <<"Homeomorphic operation substraction with operator -= is a success: Decrypt(Encrypt(v3) - Encrypt(v2)) equal to v3 - v2."<<endl;
+   	number_success += 1;
+    }
+    else if (v_minus_v3_v2 != v3Minusv2){
+   	std::cout <<"Homeomorphic operation substraction with operation -= is a fail: Decrypt(Encrypt(v3) - Encrypt(v2)) not equal to v3 - v2."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_add_v1_v2 and v1Plusv2."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
 
 
     // Multiplication
@@ -200,7 +246,7 @@ int main()
 std::cout <<"\n"<<endl;
 std::cout <<"Number of successful tests: "<< number_success<<endl;
 std::cout <<"Number of fail tests: "<< number_fail<<endl;
-std::cout <<"Number of unexpeted errors during the tests: "<< number_unexpeted_error<<endl;
+std::cout <<"Number of unexpected errors during the tests: "<< number_unexpeted_error<<endl;
 std::cout <<"\n"<<endl;
 
 

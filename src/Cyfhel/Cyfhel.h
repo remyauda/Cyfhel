@@ -65,6 +65,9 @@ class Cyfhel {
 
 	Cyfhel(vector<long> cryptoParameters, bool isVerbose = false);
 
+	/******COPY CONSTRUCTOR******/
+	Cyfhel(Cyfhel const& cyfhelToCopy);
+
 	/******DESTRUCTOR BY DEFAULT******/
 	virtual ~Cyfhel();
 

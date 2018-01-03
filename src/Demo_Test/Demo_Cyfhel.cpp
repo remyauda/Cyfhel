@@ -40,6 +40,7 @@
 /* The vector size of the plaintext that we will use for the demo.*/
 #define VECTOR_SIZE 5
 
+
 int main()
 {
     //    string fileName = "DemoCyfhelEnv";
@@ -116,7 +117,12 @@ int main()
     // If no parameter are provided, uses default values for the generation of the keys.
     // Cyfhel is an object that allow the user to encrypt and decrypt vectors in a homeomorphism way.
     std::cout <<"******Generation of the keys for encryption******"<<endl;
-    Cyfhel cy(true);
+    Cyfhel cy(true); // Comment this line if you want to test the copy constructor.
+
+    // Uncomment the following lines if you want to test the copy constructor.
+    /*Cyfhel cy_0(true);
+    // Use the copy constructor to construct a Cyfhel object called cy.
+    Cyfhel cy(cy_0);*/
 
 
     std::cout <<"******Homeomorphic encryption of the two vectors used during the tests +=, -=, *=, etc...******"<<endl;

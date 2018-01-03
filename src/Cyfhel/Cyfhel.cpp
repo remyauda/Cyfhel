@@ -112,6 +112,21 @@ Cyfhel::Cyfhel(vector<long> cryptoParameters, bool isVerbose):m_context(0), m_se
     }
 }
 
+/******COPY CONSTRUCTOR******/
+Cyfhel::Cyfhel(Cyfhel const& cyfhelToCopy):m_G(cyfhelToCopy.m_G), m_global_m(cyfhelToCopy.m_global_m), m_global_p(cyfhelToCopy.m_global_p), m_global_r(cyfhelToCopy.m_global_r), m_numberOfSlots(cyfhelToCopy.m_numberOfSlots), m_isVerbose(cyfhelToCopy.m_isVerbose) {
+	if(m_isVerbose){
+		std::cout << "Use the copy constructor. Begin the construction." << endl;
+	}
+	m_context = new FHEcontext(*(cyfhelToCopy.m_context));
+	m_secretKey = new FHESecKey(*(cyfhelToCopy.m_secretKey));
+	m_publicKey = new FHEPubKey(*(cyfhelToCopy.m_publicKey));
+	m_encryptedArray = new EncryptedArray(*(cyfhelToCopy.m_encryptedArray));
+	if(m_isVerbose){
+		std::cout << "End of the construction." << endl;
+	}
+}
+
+
 /******DESTRUCTOR BY DEFAULT******/
 Cyfhel::~Cyfhel(){
 

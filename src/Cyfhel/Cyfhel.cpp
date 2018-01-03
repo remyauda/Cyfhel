@@ -494,3 +494,41 @@ bool Cyfhel::restoreEnv(string const& fileName) {
 
 //******OPERATORS OVERLOAD******/
 
+
+/******STREAM OPERATORS OVERLOAD******/
+ostream& operator<< (std::ostream& flux, Cyfhel const& cy){
+flux << "Parameters used: m value: " << cy.m_global_m << ". p value: " << cy.m_global_p << ". r value: " << cy.m_global_r << ". Number of slots used in the scheme: " << cy.m_numberOfSlots << ". Is the Cyfhel object is verbose?: " << cy.m_isVerbose;
+return flux;
+}
+
+istream& operator>> (std::istream& in, Cyfhel& cy){
+bool isVerbose;
+long p;
+long r;
+long c;
+long d;
+long sec;
+//long const& w;
+//long L;
+
+std::cout<<"Do you want your Cyfhel object verbose? (0 if no, 1 if yes): isVerbose = ";
+in >> isVerbose;
+std::cout<<"A long which corresponds to plaintext base (ex: p = 2): p = ";
+in >> p;
+std::cout<<"A long which corresponds to lifting (ex: r = 32): r = ";
+in >> r;
+std::cout<<"A long which corresponds to number of columns in key switching matrix (ex: c = 2): c = ";
+in >> c;
+std::cout<<"A long which corresponds to degree of field extension (ex: d = 1): d = ";
+in >> d;
+std::cout<<"A long which corresponds to security parameter (ex: sec = 128): sec = ";
+in >> sec;
+/*std::cout<<"A optional long which corresponds to Hamming weight of secret key. By default, this parameter is such as w = 64: w = ";
+in >> w;
+std::cout<<"A optional long which corresponds to number of levels in modulus chain. By default, this parameter is such as L = -1: L = ";
+in >> L;*/
+cy = Cyfhel(isVerbose, p, r, c, d, sec);
+
+return in;
+}
+

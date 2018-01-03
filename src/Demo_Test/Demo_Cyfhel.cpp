@@ -559,6 +559,17 @@ int main()
     // Skip a line.
     std::cout <<"\n"<<endl;
 
+    // Test the output stream of Cyfhel.
+    std::cout <<"******Test of the stream operators.******"<<endl;
+    std::cout <<"Test the << operator. Output stream of Cyfhel object used in this demo: " << cy<<endl;
+    // Uncomment the following lines to test the cin operator. Be careful, it takes time because you regenerate two Cyfhel objects!
+    /*std::cout <<"Test the >> operator: "<<endl;
+    Cyfhel cy_in(true);
+    std::cin >> cy_in;*/
+
+    // Skip a line.
+    std::cout <<"\n"<<endl;
+
     // Stop the chrono and display the execution time.
     timerDemo.stop();
     timerDemo.benchmarkInSeconds();

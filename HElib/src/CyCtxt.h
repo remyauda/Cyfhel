@@ -19,7 +19,7 @@ class CyCtxt: public Ctxt {
 
 	/******STREAM OPERATORS OVERLOAD******/
 	friend std::ostream& operator<< (std::ostream& flux, CyCtxt const& cy);
-	friend std::istream& operator<< (std::istream& in, CyCtxt& cy);
+	friend std::istream& operator>> (std::istream& in, CyCtxt& cy);
 	
 
 

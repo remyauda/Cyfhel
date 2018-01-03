@@ -45,6 +45,13 @@ class Cyfhel {
 	bool m_isVerbose;// Flag to print messages on console
         
 
+    /******COMPARISON OPERATORS OVERLOAD******/
+
+
+    /******STREAM OPERATORS OVERLOAD******/
+	friend std::ostream& operator<< (std::ostream& flux, Cyfhel const& cy);
+	friend std::istream& operator>> (std::istream& in, Cyfhel& cy);
+
 
     /******PROTOTYPES OF PRIVATE METHODS******/
 	void keyGen(long const& p, long const& r, long const& c, long const& d, long const& sec, long const& w = 64,

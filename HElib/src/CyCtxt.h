@@ -34,7 +34,7 @@ class CyCtxt: public Ctxt {
 
 
 	/******CONSTRUCTOR WITH PARAMETERS******/
-	CyCtxt(FHEPubKey const& newPubKey, long sizeOfPlaintext=0, long newPtxtSpace=0): Ctxt(newPubKey, newPtxtSpace), m_sizeOfPlaintext(sizeOfPlaintext){}//Constructor
+	CyCtxt(FHEPubKey const& newPubKey, long sizeOfPlaintext=0, long newPtxtSpace=0, long numberOfSlots=0): Ctxt(newPubKey, newPtxtSpace), m_sizeOfPlaintext(sizeOfPlaintext), m_publicKey(0), m_encryptedArray(0), m_numberOfSlots(numberOfSlots){}//Constructor
 
 
 	/******DESTRUCTOR BY DEFAULT******/

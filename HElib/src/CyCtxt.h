@@ -1,6 +1,8 @@
 #ifndef DEF_CYCTXT
 #define DEF_CYCTXT
 
+#include "FHE.h"
+#include "EncryptedArray.h"
 #include "Ctxt.h"
 
 //The CyCtxt Class extend the Ctxt Class
@@ -10,9 +12,12 @@ class CyCtxt: public Ctxt {
 
 	/******ATTRIBUTES******/
 	long m_sizeOfPlaintext;
+	FHEPubKey *m_publicKey;// Public key of the public-secret key pair
+	EncryptedArray *m_encryptedArray;// Array used for encryption
+	long m_numberOfSlots;// Nº of slots in scheme
 
 	/******PROTOTYPES OF PRIVATE METHODS******/
-
+	CyCtxt encrypt(vector<long> &ptxt_vect) const;//Encryption
         
 	/******COMPARISON OPERATORS OVERLOAD******/
 
@@ -40,6 +45,12 @@ class CyCtxt: public Ctxt {
 	
 	/******SETTERS******/
 	void setm_sizeOfPlaintext(long sizeOfPlaintext);//Setter of attribute m_sizeOfPlaintext
+
+	void setm_publicKey(FHEPubKey *publicKey);//Setter of attribute m_publicKey
+
+	void setm_encryptedArray(EncryptedArray *encryptedArray);//Setter of attribute m_encryptedArray
+
+	void setm_numberOfSlots(long numberOfSlots);//Setter of attribute m_numberOfSlots
 
        
 	/******PROTOTYPES OF PUBLIC METHODS******/

@@ -385,6 +385,10 @@ CyCtxt Cyfhel::encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize) const {
 	if(isPtxt_vectResize){
 		ptxt_vect.resize(vector_size);
 	}
+	// Set the encryption informations in the CyCtxt
+	ctxt_vect.setm_publicKey(m_publicKey);// Set the public key of Cyfhel object used to encrypt in the CyCtxt
+	ctxt_vect.setm_encryptedArray(m_encryptedArray);// Set the encrypted array of Cyfhel object used to encrypt in the CyCtxt
+	ctxt_vect.setm_numberOfSlots(m_numberOfSlots);// Set the number of slots of Cyfhel object used to encrypt in the CyCtxt
 	// Return the homeomorphic cypher vector of ptxt_vect: the CyCtxt ctxt_vect.
 	return ctxt_vect;
 }

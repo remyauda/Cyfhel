@@ -69,8 +69,80 @@ void CyCtxt::setm_sizeOfPlaintext(long sizeOfPlaintext) {
 	this->m_sizeOfPlaintext = sizeOfPlaintext;
 }
 
+/*
+	@name: setm_publicKey
+	@description: Setter of attribute m_publicKey.
+
+	@param: The method setm_publicKey takes one mandatory parameter: a FHEPubKey.
+	-param1: the new public key for m_publicKey.
+*/
+void CyCtxt::setm_publicKey(FHEPubKey *publicKey) {
+	this->m_publicKey = publicKey;
+}
+
+/*
+	@name: setm_encryptedArray
+	@description: Setter of attribute m_encryptedArray.
+
+	@param: The method setm_encryptedArray takes one mandatory parameter: a EncryptedArray.
+	-param1: the new encrypted array for m_encryptedArray.
+*/
+void CyCtxt::setm_encryptedArray(EncryptedArray *encryptedArray) {
+	this->m_encryptedArray = encryptedArray;
+}
+
+/*
+	@name: setm_numberOfSlots
+	@description: Setter of attribute m_numberOfSlots.
+
+	@param: The method setm_numberOfSlots takes one mandatory parameter: a long.
+	-param1: the new number of slots for m_numberOfSlots.
+*/
+void CyCtxt::setm_numberOfSlots(long numberOfSlots) {
+	this->m_numberOfSlots = numberOfSlots;
+}
+
 
 /******IMPLEMENTATION OF PRIVATE METHODS******/
+//ENCRYPTION
+/*
+	@name: encrypt
+	@description: Private method which allow to encrypt a provided vector which corresponds to vector to encrypt, creates the corresponding CyCtxt and return it.
+
+	@param: The method encrypt takes one mandatory parameter: a vector of long.
+	-param1: a mandatory vector of long which corresponds to vector to encrypt.
+
+	@return: Return a CyCtxt which corresponds to encrypted vector.
+*/
+CyCtxt CyCtxt::encrypt(vector<long> &ptxt_vect) const {
+	// Create a vector of size nddSlots and fill it first with values from plaintext, then with zeros.
+	long vector_size = ptxt_vect.size();
+	// Empty cyphertext object.
+	CyCtxt ctxt_vect(*m_publicKey, vector_size);
+	// If the user try to encrypt a vector with a size greater than the maximum slots we can encrypt, then return an error.
+	if(vector_size>m_numberOfSlots){
+		cerr<<"Error: the size of the plaintext vector to encrypt cannot be greater than the number of slot"<<m_numberOfSlots<<"of the CyCtxt object."<<endl;
+	}
+	// Add (m_numberOfSlots - vector_size) zeros after the original vector.
+	for(int i=0; i<m_numberOfSlots; i++)
+	{
+		if(i>=vector_size)
+		{
+			ptxt_vect.push_back(0);
+		}
+	}
+	// Encryption of the ptxt_vect with the public key m_publicKey. Initialize the CyCtxt ctxt_vect.
+	m_encryptedArray->encrypt(ctxt_vect, *m_publicKey, ptxt_vect);// Encrypt plaintext
+	// The vector ptxt_vect has been changed as we have add (m_numberOfSlots - vector_size) zeros after the original vector.
+
+	// Set the encryption informations in the CyCtxt
+	ctxt_vect.setm_publicKey(m_publicKey);// Set the public key of Cyfhel object used to encrypt in the CyCtxt
+	ctxt_vect.setm_encryptedArray(m_encryptedArray);// Set the encrypted array of Cyfhel object used to encrypt in the CyCtxt
+	ctxt_vect.setm_numberOfSlots(m_numberOfSlots);// Set the number of slots of Cyfhel object used to encrypt in the CyCtxt
+	// Return the homeomorphic cypher vector of ptxt_vect: the CyCtxt ctxt_vect.
+	return ctxt_vect;
+}
+
 
 
 /******IMPLEMENTATION OF PUBLIC METHODS******/

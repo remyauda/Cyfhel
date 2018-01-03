@@ -104,10 +104,15 @@ void CyCtxt::setm_numberOfSlots(long numberOfSlots) {
 
 
 /******IMPLEMENTATION OF PRIVATE METHODS******/
+
+
+
+/******IMPLEMENTATION OF PUBLIC METHODS******/
+
 //ENCRYPTION
 /*
 	@name: encrypt
-	@description: Private method which allow to encrypt a provided vector which corresponds to vector to encrypt, creates the corresponding CyCtxt and return it.
+	@description: Public method which allow to encrypt a provided vector which corresponds to vector to encrypt, creates the corresponding CyCtxt and return it.
 
 	@param: The method encrypt takes one mandatory parameter: a vector of long.
 	-param1: a mandatory vector of long which corresponds to vector to encrypt.
@@ -143,9 +148,6 @@ CyCtxt CyCtxt::encrypt(vector<long> &ptxt_vect) const {
 	return ctxt_vect;
 }
 
-
-
-/******IMPLEMENTATION OF PUBLIC METHODS******/
 
 CyCtxt CyCtxt::returnSquare() const{
     // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
@@ -204,6 +206,93 @@ CyCtxt operator* (CyCtxt const& cy1, CyCtxt const& cy2){
 	cy1_copy *= cy2;
 	// Return the result ie the multiplication of the two CyCtxt.
 	return cy1_copy;
+}
+
+
+
+// Sum of a long and a CyCtxt.
+CyCtxt operator+ (long a, CyCtxt const& cy){
+	// Create a vector of size the original size of plaintext corresponding to cy, and with value a.
+	vector<long> vect_a(cy.getm_sizeOfPlaintext(), a);
+	// Encrypt the vector vect_a.
+	CyCtxt c_a = cy.encrypt(vect_a);
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy_copy(cy);
+	// Called the operator += of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	 c_a += cy_copy;
+	// Return the result ie the sum of a long and a CyCtxt.
+	return c_a;
+}
+
+// Substraction of a long and a CyCtxt.
+CyCtxt operator- (long a, CyCtxt const& cy){
+	// Create a vector of size the original size of plaintext corresponding to cy, and with value a.
+	vector<long> vect_a(cy.getm_sizeOfPlaintext(), a);
+	// Encrypt the vector vect_a.
+	CyCtxt c_a = cy.encrypt(vect_a);
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy_copy(cy);
+	// Called the operator -= of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	 c_a -= cy_copy;
+	// Return the result ie the substraction of a long and a CyCtxt.
+	return c_a;
+}
+
+// Multiplication of a long and a CyCtxt.
+CyCtxt operator* (long a, CyCtxt const& cy){
+	// Create a vector of size the original size of plaintext corresponding to cy, and with value a.
+	vector<long> vect_a(cy.getm_sizeOfPlaintext(), a);
+	// Encrypt the vector vect_a.
+	CyCtxt c_a = cy.encrypt(vect_a);
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy_copy(cy);
+	// Called the operator *= of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	 c_a *= cy_copy;
+	// Return the result ie the multiplication of a long and a CyCtxt.
+	return c_a;
+}
+
+
+// Sum of a CyCtxt and a long.
+CyCtxt operator+ (CyCtxt const& cy, long a){
+	// Create a vector of size the original size of plaintext corresponding to cy, and with value a.
+	vector<long> vect_a(cy.getm_sizeOfPlaintext(), a);
+	// Encrypt the vector vect_a.
+	CyCtxt c_a = cy.encrypt(vect_a);
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy_copy(cy);
+	// Called the operator += of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	cy_copy += c_a;
+	// Return the result ie the sum of the two CyCtxt.
+	return cy_copy;
+}
+
+// Substraction of a CyCtxt and a long.
+CyCtxt operator- (CyCtxt const& cy, long a){
+	// Create a vector of size the original size of plaintext corresponding to cy, and with value a.
+	vector<long> vect_a(cy.getm_sizeOfPlaintext(), a);
+	// Encrypt the vector vect_a.
+	CyCtxt c_a = cy.encrypt(vect_a);
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy_copy(cy);
+	// Called the operator -= of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	 cy_copy -= c_a;
+	// Return the result ie the sum of the two CyCtxt.
+	return cy_copy;
+}
+
+// Multiplication of a CyCtxt and a long.
+CyCtxt operator* (CyCtxt const& cy, long a){
+	// Create a vector of size the original size of plaintext corresponding to cy, and with value a.
+	vector<long> vect_a(cy.getm_sizeOfPlaintext(), a);
+	// Encrypt the vector vect_a.
+	CyCtxt c_a = cy.encrypt(vect_a);
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy_copy(cy);
+	// Called the operator *= of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	 cy_copy *= c_a;
+	// Return the result ie the sum of the two CyCtxt.
+	return cy_copy;
 }
 
 

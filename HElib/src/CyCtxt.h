@@ -17,7 +17,7 @@ class CyCtxt: public Ctxt {
 	long m_numberOfSlots;// Nº of slots in scheme
 
 	/******PROTOTYPES OF PRIVATE METHODS******/
-	CyCtxt encrypt(vector<long> &ptxt_vect) const;//Encryption
+
         
 	/******COMPARISON OPERATORS OVERLOAD******/
 
@@ -54,6 +54,8 @@ class CyCtxt: public Ctxt {
 
        
 	/******PROTOTYPES OF PUBLIC METHODS******/
+	CyCtxt encrypt(vector<long> &ptxt_vect) const;//Encryption
+
 	CyCtxt returnSquare() const;
 	CyCtxt returnCube() const;
 
@@ -67,6 +69,14 @@ class CyCtxt: public Ctxt {
 	CyCtxt operator+(CyCtxt const& cy1, CyCtxt const& cy2);
 	CyCtxt operator-(CyCtxt const& cy1, CyCtxt const& cy2);
 	CyCtxt operator*(CyCtxt const& cy1, CyCtxt const& cy2);
+
+	CyCtxt operator+(long a, CyCtxt const& cy);
+	CyCtxt operator-(long a, CyCtxt const& cy);
+	CyCtxt operator*(long a, CyCtxt const& cy);
+
+	CyCtxt operator+(CyCtxt const& cy, long a);
+	CyCtxt operator-(CyCtxt const& cy, long a);
+	CyCtxt operator*(CyCtxt const& cy, long a);
 
 
 #endif

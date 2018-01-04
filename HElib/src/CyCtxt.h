@@ -57,6 +57,8 @@ class CyCtxt: public Ctxt {
 	CyCtxt encrypt(vector<long> &ptxt_vect) const;//Encryption
 
 	CyCtxt returnNegate() const;
+	CyCtxt returnScalarProd(CyCtxt const& cy) const;
+	CyCtxt returnCumSum() const;
 	CyCtxt returnSquare() const;
 	CyCtxt returnCube() const;
 

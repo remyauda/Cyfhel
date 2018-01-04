@@ -148,7 +148,7 @@ CyCtxt CyCtxt::encrypt(vector<long> &ptxt_vect) const {
 	return ctxt_vect;
 }
 
-
+// Negate (what does it do?).
 CyCtxt CyCtxt::returnNegate() const{
     // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
     CyCtxt this_copy(*this);
@@ -158,6 +158,29 @@ CyCtxt CyCtxt::returnNegate() const{
     return this_copy;
 }
 
+// Scalar product: [1, 2, 3].[4, 5, 6] = [32, 32, 32] (because (1 * 4) + (2 * 5) + (3 * 6) = 32).
+CyCtxt CyCtxt::returnScalarProd(CyCtxt const& cy) const{
+    // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+    CyCtxt this_copy(*this);
+    // Called the multiplyBy method inherit from class Ctxt to modify the copy of current CyCtxt: this_copy. Multiply the two CyCtxt.
+    this_copy.multiplyBy(cy);
+    // Sum the elements of the resulting CyCtxt.
+    totalSums(*m_encryptedArray, this_copy);
+    // Return the result ie the square of the initial CyCtxt.
+    return this_copy;
+}
+
+// Cumulative sum: returnCumSum([1, 2, 3]) = [6, 6, 6] (because 6 = 1 + 2 + 3).
+CyCtxt CyCtxt::returnCumSum() const{
+    // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+    CyCtxt this_copy(*this);
+    // Sum the elements of the resulting CyCtxt.
+    totalSums(*m_encryptedArray, this_copy);
+    // Return the result ie the square of the initial CyCtxt.
+    return this_copy;
+}
+
+// Return the square: returnSquare([1, 2, 3]) = [1, 4, 9] (because 1² = 1; 2² = 4; 3² = 9).
 CyCtxt CyCtxt::returnSquare() const{
     // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
     CyCtxt this_copy(*this);
@@ -167,6 +190,7 @@ CyCtxt CyCtxt::returnSquare() const{
     return this_copy;
 }
 
+// Return the cube: returnCube([1, 2, 3]) = [1, 8, 27] (because 1³ = 1; 2³ = 8; 3³ = 27).
 CyCtxt CyCtxt::returnCube() const{
     // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
     CyCtxt this_copy(*this);

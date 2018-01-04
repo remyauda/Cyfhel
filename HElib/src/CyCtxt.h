@@ -67,7 +67,7 @@ class CyCtxt: public Ctxt {
 	CyCtxt returnCube() const;
 
 	/******PROTOTYPES OF PUBLIC METHODS: SHORTCUT OPERATORS OVERLOAD******/
-
+	CyCtxt& operator%=(CyCtxt const& cy);
 
 
 };
@@ -81,10 +81,12 @@ class CyCtxt: public Ctxt {
 	CyCtxt operator+(long a, CyCtxt const& cy);
 	CyCtxt operator-(long a, CyCtxt const& cy);
 	CyCtxt operator*(long a, CyCtxt const& cy);
+	CyCtxt operator%(long a, CyCtxt const& cy);
 
 	CyCtxt operator+(CyCtxt const& cy, long a);
 	CyCtxt operator-(CyCtxt const& cy, long a);
 	CyCtxt operator*(CyCtxt const& cy, long a);
+	CyCtxt operator%(CyCtxt const& cy, long a);
 
 
 #endif

@@ -242,6 +242,13 @@ CyCtxt CyCtxt::returnCube() const{
 
 
 /******IMPLEMENTATION OF PUBLIC METHODS: SHORTCUT OPERATORS OVERLOAD******/
+// Scalar product: [1, 2, 3].[4, 5, 6] = [32, 32, 32] (because (1 * 4) + (2 * 5) + (3 * 6) = 32).
+CyCtxt& CyCtxt::operator%=(CyCtxt const& cy){
+	// Called the operator scalarProd of class CyCtxt to modify the copy of cy1: cy1_copy.
+	this->scalarProd(cy);
+	// Return the result ie the multiplication of the two CyCtxt.
+	return *this;
+}
 
 
 
@@ -331,6 +338,20 @@ CyCtxt operator* (long a, CyCtxt const& cy){
 	return c_a;
 }
 
+// Scalar product of a long and a CyCtxt.
+CyCtxt operator% (long a, CyCtxt const& cy){
+	// Create a vector of size the original size of plaintext corresponding to cy, and with value a.
+	vector<long> vect_a(cy.getm_sizeOfPlaintext(), a);
+	// Encrypt the vector vect_a.
+	CyCtxt c_a = cy.encrypt(vect_a);
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy_copy(cy);
+	// Called the operator %= of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	 c_a %= cy_copy;
+	// Return the result ie the multiplication of a long and a CyCtxt.
+	return c_a;
+}
+
 
 // Sum of a CyCtxt and a long.
 CyCtxt operator+ (CyCtxt const& cy, long a){
@@ -370,6 +391,20 @@ CyCtxt operator* (CyCtxt const& cy, long a){
 	CyCtxt cy_copy(cy);
 	// Called the operator *= of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
 	 cy_copy *= c_a;
+	// Return the result ie the sum of the two CyCtxt.
+	return cy_copy;
+}
+
+// Multiplication of a CyCtxt and a long.
+CyCtxt operator% (CyCtxt const& cy, long a){
+	// Create a vector of size the original size of plaintext corresponding to cy, and with value a.
+	vector<long> vect_a(cy.getm_sizeOfPlaintext(), a);
+	// Encrypt the vector vect_a.
+	CyCtxt c_a = cy.encrypt(vect_a);
+	// Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+	CyCtxt cy_copy(cy);
+	// Called the operator %= of class CyCtxt inherit from class Ctxt to modify the copy of cy1: cy1_copy.
+	 cy_copy %= c_a;
 	// Return the result ie the sum of the two CyCtxt.
 	return cy_copy;
 }

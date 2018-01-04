@@ -61,6 +61,7 @@ class CyCtxt: public Ctxt {
 
 	CyCtxt returnNegate() const;
 	CyCtxt returnScalarProd(CyCtxt const& cy) const;
+	CyCtxt returnScalarProd(long const& a) const;
 	CyCtxt returnCumSum() const;
 	CyCtxt returnSquare() const;
 	CyCtxt returnCube() const;

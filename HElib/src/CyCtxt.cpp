@@ -190,6 +190,22 @@ CyCtxt CyCtxt::returnScalarProd(CyCtxt const& cy) const{
     return this_copy;
 }
 
+// Scalar product: [1, 2, 3].[4, 5, 6] = [32, 32, 32] (because (1 * 4) + (2 * 5) + (3 * 6) = 32).
+CyCtxt CyCtxt::returnScalarProd(long const& a) const{
+   // Create a vector of size the original size of plaintext corresponding to *this, and with value a.
+    vector<long> vect_a(m_sizeOfPlaintext, a);
+    // Encrypt the vector vect_a.
+    CyCtxt c_a = encrypt(vect_a);
+    // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+    CyCtxt this_copy(*this);
+    // Called the multiplyBy method inherit from class Ctxt to modify the copy of current CyCtxt: this_copy. Multiply the two CyCtxt.
+    this_copy.multiplyBy(c_a);
+    // Sum the elements of the resulting CyCtxt.
+    totalSums(*m_encryptedArray, this_copy);
+    // Return the result ie the square of the initial CyCtxt.
+    return this_copy;
+}
+
 // Cumulative sum: returnCumSum([1, 2, 3]) = [6, 6, 6] (because 6 = 1 + 2 + 3).
 CyCtxt CyCtxt::returnCumSum() const{
     // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.

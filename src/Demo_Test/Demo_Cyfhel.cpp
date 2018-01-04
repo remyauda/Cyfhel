@@ -361,7 +361,7 @@ int main()
     // Perform homeomorphic addition with operator + between a long and a CyCtxt.
     std::cout <<"*** Test of the homeomorphic addition with operator + between a long and a CyCtxt.***"<<endl;
     std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
-    std::cout <<"Performing 2 + Encrypt(v22)..."<<endl;
+    std::cout <<"Performing 2 + Encrypt(v12)..."<<endl;
     // Sum of a long and a CyCtxt.
     CyCtxt cAdd2_12 = 2 + c12;
     // Decrypt the result of the addition of a long and a CyCtxt.
@@ -396,6 +396,51 @@ int main()
     }
     else{
    	std::cout <<"Error: unexpected result during the comparison of v_add_2_v12 and twoPlusv12."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+
+// Perform homeomorphic addition with operator + between a CyCtxt and a long.
+    std::cout <<"*** Test of the homeomorphic addition with operator + between a CyCtxt and a long.***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v12) + 2..."<<endl;
+    // Sum of a CyCtxt and a long.
+    CyCtxt cAdd12_2 = c12 + 2;
+    // Decrypt the result of the addition of a CyCtxt and a long.
+    vector<long> v_add_v12_2 = cy.decrypt(cAdd12_2);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    //v_add_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the addition of a CyCtxt and a long is the same that the addition of the two vectors without encryption.
+    std::cout <<"Decrypt(Encrypt(v12) + 2) -> "<< v_add_v12_2<<endl;
+    // Perform the sum + on the unencrypted vectors. 
+    // std::plus adds together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+	vector<long> vectOf2(VECTOR_SIZE, 2);
+    vector<long> v12Plustwo(VECTOR_SIZE, 0);
+    std::transform (v12.begin(), v12.end(), vectOf2.begin(), v12Plustwo.begin(), std::plus<long>());
+    std::cout <<"vAdd_2 = v12 + vect(2) -> "<< v12Plustwo<<endl;
+    // If Decrypt(Encrypt(v12) + 2) equal to v12 + vect(2), the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_add_v12_2 == v12Plustwo){
+   	std::cout <<"Homeomorphic operation add with operator + between a CyCtxt and a long is a success: Decrypt(Encrypt(v12) + 2) equal to v12 + vect(2)."<<endl;
+   	number_success += 1;
+    }
+    else if (v_add_v12_2 != v12Plustwo){
+   	std::cout <<"Homeomorphic operation add with operator + between a CyCtxt and a long is a fail: Decrypt(Encrypt(v12) + 2) not equal to v12 + vect(2)."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_add_v12_2 and v12Plustwo."<<endl;
 	number_unexpeted_error += 1;
     }
 

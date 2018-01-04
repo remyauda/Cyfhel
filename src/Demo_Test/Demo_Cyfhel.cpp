@@ -312,6 +312,27 @@ int main()
    // Skip a line.
    std::cout <<"\n"<<endl;
 
+    // Perform homeomorphic operation returnNegate (doesn't test on unencrypted vector because the negate operation are done modulo ...).
+    std::cout <<"*** Test of the homeomorphic operation returnNegate (doesn't test on unencrypted vector because the negate operation are done modulo ...)***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Performing -Encrypt(v12)..."<<endl;
+    // Negate the cypher text.
+    CyCtxt cNegate12 = c12.returnNegate();
+    // Decrypt the result of the negate of the encrypted vector.
+    vector<long> v_negate_v12 = cy.decrypt(cNegate12);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    //v_add_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the negate of the encrypted vector is the same that the negate of the vector without encryption.
+    std::cout <<"Decrypt(-Encrypt(v12)) -> "<< v_negate_v12<<endl;
+
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
 
     // Perform homeomorphic addition with operator + .
     std::cout <<"*** Test of the homeomorphic addition with operator + ***"<<endl;
@@ -381,7 +402,7 @@ int main()
        The fourth is an output iterator of the initial position of the range where the operation results are stored.
        The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
        and returns some result value convertible to the type pointed by OutputIterator.*/
-	vector<long> vect_2(VECTOR_SIZE, 2);
+    vector<long> vect_2(VECTOR_SIZE, 2);
     vector<long> twoPlusv12(VECTOR_SIZE, 0);
     std::transform (vect_2.begin(), vect_2.end(), v12.begin(), twoPlusv12.begin(), std::plus<long>());
     std::cout <<"vAdd_2 = vect(2) + v12 -> "<< twoPlusv12<<endl;

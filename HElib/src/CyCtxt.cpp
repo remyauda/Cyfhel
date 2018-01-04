@@ -149,6 +149,15 @@ CyCtxt CyCtxt::encrypt(vector<long> &ptxt_vect) const {
 }
 
 
+CyCtxt CyCtxt::returnNegate() const{
+    // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
+    CyCtxt this_copy(*this);
+    // Called the square method inherit from class Ctxt to modify the copy of current CyCtxt: this_copy.
+    this_copy.negate();
+    // Return the result ie the square of the initial CyCtxt.
+    return this_copy;
+}
+
 CyCtxt CyCtxt::returnSquare() const{
     // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.
     CyCtxt this_copy(*this);

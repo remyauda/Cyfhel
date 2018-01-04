@@ -117,6 +117,9 @@ int main()
     // If no parameter are provided, uses default values for the generation of the keys.
     // Cyfhel is an object that allow the user to encrypt and decrypt vectors in a homeomorphism way.
     std::cout <<"******Generation of the keys for encryption******"<<endl;
+	// Use this initialization for strong encryption. However, the computation time will be greater (takes several minutes at least).
+	//Cyfhel cy(true);
+	// Use this initialization to go fast through the demo the computation time will be very low (takes several second only). However, the encryption will be very weak.
     Cyfhel cy(true, 257, 1, 2, 1, 80, 64, 10); // Comment this line if you want to test the copy constructor.
 
     // Uncomment the following lines if you want to test the copy constructor.

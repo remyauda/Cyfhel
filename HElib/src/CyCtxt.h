@@ -57,6 +57,7 @@ class CyCtxt: public Ctxt {
 	CyCtxt encrypt(vector<long> &ptxt_vect) const;//Encryption
 
 	void scalarProd(CyCtxt const& cy);
+	void scalarProd(long const& a);
 
 	CyCtxt returnNegate() const;
 	CyCtxt returnScalarProd(CyCtxt const& cy) const;

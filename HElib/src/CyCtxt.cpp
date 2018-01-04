@@ -156,6 +156,18 @@ void CyCtxt::scalarProd(CyCtxt const& cy){
     totalSums(*m_encryptedArray, *this);
 }
 
+// Scalar product: [1, 2, 3].[4, 5, 6] = [32, 32, 32] (because (1 * 4) + (2 * 5) + (3 * 6) = 32).
+void CyCtxt::scalarProd(long const& a){
+    // Create a vector of size the original size of plaintext corresponding to *this, and with value a.
+    vector<long> vect_a(m_sizeOfPlaintext, a);
+    // Encrypt the vector vect_a.
+    CyCtxt c_a = encrypt(vect_a);
+    // Called the multiplyBy method inherit from class Ctxt to modify the copy of current CyCtxt: this_copy. Multiply the two CyCtxt.
+    this->multiplyBy(c_a);
+    // Sum the elements of the resulting CyCtxt.
+    totalSums(*m_encryptedArray, *this);
+}
+
 // Negate (what does it do?).
 CyCtxt CyCtxt::returnNegate() const{
     // Empty cyphertext object. Use of the copy constructor of class CyCtxt inherit from class Ctxt.

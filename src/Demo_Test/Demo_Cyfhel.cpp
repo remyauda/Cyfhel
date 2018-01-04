@@ -628,6 +628,96 @@ int main()
    std::cout <<"\n"<<endl;
 
 
+    // Perform homeomorphic multiplication with operator * between a long and a CyCtxt.
+    std::cout <<"*** Test of the homeomorphic multiplication with operator * between a long and a CyCtxt.***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Performing 2 * Encrypt(v12)..."<<endl;
+    // Multiplication of a long and a CyCtxt.
+    CyCtxt cMult2_12 = 2 * c12;
+    // Decrypt the result of the multiplication of a long and a CyCtxt.
+    vector<long> v_mult_2_v12 = cy.decrypt(cMult2_12);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    //v_add_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the multiplication of a long and a CyCtxt is the same that the multiplication of the two vectors without encryption.
+    std::cout <<"Decrypt(2 * Encrypt(v12)) -> "<< v_mult_2_v12<<endl;
+    // Perform the multiplication * on the unencrypted vectors. 
+    // std::plus multiplies together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> vect_2_forMult1(VECTOR_SIZE, 2);
+    vector<long> twoMultv12(VECTOR_SIZE, 0);
+    std::transform (vect_2_forMult1.begin(), vect_2_forMult1.end(), v12.begin(), twoMultv12.begin(), std::multiplies<long>());
+    std::cout <<"vMult_2 = vect(2) * v12 -> "<< twoMultv12<<endl;
+    // If Decrypt(2 * Encrypt(v12)) equal to vect(2) * v12, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_mult_2_v12 == twoMultv12){
+   	std::cout <<"Homeomorphic operation multiplication with operator * between a long and a CyCtxt is a success: Decrypt(2 * Encrypt(v12)) equal to vect(2) * v12."<<endl;
+   	number_success += 1;
+    }
+    else if (v_mult_2_v12 != twoMultv12){
+   	std::cout <<"Homeomorphic operation multiplication with operator * between a long and a CyCtxt is a fail: Decrypt(2 * Encrypt(v12)) not equal to vect(2) * v12."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_mult_2_v12 and twoMultv12."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+
+// Perform homeomorphic multiplication with operator * between a CyCtxt and a long.
+    std::cout <<"*** Test of the homeomorphic multiplication with operator * between a CyCtxt and a long.***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v12) * 2..."<<endl;
+    // Multiplication of a CyCtxt and a long.
+    CyCtxt cMult12_2 = c12 * 2;
+    // Decrypt the result of the multiplication of a CyCtxt and a long.
+    vector<long> v_mult_v12_2 = cy.decrypt(cMult12_2);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    //v_add_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the multiplication of a CyCtxt and a long is the same that the multiplication of the two vectors without encryption.
+    std::cout <<"Decrypt(Encrypt(v12) * 2) -> "<< v_mult_v12_2<<endl;
+    // Perform the multiplication * on the unencrypted vectors. 
+    // std::multiplies multiplies together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> vect_2_forMult2(VECTOR_SIZE, 2);
+    vector<long> v12Multtwo(VECTOR_SIZE, 0);
+    std::transform (v12.begin(), v12.end(), vect_2_forMult2.begin(), v12Multtwo.begin(), std::multiplies<long>());
+    std::cout <<"vMult_2 = v12 * vect(2) -> "<< v12Multtwo<<endl;
+    // If Decrypt(Encrypt(v12) * 2) equal to v12 * vect(2), the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_mult_v12_2 == v12Multtwo){
+   	std::cout <<"Homeomorphic operation multiplication with operator * between a CyCtxt and a long is a success: Decrypt(Encrypt(v12) * 2) equal to v12 * vect(2)."<<endl;
+   	number_success += 1;
+    }
+    else if (v_mult_v12_2 != v12Multtwo){
+   	std::cout <<"Homeomorphic operation multiplication with operator * between a CyCtxt and a long is a fail: Decrypt(Encrypt(v12) * 2) not equal to v12 * vect(2)."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_mult_v12_2 and v12Multtwo."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+
     // Perform homeomorphic returnSquare.
     std::cout <<"*** Test of the homeomorphic returnSquare with operator returnSquare ***"<<endl;
     std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;

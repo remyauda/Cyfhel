@@ -492,6 +492,97 @@ int main()
    // Skip a line.
    std::cout <<"\n"<<endl;
 
+
+    // Perform homeomorphic substraction with operator - between a long and a CyCtxt.
+    std::cout <<"*** Test of the homeomorphic substraction with operator - between a long and a CyCtxt.***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Performing 6 - Encrypt(v12)..."<<endl;
+    // substraction of a long and a CyCtxt.
+    CyCtxt cMinus2_12 = 6 - c12;
+    // Decrypt the result of the substraction of a long and a CyCtxt.
+    vector<long> v_minus_2_v12 = cy.decrypt(cMinus2_12);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    //v_add_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the substraction of a long and a CyCtxt is the same that the substraction of the two vectors without encryption.
+    std::cout <<"Decrypt(6 - Encrypt(v12)) -> "<< v_minus_2_v12<<endl;
+    // Perform the substraction - on the unencrypted vectors. 
+    // std::plus minus together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> vect_2_forMinus(VECTOR_SIZE, 6);
+    vector<long> twoMinusv12(VECTOR_SIZE, 0);
+    std::transform (vect_2_forMinus.begin(), vect_2_forMinus.end(), v12.begin(), twoMinusv12.begin(), std::minus<long>());
+    std::cout <<"vMinus_2 = vect(6) - v12 -> "<< twoMinusv12<<endl;
+    // If Decrypt(6 - Encrypt(v12)) equal to vect(6) - v12, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_minus_2_v12 == twoMinusv12){
+   	std::cout <<"Homeomorphic operation substraction with operator - between a long and a CyCtxt is a success: Decrypt(6 - Encrypt(v12)) equal to vect(6) - v12."<<endl;
+   	number_success += 1;
+    }
+    else if (v_minus_2_v12 != twoMinusv12){
+   	std::cout <<"Homeomorphic operation substraction with operator - between a long and a CyCtxt is a fail: Decrypt(6 - Encrypt(v12)) not equal to vect(6) - v12."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_minus_2_v12 and twoMinusv12."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+
+// Perform homeomorphic substraction with operator - between a CyCtxt and a long.
+    std::cout <<"*** Test of the homeomorphic substraction with operator - between a CyCtxt and a long.***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v12) - 2..."<<endl;
+    // Substraction of a CyCtxt and a long.
+    CyCtxt cMinus12_2 = c12 - 2;
+    // Decrypt the result of the substraction of a CyCtxt and a long.
+    vector<long> v_minus_v12_2 = cy.decrypt(cMinus12_2);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    //v_add_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the substraction of a CyCtxt and a long is the same that the substraction of the two vectors without encryption.
+    std::cout <<"Decrypt(Encrypt(v12) - 2) -> "<< v_minus_v12_2<<endl;
+    // Perform the substraction - on the unencrypted vectors. 
+    // std::plus minus together its two arguments.
+    /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.
+       The third is an input iterator to the initial position of the second range.
+       The fourth is an output iterator of the initial position of the range where the operation results are stored.
+       The last argument is a binary function that accepts two elements as argument (one of each of the two sequences),
+       and returns some result value convertible to the type pointed by OutputIterator.*/
+    vector<long> vectOf2_1(VECTOR_SIZE, 2);
+    vector<long> v12Minustwo_1(VECTOR_SIZE, 0);
+    std::transform (v12.begin(), v12.end(), vectOf2_1.begin(), v12Minustwo_1.begin(), std::minus<long>());
+    std::cout <<"vMinus_2 = v12 - vect(2) -> "<< v12Minustwo_1<<endl;
+    // If Decrypt(Encrypt(v12) - 2) equal to v12 - vect(2), the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_minus_v12_2 == v12Minustwo_1){
+   	std::cout <<"Homeomorphic operation substraction with operator - between a CyCtxt and a long is a success: Decrypt(Encrypt(v12) - 2) equal to v12 - vect(2)."<<endl;
+   	number_success += 1;
+    }
+    else if (v_minus_v12_2 != v12Minustwo_1){
+   	std::cout <<"Homeomorphic operation substraction with operator - between a CyCtxt and a long is a fail: Decrypt(Encrypt(v12) - 2) not equal to v12 - vect(2)."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_minus_v12_2 and v12Minustwo_1."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+
     // Perform homeomorphic multiplication with operator * .
     std::cout <<"*** Test of the homeomorphic multiplication with operator * ***"<<endl;
     std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;

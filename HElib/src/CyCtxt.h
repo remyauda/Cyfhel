@@ -56,6 +56,8 @@ class CyCtxt: public Ctxt {
 	/******PROTOTYPES OF PUBLIC METHODS******/
 	CyCtxt encrypt(vector<long> &ptxt_vect) const;//Encryption
 
+	void scalarProd(CyCtxt const& cy);
+
 	CyCtxt returnNegate() const;
 	CyCtxt returnScalarProd(CyCtxt const& cy) const;
 	CyCtxt returnCumSum() const;
@@ -72,6 +74,7 @@ class CyCtxt: public Ctxt {
 	CyCtxt operator+(CyCtxt const& cy1, CyCtxt const& cy2);
 	CyCtxt operator-(CyCtxt const& cy1, CyCtxt const& cy2);
 	CyCtxt operator*(CyCtxt const& cy1, CyCtxt const& cy2);
+	CyCtxt operator%(CyCtxt const& cy1, CyCtxt const& cy2);
 
 	CyCtxt operator+(long a, CyCtxt const& cy);
 	CyCtxt operator-(long a, CyCtxt const& cy);

@@ -776,6 +776,44 @@ int main()
    // Skip a line.
    std::cout <<"\n"<<endl;
 
+    // Perform homeomorphic scalar product with operator %.
+    std::cout <<"*** Test of the homeomorphic scalar product with operator %.***"<<endl;
+    std::cout <<"Encrypted v12: Encrypt("<< v12<< ")"<<endl;
+    std::cout <<"Encrypted v22: Encrypt("<< v22<< ")"<<endl;
+    std::cout <<"Performing Encrypt(v12) % Encrypt(v22)..."<<endl;
+    // Scalar product with operator % of the two cypher text.
+    CyCtxt cScalarProd12_22_op = c12 % c22;
+    // Decrypt the result of the scalar product with operator % of the two encrypted vectors.
+    vector<long> v_scalarProd_v12_v22_op = cy.decrypt(cScalarProd12_22_op);
+    /* If the user has specified false for the second parameter of decrypt ie isDecryptedPtxt_vectResize, the decrypted plaintext vectors have been modified by the
+       decrypt method.
+       Indeed, (m_numberOfSlots - vector_size) zeros has been added to the decrypted plaintext vectors. So, we have to resize the decrypted plaintext vectors to obtain
+       the original ones.
+       Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
+    //v_mult_v12_v22.resize(VECTOR_SIZE);
+    // The user can then verify if the result of the scalar product with operator % of the two encrypted vectors is the same that the scalar product with operator % of the two vectors without encryption.
+    std::cout <<"Decrypt(Encrypt(v12) % Encrypt(v22) -> "<< v_scalarProd_v12_v22_op<<endl;
+    // Perform the scalar product on the unencrypted vectors. 
+    // Use of std::inner_product preform scalar product together its two arguments.
+    vector<long> v12ScalarProdv22_op(VECTOR_SIZE, std::inner_product(std::begin(v12), std::end(v12), std::begin(v22), 0.0));
+    std::cout <<"vScalarProd_operator = v12 % v22 -> "<< v12ScalarProdv22_op<<endl;
+    // If Decrypt(Encrypt(v12) % Encrypt(v22)) equal to v12 % v22, the homeomorphic operation works and so it is a success. Else, it is a fail.
+    if (v_scalarProd_v12_v22_op == v12ScalarProdv22_op){
+   	std::cout <<"Homeomorphic operation scalar product with operator % is a success: Decrypt(Encrypt(v12) % Encrypt(v22) equal to v12 % v22."<<endl;
+   	number_success += 1;
+    }
+    else if (v_scalarProd_v12_v22_op != v12ScalarProdv22_op){
+   	std::cout <<"Homeomorphic operation scalar product with operator % is a fail: Decrypt(Encrypt(v12) % Encrypt(v22) not equal to v12 % v22."<<endl;
+   	number_fail += 1;
+    }
+    else{
+   	std::cout <<"Error: unexpected result during the comparison of v_scalarProd_v12_v22_op and v12ScalarProdv22_op."<<endl;
+	number_unexpeted_error += 1;
+    }
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
 
     // Perform homeomorphic returnSquare.
     std::cout <<"*** Test of the homeomorphic returnSquare with operator returnSquare ***"<<endl;

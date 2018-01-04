@@ -148,6 +148,12 @@ CyCtxt CyCtxt::encrypt(vector<long> &ptxt_vect) const {
 	return ctxt_vect;
 }
 
+// Cumulative sum: cumSum([1, 2, 3]) = [6, 6, 6] (because 6 = 1 + 2 + 3).
+void CyCtxt::cumSum(){
+    // Sum the elements of the resulting CyCtxt.
+    totalSums(*m_encryptedArray, *this);
+}
+
 // Scalar product: [1, 2, 3].[4, 5, 6] = [32, 32, 32] (because (1 * 4) + (2 * 5) + (3 * 6) = 32).
 void CyCtxt::scalarProd(CyCtxt const& cy){
     // Called the multiplyBy method inherit from class Ctxt to modify the copy of current CyCtxt: this_copy. Multiply the two CyCtxt.

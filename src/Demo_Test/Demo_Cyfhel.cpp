@@ -37,6 +37,8 @@
 #include <cassert>
 #include <cstdio>
 
+#include "polyEval.h"
+
 /* The vector size of the plaintext that we will use for the demo.*/
 #define VECTOR_SIZE 5
 
@@ -184,7 +186,7 @@ int main()
     std::cout <<"*** Test of the homeomorphic addition with operator += ***"<<endl;
     std::cout <<"Encrypted v1: Encrypt("<< v1<< ")"<<endl;
     std::cout <<"Encrypted v2: Encrypt("<< v2<< ")"<<endl;
-    std::cout <<"Performing Encrypt(v1) + Encrypt(v2)..."<<endl;
+    std::cout <<"Performing Encrypt(v1) += Encrypt(v2)..."<<endl;
     // Sum of the two cypher text.
     c1 += c2;
     // Decrypt the result of the addition of the two encrypted vectors.
@@ -196,7 +198,7 @@ int main()
        Note: we recommand to doesn't specify the second parameter of decrypt because the resize will then be done automatically.*/
     //v_add_v1_v2.resize(VECTOR_SIZE);
     // The user can then verify if the result of the addition of the two encrypted vectors is the same that the addition of the two vectors without encryption.
-    std::cout <<"Decrypt(Encrypt(v1) + Encrypt(v2)) -> "<< v_add_v1_v2<<endl;
+    std::cout <<"Decrypt(Encrypt(v1) += Encrypt(v2)) -> "<< v_add_v1_v2<<endl;
     // Perform the sum += on the unencrypted vectors. 
     // std::plus adds together its two arguments.
     /* This form of std::transform takes 5 arguments: Two first are input iterators to the initial and final positions of the first sequence.

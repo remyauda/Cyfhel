@@ -41,14 +41,14 @@ using namespace std;
 
 
 /******CONSTRUCTOR WITH PARAMETERS******/
-Cyfhel::Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0) {
+Cyfhel::Cyfhel(bool isVerbose, long p, long r, long c, long d, long sec, long w, long L, long m, long const& R, long const& s, vector<long> const& gens, vector<long> const& ords):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0) {
 	m_isVerbose = isVerbose;
-	keyGen(p, r, c, d, sec, w, L);
+	keyGen(p, r, c, d, sec, w, L, m, R, s, gens, ords);
 }
 
-Cyfhel::Cyfhel(long p, long r, long c, long d, long sec, long w, long L, bool isVerbose):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0) {
+Cyfhel::Cyfhel(long p, long r, long c, long d, long sec, long w, long L, long m, long const& R, long const& s, vector<long> const& gens, vector<long> const& ords, bool isVerbose):m_context(0), m_secretKey(0), m_publicKey(0), m_encryptedArray(0) {
 	m_isVerbose = isVerbose;
-	keyGen(p, r, c, d, sec, w, L);
+	keyGen(p, r, c, d, sec, w, L, m, R, s, gens, ords);
 }
 
 // TODO: MUST be tested.

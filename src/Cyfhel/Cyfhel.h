@@ -66,9 +66,9 @@ class Cyfhel {
 
 
 	/******CONSTRUCTOR WITH PARAMETERS******/
-	Cyfhel(bool isVerbose = false, long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40);
+	Cyfhel(bool isVerbose = false, long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40, long m = -1, long const& R = 3, long const& s = 0, vector<long> const& gens = vector<long>(), vector<long> const& ords = vector<long>());
 
-	Cyfhel(long p = 2, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40, bool isVerbose = false);
+	Cyfhel(long p, long r = 32, long c = 2, long d = 1, long sec = 128, long w = 64, long L = 40, long m = -1, long const& R = 3, long const& s = 0, vector<long> const& gens = vector<long>(), vector<long> const& ords = vector<long>(), bool isVerbose = false);
 
 	Cyfhel(vector<long> cryptoParameters, bool isVerbose = false);
 

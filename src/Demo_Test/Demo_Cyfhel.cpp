@@ -86,8 +86,10 @@ int main(int argc, char *argv[])
     vector<long> v12; // Initialization of v12.
     vector<long> v22; // Initialization of v22.
 
+	// If the user gives some options at execution time.
 	if(argc > 1)
 	{
+		// If the user gives the option -f or --fixe at execution time, we initialize vector by default instead of random.
 		if(!strcmp(argv[1], "-f") || !strcmp(argv[1], "--fixe"))
 		{
 			// Initialization of v1.
@@ -114,6 +116,7 @@ int main(int argc, char *argv[])
 				v22.push_back(2);  
 			}
 		}
+		// If the user gives the option -r or --random at execution time, we initialize vector in random.
 		else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "--random"))
 		{
 			// Initialization of v1.
@@ -125,7 +128,7 @@ int main(int argc, char *argv[])
 			// Initialization of v2.
 			for(int i=0; i<VECTOR_SIZE; i++)
 			{
-				v2.push_back(RandomBnd(RANGEOFRANDOM+1));  
+				v2.push_back(RandomBnd(RANGEOFRANDOM+1));
 			}
 
 			// Initialization of v12.
@@ -140,6 +143,7 @@ int main(int argc, char *argv[])
 				v22.push_back(RandomBnd(RANGEOFRANDOM+1));  
 			}
 		}
+		// If the user gives other options at execution time that the arguments expected.
 		else
 		{
 			std::cout <<"ERROR: cannot determine the use or not of random vectors. Use the fixe vectors instead."<<endl;

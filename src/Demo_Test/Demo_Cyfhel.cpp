@@ -1011,6 +1011,11 @@ int main(int argc, char *argv[])
    // Skip a line.
    std::cout <<"\n"<<endl;
 
+   /*DynamicCtxtPowers dp(c12, 4);
+   CyCtxt cypower_4(dp.getPower(4));
+   vector<long> v12_power_4 = cy.decrypt(cypower_4);
+   std::cout <<"Decrypt(Encrypt(v12)⁴) -> "<< v12_power_4<<endl;*/
+
 
     // Scalar product
     //k1 = cy.encrypt(v1);

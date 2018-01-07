@@ -42,14 +42,11 @@
 /* The vector size of the plaintext that we will use for the demo.*/
 #define VECTOR_SIZE 5
 
-/* Define if we use random vectors for the demo.*/
-#define ISRANDOM 0
-
 /* Define the max value of an element in the vector when the user choose the random vectors (value will be choosen between 0 and RANGEOFRANDOM).*/
 #define RANGEOFRANDOM 10
 
 
-int main()
+int main(int argc, char *argv[])
 {
     //    string fileName = "DemoCyfhelEnv";
      
@@ -89,33 +86,91 @@ int main()
     vector<long> v12; // Initialization of v12.
     vector<long> v22; // Initialization of v22.
 
-	if(!ISRANDOM)
+	if(argc > 1)
 	{
-		// Initialization of v1.
-		for(int i=0; i<VECTOR_SIZE; i++)
+		if(!strcmp(argv[1], "-f") || !strcmp(argv[1], "--fixe"))
 		{
-			v1.push_back(i);  
-		}
+			// Initialization of v1.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v1.push_back(i);  
+			}
 
-		// Initialization of v2.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v2.push_back(2);  
-		}
+			// Initialization of v2.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v2.push_back(2);  
+			}
 
-		// Initialization of v12.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v12.push_back(i+2);  
-		}
+			// Initialization of v12.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v12.push_back(i+2);  
+			}
 
-		// Initialization of v22.
-		for(int i=0; i<VECTOR_SIZE; i++)
+			// Initialization of v22.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v22.push_back(2);  
+			}
+		}
+		else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "--random"))
 		{
-			v22.push_back(2);  
+			// Initialization of v1.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v1.push_back(RandomBnd(RANGEOFRANDOM+1));  
+			}
+
+			// Initialization of v2.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v2.push_back(RandomBnd(RANGEOFRANDOM+1));  
+			}
+
+			// Initialization of v12.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v12.push_back(RandomBnd(RANGEOFRANDOM+1)+2);  
+			}
+
+			// Initialization of v22.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v22.push_back(RandomBnd(RANGEOFRANDOM+1));  
+			}
+		}
+		else
+		{
+			std::cout <<"ERROR: cannot determine the use or not of random vectors. Use the fixe vectors instead."<<endl;
+
+			// Initialization of v1.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v1.push_back(i);  
+			}
+
+			// Initialization of v2.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v2.push_back(2);  
+			}
+
+			// Initialization of v12.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v12.push_back(i+2);  
+			}
+
+			// Initialization of v22.
+			for(int i=0; i<VECTOR_SIZE; i++)
+			{
+				v22.push_back(2);  
+			}
 		}
 	}
-	else if(ISRANDOM)
+	//Otherwise if the user don't put option in compilation (i.e: argc <= 1), we initialize vector in random.
+	else
 	{
 		// Initialization of v1.
 		for(int i=0; i<VECTOR_SIZE; i++)
@@ -139,34 +194,6 @@ int main()
 		for(int i=0; i<VECTOR_SIZE; i++)
 		{
 			v22.push_back(RandomBnd(RANGEOFRANDOM+1));  
-		}
-	}
-	else
-	{
-    	std::cout <<"ERROR: cannot determine the use or not of random vectors. Use the fixe vectors instead."<<endl;
-
-		// Initialization of v1.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v1.push_back(i);  
-		}
-
-		// Initialization of v2.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v2.push_back(2);  
-		}
-
-		// Initialization of v12.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v12.push_back(i+2);  
-		}
-
-		// Initialization of v22.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v22.push_back(2);  
 		}
 	}
 

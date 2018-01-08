@@ -45,6 +45,9 @@
 /* Define the max value of an element in the vector when the user choose the random vectors (value will be choosen between 0 and RANGEOFRANDOM).*/
 #define RANGEOFRANDOM 10
 
+/* Define if the polynome is monic or not during the tests.*/
+#define isMonic 0
+
 
 int main(int argc, char *argv[])
 {
@@ -1025,21 +1028,39 @@ int main(int argc, char *argv[])
    std::cout <<"Decrypt(Encrypt(v12)⁴) -> "<< v12_power_4<<endl;*/
 
 
-   //std::cout <<"******Homomorphic Polynomial Evaluation******"<<endl;
+   std::cout <<"******Homomorphic Polynomial Evaluation******"<<endl;
+
+   const long d = 3; // Degree of the polynome.
+   const long p2r = cy.getp2r(); // Value of p power r.
+   const long sizeVectorPtsEval = 10; // We evaluate the polynome in ten points.
+
+   // evaluate at random points (at least one co-prime with p)
+   vector<long> x;
+   cy.random(x);
+   while (GCD(x[0], cy.getm_global_p())!=1) { x[0] = RandomBnd(p2r); }
+   x.resize(sizeVectorPtsEval);
+   std::cout <<"vector X of random points -> "<< x <<endl;
+
+   // Definition of the polynome.
+   ZZX poly;
+   for (long i=d; i>=0; i--)
+     SetCoeff(poly, i, RandomBnd(p2r)); // coefficients are random.
+   if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1.
+
+   // Print the polynome.
+   std::cout <<"Polynome P(X) -> ";
+   for (int i=deg(poly); i>0; i--){
+   std::cout << poly[i] <<"X^"<<i<<" + ";
+   }
+   std::cout << poly[0] <<endl;
+
+   // Enncrypt the vectors of points to evaluate the polynome.
+   cy.encrypt(x);
+   std::cout <<"Encryption of vector x..."<<endl;
+
+   std::cout << "Encrypted x: Encrypt(" << x << ")"<<endl;
 
 
-
-
-    // Scalar product
-    //k1 = cy.encrypt(v1);
-    //k2 = cy.encrypt(v2);
-    //cy.scalarProd(k1, k2);
-    //vector<long> vRes3 = cy.decrypt(k1);
-
-    // Square
-    //k1 = cy.encrypt(v1);
-    //cy.square(k1);
-    //vector<long> vRes4 = cy.decrypt(k1);
 
 
    // Skip a line.

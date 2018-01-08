@@ -356,6 +356,16 @@ long Cyfhel::getp2r() const {
 	return m_context->alMod.getPPowR();
 }
 
+/*
+	@name: random
+	@description: Get a random vector of size m_encryptedArray.size().
+
+	@param: null.
+*/
+void Cyfhel::random(vector<long>& array){
+	return m_encryptedArray->random(array);
+}
+
 //------ENCRYPTION------
 //ENCRYPTION
 /*

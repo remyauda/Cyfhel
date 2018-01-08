@@ -105,7 +105,9 @@ class Cyfhel {
 
 	long getp2r() const; //Get p power r.
 
-	void random(vector<long>& array); //Get a random vector of size ea.size().
+	long getm_encryptedArraySize() const; //Get m_encryptedArray size: m_encryptedArray.size().
+
+	void random(vector<long>& array) const; //Get a random vector of size ea.size().
 
 	//------ENCRYPTION------
 	CyCtxt encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize = true) const;//Encryption

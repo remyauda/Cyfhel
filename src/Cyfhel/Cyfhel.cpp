@@ -357,12 +357,22 @@ long Cyfhel::getp2r() const {
 }
 
 /*
+	@name: getm_encryptedArraySize
+	@description: Get size of m_encryptedArray.
+
+	@param: null.
+*/
+long Cyfhel::getm_encryptedArraySize() const {
+	return m_encryptedArray->size();
+}
+
+/*
 	@name: random
 	@description: Get a random vector of size m_encryptedArray.size().
 
 	@param: null.
 */
-void Cyfhel::random(vector<long>& array){
+void Cyfhel::random(vector<long>& array) const{
 	return m_encryptedArray->random(array);
 }
 

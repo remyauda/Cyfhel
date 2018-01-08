@@ -1037,6 +1037,11 @@ int main(int argc, char *argv[])
    // evaluate at random points (at least one co-prime with p)
    vector<long> x;
    cy.random(x);
+   /*for(int i=0; i<sizeVectorPtsEval; i++)
+	{
+		x.push_back(i);  
+	}*/
+
    while (GCD(x[0], cy.getm_global_p())!=1) { x[0] = RandomBnd(p2r); }
    x.resize(sizeVectorPtsEval);
    std::cout <<"vector X of random points -> "<< x <<endl;
@@ -1054,14 +1059,34 @@ int main(int argc, char *argv[])
    }
    std::cout << poly[0] <<endl;
 
-   // Enncrypt the vectors of points to evaluate the polynome.
-   cy.encrypt(x);
+   // Encrypt the vectors of points to evaluate the polynome.
+   CyCtxt cx = cy.encrypt(x);
    std::cout <<"Encryption of vector x..."<<endl;
-
    std::cout << "Encrypted x: Encrypt(" << x << ")"<<endl;
 
+   // Creation of a CyCtxt to contain the result CyCtxt of the polynomial evaluation.
+   CyCtxt cEvalPoly = cx; 
+   // Evaluate poly on the ciphertext.
+   polyEval(cEvalPoly, poly, cx, 0);
 
 
+  // Decrypt the CyCtxt which contain the polynomial evaluation.
+  vector<long> vect_polyEval = cy.decrypt(cEvalPoly);
+  // The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
+  std::cout <<"Decrypt(P(encrypt(x))) -> "<< vect_polyEval<<endl;
+
+  vector<long> plainTextEval;
+  for (long i=0; i<sizeVectorPtsEval; i++) {
+     long ret = polyEvalMod(poly, x[i], p2r);
+     plainTextEval.push_back(ret);
+     if (ret != vect_polyEval[i]) {
+       std::cout << "plaintext poly MISMATCH\n";
+       number_fail += 1;
+    }
+  }
+   std::cout <<"P(x) -> "<< plainTextEval<<endl;
+   std::cout << "plaintext poly match\n" << std::flush;
+   number_success += 1;
 
    // Skip a line.
    std::cout <<"\n"<<endl;

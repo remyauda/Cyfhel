@@ -232,6 +232,12 @@ int main(int argc, char *argv[])
     // Use the copy constructor to construct a Cyfhel object called cy.
     Cyfhel cy(cy_0);*/
 
+    // Test of Cyfhel getp2r() method.
+    std::cout <<"Value of p^r -> "<< cy.getp2r() <<endl;
+
+    // Skip a line.
+    std::cout <<"\n"<<endl;
+
 
     std::cout <<"******Homeomorphic encryption of the two vectors used during the tests +=, -=, *=, etc...******"<<endl;
     // Encrypted the two plaintexts to have two Cypher texts that are encrypted in an homeomorphic way with the key generated during the construction of object Cyfhel. 
@@ -1011,10 +1017,17 @@ int main(int argc, char *argv[])
    // Skip a line.
    std::cout <<"\n"<<endl;
 
-   /*DynamicCtxtPowers dp(c12, 4);
-   CyCtxt cypower_4(dp.getPower(4));
+   // Powers.
+   /*std::cout <<"c12 -> "<< cy.decrypt(c12)<<endl;
+   DynamicCtxtPowers dp(c12, 2);
+   Ctxt cypower_4 = dp.getPower(2);
    vector<long> v12_power_4 = cy.decrypt(cypower_4);
    std::cout <<"Decrypt(Encrypt(v12)⁴) -> "<< v12_power_4<<endl;*/
+
+
+   //std::cout <<"******Homomorphic Polynomial Evaluation******"<<endl;
+
+
 
 
     // Scalar product
@@ -1065,6 +1078,9 @@ int main(int argc, char *argv[])
 
     // Display the end of the program.
     std::cout <<"     ************END OF CYFHEL DEMO************" <<endl;
+
+    // Skip a line.
+    std::cout <<"\n"<<endl;
 
     // If success, return 0.
     return 0;

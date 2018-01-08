@@ -346,6 +346,16 @@ void Cyfhel::keyGen(long const& p, long const& r, long const& c, long const& d, 
 
 /******IMPLEMENTATION OF PUBLIC METHODS******/
 
+/*
+	@name: getp2r
+	@description: Get p power r.
+
+	@param: null.
+*/
+long Cyfhel::getp2r() const {
+	return m_context->alMod.getPPowR();
+}
+
 //------ENCRYPTION------
 //ENCRYPTION
 /*

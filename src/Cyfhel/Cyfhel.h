@@ -102,6 +102,9 @@ class Cyfhel {
 
        
     /******PROTOTYPES OF PUBLIC METHODS******/
+
+	long getp2r() const;//Get p power r.
+
 	//------ENCRYPTION------
 	CyCtxt encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize = true) const;//Encryption
         

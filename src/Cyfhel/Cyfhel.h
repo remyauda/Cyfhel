@@ -105,7 +105,7 @@ class Cyfhel {
 	//------ENCRYPTION------
 	CyCtxt encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize = true) const;//Encryption
         
-	vector<long> decrypt(CyCtxt& ctxt_vect, bool isDecryptedPtxt_vectResize = true) const;//Decryption
+	vector<long> decrypt(Ctxt& ctxt_vect, bool isDecryptedPtxt_vectResize = true) const;//Decryption
 
 
 	//------AUXILIARY------

@@ -96,8 +96,8 @@ bool Ctxt::equalsTo(const Ctxt& other, bool comparePkeys) const
 }
 
 // Constructor
-Ctxt::Ctxt(const FHEPubKey& newPubKey, long newPtxtSpace):
-  context(newPubKey.getContext()), pubKey(newPubKey), ptxtSpace(newPtxtSpace),
+Ctxt::Ctxt(const FHEPubKey& newPubKey, long newPtxtSpace, long sizeOfPlaintext):
+  context(newPubKey.getContext()), pubKey(newPubKey), ptxtSpace(newPtxtSpace), m_sizeOfPlaintext(sizeOfPlaintext),
   noiseVar(to_xdouble(0.0))
 {
   if (ptxtSpace<=0) ptxtSpace = pubKey.getPtxtSpace();
@@ -106,15 +106,36 @@ Ctxt::Ctxt(const FHEPubKey& newPubKey, long newPtxtSpace):
 }
 
 // Constructor
-Ctxt::Ctxt(ZeroCtxtLike_type, const Ctxt& ctxt):
+Ctxt::Ctxt(ZeroCtxtLike_type, const Ctxt& ctxt, long sizeOfPlaintext):
   context(ctxt.getPubKey().getContext()), pubKey(ctxt.getPubKey()), 
-  ptxtSpace(ctxt.getPtxtSpace()),
+  ptxtSpace(ctxt.getPtxtSpace()), m_sizeOfPlaintext(sizeOfPlaintext),
   noiseVar(to_xdouble(0.0))
 {
   // same body as previous constructor
   if (ptxtSpace<=0) ptxtSpace = pubKey.getPtxtSpace();
   else assert (GCD(ptxtSpace, pubKey.getPtxtSpace()) > 1); // sanity check
   primeSet=context.ctxtPrimes;
+}
+
+/*
+	@name: getm_sizeOfPlaintext
+	@description: Getter of attribute m_sizeOfPlaintext. It corresponds to the original size of the plaintext vector coresponding to the Ctxt.
+
+	@param: null.
+*/
+long Ctxt::getm_sizeOfPlaintext() const {
+	return m_sizeOfPlaintext;
+}
+
+/*
+	@name: setm_sizeOfPlaintext
+	@description: Setter of attribute m_sizeOfPlaintext.
+
+	@param: The method setm_sizeOfPlaintext takes one mandatory parameter: a long.
+	-param1: the new size of the plaintext vector coresponding to the Ctxt.
+*/
+void Ctxt::setm_sizeOfPlaintext(long sizeOfPlaintext) {
+	this->m_sizeOfPlaintext = sizeOfPlaintext;
 }
 
 

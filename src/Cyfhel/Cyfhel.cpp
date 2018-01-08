@@ -403,7 +403,7 @@ CyCtxt Cyfhel::encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize) const {
 
 	@return: Return a vector of long which corresponds to decrypted vector.
 */
-vector<long> Cyfhel::decrypt(CyCtxt& ctxt_vect, bool isDecryptedPtxt_vectResize) const {
+vector<long> Cyfhel::decrypt(Ctxt& ctxt_vect, bool isDecryptedPtxt_vectResize) const {
 	// The size of the original plaintext.
 	long vector_size = ctxt_vect.getm_sizeOfPlaintext();
 	vector<long> ptxt_vect(m_numberOfSlots, 0);// Empty vector of values

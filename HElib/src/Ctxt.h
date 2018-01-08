@@ -299,16 +299,23 @@ class Ctxt {
   // public key, this is needed when we copy the pubEncrKey member between
   // different public keys.
   Ctxt& privateAssign(const Ctxt& other);
+
+protected:
+  long m_sizeOfPlaintext;
  
 public:
-  Ctxt(const FHEPubKey& newPubKey, long newPtxtSpace=0); // constructor
+  Ctxt(const FHEPubKey& newPubKey, long newPtxtSpace=0, long sizeOfPlaintext=0); // constructor
 
-  Ctxt(ZeroCtxtLike_type, const Ctxt& ctxt); 
+  Ctxt(ZeroCtxtLike_type, const Ctxt& ctxt, long sizeOfPlaintext=0); 
     // constructs a zero ciphertext with same public key and 
     // plaintext space as ctxt
 
   //! Dummy encryption, just encodes the plaintext in a Ctxt object
   void DummyEncrypt(const ZZX& ptxt, double size=-1.0);
+
+  long getm_sizeOfPlaintext() const;//Getter of attribute m_sizeOfPlaintext
+
+  void setm_sizeOfPlaintext(long sizeOfPlaintext);//Setter of attribute m_sizeOfPlaintext
 
   Ctxt& operator=(const Ctxt& other) {  // public assignment operator
     assert(&context == &other.context);
@@ -333,7 +340,7 @@ public:
   Ctxt& operator-=(const Ctxt& other) { addCtxt(other,true); return *this; }
   void addCtxt(const Ctxt& other, bool negative=false);
 
-  Ctxt& operator*=(const Ctxt& other); // Multiply by aonther ciphertext
+  Ctxt& operator*=(const Ctxt& other); // Multiply by another ciphertext
   void automorph(long k); // Apply automorphism F(X) -> F(X^k) (gcd(k,m)=1)
   Ctxt& operator>>=(long k) { automorph(k); return *this; }
 

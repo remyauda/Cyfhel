@@ -11,7 +11,6 @@ class CyCtxt: public Ctxt {
  private:
 
 	/******ATTRIBUTES******/
-	long m_sizeOfPlaintext;
 	FHEPubKey *m_publicKey;// Public key of the public-secret key pair
 	EncryptedArray *m_encryptedArray;// Array used for encryption
 	long m_numberOfSlots;// Nº of slots in scheme
@@ -34,18 +33,16 @@ class CyCtxt: public Ctxt {
 
 
 	/******CONSTRUCTOR WITH PARAMETERS******/
-	CyCtxt(FHEPubKey const& newPubKey, long sizeOfPlaintext=0, long newPtxtSpace=0, long numberOfSlots=0): Ctxt(newPubKey, newPtxtSpace), m_sizeOfPlaintext(sizeOfPlaintext), m_publicKey(0), m_encryptedArray(0), m_numberOfSlots(numberOfSlots){}//Constructor
+	CyCtxt(FHEPubKey const& newPubKey, long sizeOfPlaintext=0, long newPtxtSpace=0, long numberOfSlots=0): Ctxt(newPubKey, newPtxtSpace, sizeOfPlaintext), m_publicKey(0), m_encryptedArray(0), m_numberOfSlots(numberOfSlots){}//Constructor
 
 
 	/******DESTRUCTOR BY DEFAULT******/
 	
 
 	/******GETTERS******/
-	long getm_sizeOfPlaintext() const;//Getter of attribute m_sizeOfPlaintext
+	
 	
 	/******SETTERS******/
-	void setm_sizeOfPlaintext(long sizeOfPlaintext);//Setter of attribute m_sizeOfPlaintext
-
 	void setm_publicKey(FHEPubKey *publicKey);//Setter of attribute m_publicKey
 
 	void setm_encryptedArray(EncryptedArray *encryptedArray);//Setter of attribute m_encryptedArray

@@ -1,7 +1,7 @@
 /*
-#   Benchmark_CreateCyfhel
+#   Benchmark_Encrypt
 #   --------------------------------------------------------------------
-#   Perform tests on creation of a Cyfhel object. 
+#   Perform tests while encrytion. 
 #   --------------------------------------------------------------------
 #   Author: Remy AUDA
 #   Date: 31/12/2017  
@@ -51,9 +51,17 @@
 
 int main(int argc, char *argv[])
 {
+	vector<long> v1; // Initialization of v1.
+
+	// Initialization of v1.
+	for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v1.push_back(i);  
+	}
+	
     // Display the title of the program.
     std::cout <<"" <<endl;
-    std::cout <<"     ************Benchmark_CreateCyfhel************" <<endl;
+    std::cout <<"     ************Benchmark_Encrypt************" <<endl;
     std::cout <<"" <<endl;
 
     // Create object Cyfhel and enable print for all functions.
@@ -62,14 +70,26 @@ int main(int argc, char *argv[])
     // Cyfhel is an object that allow the user to encrypt and decrypt vectors in a homeomorphism way.
     std::cout <<"******Generation of the keys for encryption******"<<endl;
 
+	// Use this initialization for strong encryption. However, the computation time will be greater (takes several minutes at least).
+	Cyfhel cy(true);
+
+    // Store and retrieve environment.
+    // cy.saveEnv(fileName);
+    //std::cout << "Saved env with values: m=" << cy.getm_global_m() <<", p=" << cy.getm_global_p() << ", r=" << cy.getm_global_r() << endl;
+
+    // Skip a line.
+    std::cout <<"\n"<<endl;
+
+	std::cout <<"******Homeomorphic encryption******"<<endl;
+
 	// Begin the chrono.
     Timer timerDemo(true);
     timerDemo.start();
 
-	// Use this initialization for strong encryption. However, the computation time will be greater (takes several minutes at least).
-	Cyfhel cy(true);
+    // Encrypted the two plaintexts to have two Cypher texts that are encrypted in an homeomorphic way with the key generated during the construction of object Cyfhel. 
+    CyCtxt c1 = cy.encrypt(v1);
 
-    // Stop the chrono and display the execution time.
+	// Stop the chrono and display the execution time.
     timerDemo.stop();
     timerDemo.benchmarkInSeconds();
     timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
@@ -79,7 +99,7 @@ int main(int argc, char *argv[])
     std::cout <<"\n"<<endl;
 
     // Display the end of the program.
-    std::cout <<"     ************End of Benchmark_CreateCyfhel************" <<endl;
+    std::cout <<"     ************End of Benchmark_Encrypt************" <<endl;
 
     // Skip a line.
     std::cout <<"\n"<<endl;

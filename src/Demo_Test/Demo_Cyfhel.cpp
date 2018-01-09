@@ -48,6 +48,57 @@
 /* Define if the polynome is monic or not during the tests.*/
 #define isMonic 0
 
+void initVectorFixe(vector<long>& v1, vector<long>& v2, vector<long>& v12, vector<long>& v22){
+	// Initialization of v1.
+	for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v1.push_back(i);  
+	}
+
+	// Initialization of v2.
+	for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v2.push_back(2);  
+	}
+
+	// Initialization of v12.
+	for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v12.push_back(i+2);  
+	}
+
+	// Initialization of v22.
+	for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v22.push_back(2);  
+	}
+}
+
+void initVectorRandom(vector<long>& v1, vector<long>& v2, vector<long>& v12, vector<long>& v22){
+	// Initialization of v1.
+	for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v1.push_back(RandomBnd(RANGEOFRANDOM+1));  
+	}
+
+	// Initialization of v2.
+	for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v2.push_back(RandomBnd(RANGEOFRANDOM+1));
+	}
+
+	// Initialization of v12.
+	for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v12.push_back(RandomBnd(RANGEOFRANDOM+1)+2);  
+	}
+
+	// Initialization of v22.
+	for(int i=0; i<VECTOR_SIZE; i++)
+	{
+		v22.push_back(RandomBnd(RANGEOFRANDOM+1));  
+	}
+}
 
 int main(int argc, char *argv[])
 {
@@ -95,113 +146,25 @@ int main(int argc, char *argv[])
 		// If the user gives the option -f or --fixe at execution time, we initialize vector by default instead of random.
 		if(!strcmp(argv[1], "-f") || !strcmp(argv[1], "--fixe"))
 		{
-			// Initialization of v1.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v1.push_back(i);  
-			}
-
-			// Initialization of v2.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v2.push_back(2);  
-			}
-
-			// Initialization of v12.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v12.push_back(i+2);  
-			}
-
-			// Initialization of v22.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v22.push_back(2);  
-			}
+			initVectorFixe(v1, v2, v12, v22);
 		}
 		// If the user gives the option -r or --random at execution time, we initialize vector in random.
 		else if(!strcmp(argv[1], "-r") || !strcmp(argv[1], "--random"))
 		{
-			// Initialization of v1.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v1.push_back(RandomBnd(RANGEOFRANDOM+1));  
-			}
-
-			// Initialization of v2.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v2.push_back(RandomBnd(RANGEOFRANDOM+1));
-			}
-
-			// Initialization of v12.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v12.push_back(RandomBnd(RANGEOFRANDOM+1)+2);  
-			}
-
-			// Initialization of v22.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v22.push_back(RandomBnd(RANGEOFRANDOM+1));  
-			}
+			initVectorRandom(v1, v2, v12, v22);
 		}
 		// If the user gives other options at execution time that the arguments expected.
 		else
 		{
 			std::cout <<"ERROR: cannot determine the use or not of random vectors. Use the fixe vectors instead."<<endl;
 
-			// Initialization of v1.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v1.push_back(i);  
-			}
-
-			// Initialization of v2.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v2.push_back(2);  
-			}
-
-			// Initialization of v12.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v12.push_back(i+2);  
-			}
-
-			// Initialization of v22.
-			for(int i=0; i<VECTOR_SIZE; i++)
-			{
-				v22.push_back(2);  
-			}
+			initVectorFixe(v1, v2, v12, v22);
 		}
 	}
 	//Otherwise if the user don't put option in compilation (i.e: argc <= 1), we initialize vector in random.
 	else
 	{
-		// Initialization of v1.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v1.push_back(RandomBnd(RANGEOFRANDOM+1));  
-		}
-
-		// Initialization of v2.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v2.push_back(RandomBnd(RANGEOFRANDOM+1));  
-		}
-
-		// Initialization of v12.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v12.push_back(RandomBnd(RANGEOFRANDOM+1)+2);  
-		}
-
-		// Initialization of v22.
-		for(int i=0; i<VECTOR_SIZE; i++)
-		{
-			v22.push_back(RandomBnd(RANGEOFRANDOM+1));  
-		}
+		initVectorRandom(v1, v2, v12, v22);
 	}
 
 

@@ -1,7 +1,7 @@
 /*
-#   Benchmark_MultiplyEqual
+#   Benchmark_Minus
 #   --------------------------------------------------------------------
-#   Perform tests on operation *=. 
+#   Perform tests on operation -. 
 #   --------------------------------------------------------------------
 #   Author: Remy AUDA
 #   Date: 31/12/2017  
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 	// Initialization of v1.
 	for(int i=0; i<VECTOR_SIZE; i++)
 	{
-		v1.push_back(i);  
+		v1.push_back(i+2);   
 	}
 
 	// Initialization of v2.
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	
     // Display the title of the program.
     std::cout <<"" <<endl;
-    std::cout <<"     ************Benchmark_MultiplyEqual************" <<endl;
+    std::cout <<"     ************Benchmark_Minus************" <<endl;
     std::cout <<"" <<endl;
 
     // Create object Cyfhel and enable print for all functions.
@@ -85,14 +85,15 @@ int main(int argc, char *argv[])
     CyCtxt c1 = cy.encrypt(v1);
     CyCtxt c2 = cy.encrypt(v2);
 
-	std::cout <<"******Perform *= operation******"<<endl<<endl;
+	std::cout <<"******Perform - operation******"<<endl<<endl;
 
 	// Begin the chrono.
     Timer timerDemo(true);
     timerDemo.start();
 
-	//Perform *= operation
-	c1 *= c2;
+	//Perform - operation
+	// Substraction of the two cypher text.
+    CyCtxt cSubstract1_2 = c1 - c2;
 
 	// Stop the chrono and display the execution time.
     timerDemo.stop();
@@ -104,7 +105,7 @@ int main(int argc, char *argv[])
     std::cout <<"\n"<<endl;
 
     // Display the end of the program.
-    std::cout <<"     ************End of Benchmark_MultiplyEqual************" <<endl;
+    std::cout <<"     ************End of Benchmark_Minus************" <<endl;
 
     // Skip a line.
     std::cout <<"\n"<<endl;

@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	// Initialization of v2.
 	for(int i=0; i<VECTOR_SIZE; i++)
 	{
-		v2.push_back(i);  
+		v2.push_back(2);  
 	}
 	
     // Display the title of the program.

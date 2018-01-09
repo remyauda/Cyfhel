@@ -1,7 +1,7 @@
 /*
-#   Benchmark_MoinsEgal
+#   Benchmark_MultiplyEqual
 #   --------------------------------------------------------------------
-#   Perform tests on operation -=. 
+#   Perform tests on operation *=. 
 #   --------------------------------------------------------------------
 #   Author: Remy AUDA
 #   Date: 31/12/2017  
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 	
     // Display the title of the program.
     std::cout <<"" <<endl;
-    std::cout <<"     ************Benchmark_MoinsEgal************" <<endl;
+    std::cout <<"     ************Benchmark_MultiplyEqual************" <<endl;
     std::cout <<"" <<endl;
 
     // Create object Cyfhel and enable print for all functions.
@@ -85,14 +85,14 @@ int main(int argc, char *argv[])
     CyCtxt c1 = cy.encrypt(v1);
     CyCtxt c2 = cy.encrypt(v2);
 
-	std::cout <<"******Perform -= operation******"<<endl<<endl;
+	std::cout <<"******Perform *= operation******"<<endl<<endl;
 
 	// Begin the chrono.
     Timer timerDemo(true);
     timerDemo.start();
 
-	//Perform -= operation
-	c1 -= c2;
+	//Perform *= operation
+	c1 *= c2;
 
 	// Stop the chrono and display the execution time.
     timerDemo.stop();
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
     std::cout <<"\n"<<endl;
 
     // Display the end of the program.
-    std::cout <<"     ************End of Benchmark_MoinsEgal************" <<endl;
+    std::cout <<"     ************End of Benchmark_MultiplyEqual************" <<endl;
 
     // Skip a line.
     std::cout <<"\n"<<endl;

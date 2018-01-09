@@ -100,9 +100,6 @@ int main(int argc, char *argv[])
     timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
 	timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
 
-	std::cout <<"******Homeomorphic decryption******"<<endl;
-
-
     // Skip a line.
     std::cout <<"\n"<<endl;
 

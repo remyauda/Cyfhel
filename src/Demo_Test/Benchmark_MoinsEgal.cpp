@@ -1,7 +1,7 @@
 /*
-#   Benchmark_PlusEgal
+#   Benchmark_MoinsEgal
 #   --------------------------------------------------------------------
-#   Perform tests on operation +=. 
+#   Perform tests on operation -=. 
 #   --------------------------------------------------------------------
 #   Author: Remy AUDA
 #   Date: 31/12/2017  
@@ -85,14 +85,14 @@ int main(int argc, char *argv[])
     CyCtxt c1 = cy.encrypt(v1);
     CyCtxt c2 = cy.encrypt(v2);
 
-	std::cout <<"******Perform += operation******"<<endl<<endl;
+	std::cout <<"******Perform -= operation******"<<endl<<endl;
 
 	// Begin the chrono.
     Timer timerDemo(true);
     timerDemo.start();
 
-	//Perform += operation
-	c1 += c2;
+	//Perform -= operation
+	c1 -= c2;
 
 	// Stop the chrono and display the execution time.
     timerDemo.stop();

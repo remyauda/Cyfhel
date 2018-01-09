@@ -1,7 +1,7 @@
 /*
-#   Benchmark_Encrypt
+#   Benchmark_Decrypt
 #   --------------------------------------------------------------------
-#   Perform tests while encrytion. 
+#   Perform tests while decrytion. 
 #   --------------------------------------------------------------------
 #   Author: Remy AUDA
 #   Date: 31/12/2017  
@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 	
     // Display the title of the program.
     std::cout <<"" <<endl;
-    std::cout <<"     ************Benchmark_Encrypt************" <<endl;
+    std::cout <<"     ************Benchmark_Decrypt************" <<endl;
     std::cout <<"" <<endl;
 
     // Create object Cyfhel and enable print for all functions.
@@ -73,17 +73,17 @@ int main(int argc, char *argv[])
 	// Use this initialization for strong encryption. However, the computation time will be greater (takes several minutes at least).
 	Cyfhel cy(true);
 
-    // Skip a line.
-    std::cout <<"\n"<<endl;
+    // Encrypted the plaintext to have a Cypher text that are encrypted in an homeomorphic way with the key generated during the construction of object Cyfhel. 
+    CyCtxt c1 = cy.encrypt(v1);
 
-	std::cout <<"******Homeomorphic encryption******"<<endl;
+	std::cout <<"******Homeomorphic decryption******"<<endl;
 
 	// Begin the chrono.
     Timer timerDemo(true);
     timerDemo.start();
 
-    // Encrypted the plaintext to have Cypher text that are encrypted in an homeomorphic way with the key generated during the construction of object Cyfhel. 
-    CyCtxt c1 = cy.encrypt(v1);
+	// Decrypt the CyCtxt.
+    vector<long> v1_decrypt = cy.decrypt(c1);
 
 	// Stop the chrono and display the execution time.
     timerDemo.stop();
@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
     std::cout <<"\n"<<endl;
 
     // Display the end of the program.
-    std::cout <<"     ************End of Benchmark_Encrypt************" <<endl;
+    std::cout <<"     ************End of Benchmark_Decrypt************" <<endl;
 
     // Skip a line.
     std::cout <<"\n"<<endl;

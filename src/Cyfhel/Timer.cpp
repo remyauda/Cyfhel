@@ -1,5 +1,5 @@
 /*
- * Cyfhel
+ * Timer
  * --------------------------------------------------------------------
  *  Cyfhel is a C++ library that creates an abstraction over the basic
  *  functionalities of HElib as a Homomorphic Encryption library, such as

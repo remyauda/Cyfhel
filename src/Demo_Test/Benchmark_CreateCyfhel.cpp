@@ -33,6 +33,7 @@
 
 #include <Cyfhel.h>
 #include "Timer.h"
+#include "LibMatrix.h"
 
 #include <cassert>
 #include <cstdio>
@@ -48,9 +49,14 @@
 /* Define if the polynome is monic or not during the tests.*/
 #define isMonic 0
 
+/* Define the number of execution of Benchmark*/
+#define NB_BENCHMARK 3
+
 
 int main(int argc, char *argv[])
 {
+	vector<double> vectorBenchmark;// Vector for store execution time.
+
     // Display the title of the program.
     std::cout <<"" <<endl;
     std::cout <<"     ************Benchmark_CreateCyfhel************" <<endl;
@@ -60,20 +66,30 @@ int main(int argc, char *argv[])
     // Cyfhel is an object that create keys for homeomorphism encryption with the parameter used in its constructor. 
     // If no parameter are provided, uses default values for the generation of the keys.
     // Cyfhel is an object that allow the user to encrypt and decrypt vectors in a homeomorphism way.
-    std::cout <<"******Generation of the keys for encryption******"<<endl;
 
-	// Begin the chrono.
-    Timer timerDemo(true);
-    timerDemo.start();
+	for(int k=0; k<NB_BENCHMARK; k++)
+	{
+		std::cout <<"******Generation of the keys for encryption "<< k <<" ******"<<endl;
 
-	// Use this initialization for strong encryption. However, the computation time will be greater (takes several minutes at least).
-	Cyfhel cy(true);
+		// Begin the chrono.
+		Timer timerDemo(true);
+		timerDemo.start();
 
-    // Stop the chrono and display the execution time.
-    timerDemo.stop();
-    timerDemo.benchmarkInSeconds();
-    timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
-	timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
+		// Use this initialization for strong encryption. However, the computation time will be greater (takes several minutes at least).
+		Cyfhel cy(true);
+
+		// Stop the chrono and display the execution time.
+		timerDemo.stop();
+		timerDemo.benchmarkInSeconds();
+		timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
+		timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
+
+		vectorBenchmark.push_back(timerDemo.getm_benchmarkSecond());//Push in the vector the execution time in seconds.
+	}
+
+	double averageOfExecutionTime = std::accumulate( vectorBenchmark.begin(), vectorBenchmark.end(), 0.0)/vectorBenchmark.size();// Compute the average of execution time.
+
+	LibMatrix::writeIntInFileWithEraseData("Result_Benchmark_CreateCyfhel", averageOfExecutionTime);// Write the double averageOfExecutionTime in the file Result_Benchmark_CreateCyfhel in the directory ResultOfBenchmark.
 
     // Skip a line.
     std::cout <<"\n"<<endl;

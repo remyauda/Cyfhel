@@ -101,13 +101,13 @@ int LibMatrix::loadIntInFileWithDirectory(string const& stringNameFile, string c
 
 /*
 @description:
-La methode writeIntInFileWithEraseData permet d'ecrire un double pris en parametre dans dans un fichier en effacant au prealable son contenu.
-@param: La methode writeIntInFileWithEraseData prend deux parametres obligatoires et un parametre facultatif: un string, un double et un string facultatif.
+La methode writeDoubleInFileWithEraseData permet d'ecrire un double pris en parametre dans dans un fichier en effacant au prealable son contenu.
+@param: La methode writeDoubleInFileWithEraseData prend deux parametres obligatoires et un parametre facultatif: un string, un double et un string facultatif.
 -param1: Le string permet de specifier le nom du ficher dont on souhaite ecrire le int passee en second parametre.
 -param2: Le double permet de specifier le double que l'on souhaite ecrire dans le ficher en ayant efface au prealable son contenu.
 -param3: Le string facultatif permet de specifier le nom du repertoire ou des multiples repertoires ou est stocke le fichier dont on souhaite ecrire le double passee en second parametre. Par defaut, le repertoire se nomme ResultOfBenchmark/.
 */
-void LibMatrix::writeIntInFileWithEraseData(string const& stringNameFile, double const& valueWrite, string const& stringNameDirectory){
+void LibMatrix::writeDoubleInFileWithEraseData(string const& stringNameFile, double const& valueWrite, string const& stringNameDirectory){
 
     //On construit petit a petit l'arborescence du chemin pour trouver les fichiers
     string stringPathFile=stringNameDirectory;
@@ -117,10 +117,62 @@ void LibMatrix::writeIntInFileWithEraseData(string const& stringNameFile, double
     ofstream flux(stringPathFile.c_str());//ouverture en mode ecriture avec ecrasement des donnees
     //si l'ouverture du fichier reussi
     if(flux){
-        flux<<valueWrite;//Ecriture du int dans le fichier
+        flux<<valueWrite;//Ecriture du double dans le fichier
     }
     //En cas de probleme lors de l'ouverture du fichier
     else{
         cout << "ERREUR: Impossible d'ouvrir le fichier." << endl;// on affiche un message d'erreur
     }
+}
+
+/*
+@description:
+La methode writeStringInFileWithEraseData permet d'ecrire un double pris en parametre dans dans un fichier en effacant au prealable son contenu.
+@param: La methode writeStringInFileWithEraseData prend deux parametres obligatoires et un parametre facultatif: un string, un string et un string facultatif.
+-param1: Le string permet de specifier le nom du ficher dont on souhaite ecrire le int passee en second parametre.
+-param2: Le string permet de specifier le string que l'on souhaite ecrire dans le ficher en ayant efface au prealable son contenu.
+-param3: Le string facultatif permet de specifier le nom du repertoire ou des multiples repertoires ou est stocke le fichier dont on souhaite ecrire le double passee en second parametre. Par defaut, le repertoire se nomme ResultOfBenchmark/.
+*/
+void LibMatrix::writeStringInFileWithEraseData(string const& stringNameFile, string const& stringWrite, string const& stringNameDirectory){
+
+    //On construit petit a petit l'arborescence du chemin pour trouver les fichiers
+    string stringPathFile=stringNameDirectory;
+    stringPathFile+=stringNameFile;
+    stringPathFile+=".txt";
+
+    ofstream flux(stringPathFile.c_str());//ouverture en mode ecriture avec ecrasement des donnees
+    //si l'ouverture du fichier reussi
+    if(flux){
+        flux<<stringWrite;//Ecriture du string dans le fichier
+    }
+    //En cas de probleme lors de l'ouverture du fichier
+    else{
+        cout << "ERREUR: Impossible d'ouvrir le fichier." << endl;// on affiche un message d'erreur
+    }
+}
+
+
+/*
+@description:
+The transformSecondToYearMonthWeekHourMinSecMilli method allows to transform seconds to string verbose Years, Months, Weeks, Hours, Minutes, Seconds, Milliseconds.
+@param: The transformSecondToYearMonthWeekHourMinSecMilli method takes one mandatory parameter: a double.
+-param1: A double allows to specify the seconds to transform.
+*/
+string LibMatrix::transformSecondToYearMonthWeekHourMinSecMilli(double const& seconds){
+	double benchmarkYearMonthWeekDayHourMinSecMilli[8];
+	int intBenchmarkSecond = seconds;
+	int intBenchmarkMillisecond = ((seconds - intBenchmarkSecond) * 1000);
+	intBenchmarkMillisecond %= 1000;//Milliseconds
+	benchmarkYearMonthWeekDayHourMinSecMilli[7] = intBenchmarkMillisecond;
+	benchmarkYearMonthWeekDayHourMinSecMilli[6] = intBenchmarkSecond % 60;//Seconds
+	benchmarkYearMonthWeekDayHourMinSecMilli[5] = (intBenchmarkSecond / 60) % 60;//Minutes
+	benchmarkYearMonthWeekDayHourMinSecMilli[4] = (intBenchmarkSecond / 3600) % 24;//Hours
+	benchmarkYearMonthWeekDayHourMinSecMilli[3] = (intBenchmarkSecond / 86400) % 7;//Days
+	benchmarkYearMonthWeekDayHourMinSecMilli[2] = (intBenchmarkSecond / 604800) % 4;//Weeks
+	benchmarkYearMonthWeekDayHourMinSecMilli[1] = (intBenchmarkSecond / 2419200) % 24;//Months
+	benchmarkYearMonthWeekDayHourMinSecMilli[0] = (intBenchmarkSecond / 58060800);//Years
+
+	std::string stringVerboseYearMonthWeekHourMinSecMilli = "Elapsed time: " + std::to_string((int) benchmarkYearMonthWeekDayHourMinSecMilli[0]) + " years " + std::to_string((int) benchmarkYearMonthWeekDayHourMinSecMilli[1]) + " months " + std::to_string((int) benchmarkYearMonthWeekDayHourMinSecMilli[2]) + " weeks " + std::to_string((int) benchmarkYearMonthWeekDayHourMinSecMilli[3]) + " days " + std::to_string((int) benchmarkYearMonthWeekDayHourMinSecMilli[4]) + " hours " + std::to_string((int) benchmarkYearMonthWeekDayHourMinSecMilli[5]) + " minutes " + std::to_string((int) benchmarkYearMonthWeekDayHourMinSecMilli[6]) + " seconds " + std::to_string((int) benchmarkYearMonthWeekDayHourMinSecMilli[7]) + " milliseconds.\n";
+
+	return stringVerboseYearMonthWeekHourMinSecMilli;
 }

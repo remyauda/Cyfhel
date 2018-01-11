@@ -22,7 +22,11 @@ public:
 
     static int loadIntInFileWithDirectory(std::string const& stringLevel, std::string const& stringNameDirectory="ResultOfBenchmark/");//Permet de retourner un int lu dans un fichier qui se trouve dans un ou dans de multiples repertoires.
 
-    static void writeIntInFileWithEraseData(std::string const& stringNameFile, double const& valueWrite, std::string const& stringNameDirectory="ResultOfBenchmark/");//Permet d'ecrire un int pris en parametre dans un fichier en effacant au prealable son contenu.
+    static void writeDoubleInFileWithEraseData(std::string const& stringNameFile, double const& valueWrite, std::string const& stringNameDirectory="ResultOfBenchmark/");//Permet d'ecrire un double pris en parametre dans un fichier en effacant au prealable son contenu.
+
+	static void writeStringInFileWithEraseData(std::string const& stringNameFile, std::string const& stringWrite, std::string const& stringNameDirectory="ResultOfBenchmark/");//Permet d'ecrire un string pris en parametre dans un fichier en effacant au prealable son contenu.
+
+	static std::string transformSecondToYearMonthWeekHourMinSecMilli(double const& seconds);//Transform seconds to string verbose Years, Months, Weeks, Hours, Minutes, Seconds, Milliseconds
 
 };
 

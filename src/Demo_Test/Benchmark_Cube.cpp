@@ -33,6 +33,7 @@
 
 #include <Cyfhel.h>
 #include "Timer.h"
+#include "LibMatrix.h"
 
 #include <cassert>
 #include <cstdio>
@@ -48,9 +49,14 @@
 /* Define if the polynome is monic or not during the tests.*/
 #define isMonic 0
 
+/* Define the number of execution of Benchmark*/
+#define NB_BENCHMARK 100
+
 
 int main(int argc, char *argv[])
 {
+	vector<double> vectorBenchmark;// Vector for store execution time.
+
 	vector<long> v1; // Initialization of v1.
 
 	// Initialization of v1.
@@ -76,23 +82,36 @@ int main(int argc, char *argv[])
     // Skip a line.
     std::cout <<"\n"<<endl;
 
-	std::cout <<"******Homeomorphic encryption******"<<endl;
+	std::cout <<"******Homeomorphic encryption******"<<endl<<endl;
 
     // Encrypted the plaintext to have Cypher text that are encrypted in an homeomorphic way with the key generated during the construction of object Cyfhel. 
     CyCtxt c1 = cy.encrypt(v1);
 
-	// Begin the chrono.
-    Timer timerDemo(true);
-    timerDemo.start();
+	for(int k=0; k<NB_BENCHMARK; k++)
+	{
+		std::cout <<"******Perform cube operation "<< k+1 <<"******"<<endl<<endl;
 
-	// Cube of the first cypher text.
-    CyCtxt cCube1 = c1.returnCube();
+		// Begin the chrono.
+		Timer timerDemo(true);
+		timerDemo.start();
 
-	// Stop the chrono and display the execution time.
-    timerDemo.stop();
-    timerDemo.benchmarkInSeconds();
-    timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
-	timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
+		// Cube of the first cypher text.
+		CyCtxt cCube1 = c1.returnCube();
+
+		// Stop the chrono and display the execution time.
+		timerDemo.stop();
+		timerDemo.benchmarkInSeconds();
+		timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
+		timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
+
+		vectorBenchmark.push_back(timerDemo.getm_benchmarkSecond());//Push in the vector the execution time in seconds.
+	}
+
+	double averageOfExecutionTime = std::accumulate( vectorBenchmark.begin(), vectorBenchmark.end(), 0.0)/vectorBenchmark.size();// Compute the average of execution time.
+
+	LibMatrix::writeDoubleInFileWithEraseData("Result_Benchmark_Cube", averageOfExecutionTime);// Write the double averageOfExecutionTime in the file Result_Benchmark_Cube in the directory ResultOfBenchmark.
+
+	LibMatrix::writeStringInFileWithEraseData("ResultVerbose_Benchmark_Cube", LibMatrix::transformSecondToYearMonthWeekHourMinSecMilli(averageOfExecutionTime));// Write the string verbose to transform the average of execution time in seconds to string verbose Years, Months, Weeks, Hours, Minutes, Seconds, Milliseconds in the file ResultVerbose_Benchmark_Cube in the directory ResultOfBenchmark.
 
     // Skip a line.
     std::cout <<"\n"<<endl;

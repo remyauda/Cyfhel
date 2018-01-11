@@ -115,9 +115,9 @@ int main(int argc, char *argv[])
 
 	double averageOfExecutionTime = std::accumulate( vectorBenchmark.begin(), vectorBenchmark.end(), 0.0)/vectorBenchmark.size();// Compute the average of execution time.
 
-	LibMatrix::writeDoubleInFileWithEraseData("Result_Benchmark_Plus", averageOfExecutionTime);// Write the double averageOfExecutionTime in the file Result_Benchmark_CreateCyfhel in the directory ResultOfBenchmark.
+	LibMatrix::writeDoubleInFileWithEraseData("Result_Benchmark_Plus", averageOfExecutionTime);// Write the double averageOfExecutionTime in the file Result_Benchmark_Plus in the directory ResultOfBenchmark.
 
-	LibMatrix::writeStringInFileWithEraseData("ResultVerbose_Benchmark_Plus", LibMatrix::transformSecondToYearMonthWeekHourMinSecMilli(averageOfExecutionTime));// Write the string verbose to transform the average of execution time in seconds to string verbose Years, Months, Weeks, Hours, Minutes, Seconds, Milliseconds in the file ResultVerbose_Benchmark_CreateCyfhel in the directory ResultOfBenchmark.
+	LibMatrix::writeStringInFileWithEraseData("ResultVerbose_Benchmark_Plus", LibMatrix::transformSecondToYearMonthWeekHourMinSecMilli(averageOfExecutionTime));// Write the string verbose to transform the average of execution time in seconds to string verbose Years, Months, Weeks, Hours, Minutes, Seconds, Milliseconds in the file ResultVerbose_Benchmark_Plus in the directory ResultOfBenchmark.
 
     // Skip a line.
     std::cout <<"\n"<<endl;

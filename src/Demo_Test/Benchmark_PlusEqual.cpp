@@ -33,6 +33,7 @@
 
 #include <Cyfhel.h>
 #include "Timer.h"
+#include "LibMatrix.h"
 
 #include <cassert>
 #include <cstdio>
@@ -48,9 +49,14 @@
 /* Define if the polynome is monic or not during the tests.*/
 #define isMonic 0
 
+/* Define the number of execution of Benchmark*/
+#define NB_BENCHMARK 1000
+
 
 int main(int argc, char *argv[])
 {
+	vector<double> vectorBenchmark;// Vector for store execution time.
+
 	vector<long> v1; // Initialization of v1.
 	vector<long> v2; // Initialization of v2.
 
@@ -85,20 +91,31 @@ int main(int argc, char *argv[])
     CyCtxt c1 = cy.encrypt(v1);
     CyCtxt c2 = cy.encrypt(v2);
 
-	std::cout <<"******Perform += operation******"<<endl<<endl;
+	for(int k=0; k<NB_BENCHMARK; k++)
+	{
+		std::cout <<"******Perform += operation "<< k+1 <<"******"<<endl<<endl;
 
-	// Begin the chrono.
-    Timer timerDemo(true);
-    timerDemo.start();
+		// Begin the chrono.
+		Timer timerDemo(true);
+		timerDemo.start();
 
-	//Perform += operation
-	c1 += c2;
+		//Perform += operation
+		c1 += c2;
 
-	// Stop the chrono and display the execution time.
-    timerDemo.stop();
-    timerDemo.benchmarkInSeconds();
-    timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
-	timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
+		// Stop the chrono and display the execution time.
+		timerDemo.stop();
+		timerDemo.benchmarkInSeconds();
+		timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
+		timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
+
+		vectorBenchmark.push_back(timerDemo.getm_benchmarkSecond());//Push in the vector the execution time in seconds.
+	}
+
+	double averageOfExecutionTime = std::accumulate( vectorBenchmark.begin(), vectorBenchmark.end(), 0.0)/vectorBenchmark.size();// Compute the average of execution time.
+
+	LibMatrix::writeDoubleInFileWithEraseData("Result_Benchmark_PlusEqual", averageOfExecutionTime);// Write the double averageOfExecutionTime in the file Result_Benchmark_PlusEqual in the directory ResultOfBenchmark.
+
+	LibMatrix::writeStringInFileWithEraseData("ResultVerbose_Benchmark_PlusEqual", LibMatrix::transformSecondToYearMonthWeekHourMinSecMilli(averageOfExecutionTime));// Write the string verbose to transform the average of execution time in seconds to string verbose Years, Months, Weeks, Hours, Minutes, Seconds, Milliseconds in the file ResultVerbose_Benchmark_PlusEqual in the directory ResultOfBenchmark.
 
     // Skip a line.
     std::cout <<"\n"<<endl;

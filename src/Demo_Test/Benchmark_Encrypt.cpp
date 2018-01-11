@@ -50,7 +50,7 @@
 #define isMonic 0
 
 /* Define the number of execution of Benchmark*/
-#define NB_BENCHMARK 100
+#define NB_BENCHMARK 50
 
 
 int main(int argc, char *argv[])

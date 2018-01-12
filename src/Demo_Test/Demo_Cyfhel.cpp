@@ -992,6 +992,15 @@ int main(int argc, char *argv[])
 
 
    std::cout <<"******Homomorphic Polynomial Evaluation******"<<endl;
+   /*In this test, we choose n points (choosen randomly or choosen by the user) and put them in a vector x = [x1, x2, ..., xn]. 
+     Then, we define a polynome Poly of degree d and the coefficients of the polynome are choosen either randomly or are choosen by the user. 
+     Then, we cyphered the vector of points x to obtain cx = [c1, c2, ..., cn].
+     Then, we evaluate the n cyphered points with the polynome we have defined previously ie P(cx) = [P(c1), P(c2), ..., P(cn)].
+     Then, we decrypt the previous vector: Decrypt(P(cx)) = Decrypt([P(c1), P(c2), ..., P(cn)]) = [P(x1), P(x2), ..., P(xn)].
+     Then, we perform the polynomiale evaluation on the plaintext vector x: P(x) = [P(x1), P(x2), ..., P(xn)].
+     Finally, we verify if Decrypt(P(cx)) = P(x).
+   */
+
 
    const long p2r = cy.getp2r(); // Value of p power r.
 
@@ -1005,7 +1014,9 @@ int main(int argc, char *argv[])
    const bool isPolynomeRandom = true; // Is the polynome coefficients are random?
 
 
+   // ***Initialization of the vector that contains the evaluations points.***
 
+   // If we choose random points for evaluation...
    if(isVectorPtsEvalRandom){
        // ***evaluate at random points (at least one co-prime with p)***
        cy.random(x); // Initialize the vector with m_encryptedArray.size() random values.
@@ -1017,6 +1028,7 @@ int main(int argc, char *argv[])
        // 10 points. So we resize the vector so that the evaluation points vector only contains the first 10 random value points to evalauate the polynome.  
        x.resize(sizeVectorPtsEval);
    }
+   // Else if we choose fixed points to test the evalauation...
    else if(!isVectorPtsEvalRandom){
        // Initialize the evaluation points vectors with values like: [0, ..., sizeVectorPtsEval-1].
        for(int i=0; i<sizeVectorPtsEval; i++)
@@ -1024,6 +1036,7 @@ int main(int argc, char *argv[])
 		    x.push_back(i);  
 	   }
    }
+   // In case of error, we initialize with fixed points.
    else{
        std::cout <<"Error: unable to evaluate isVectorPtsEvalRandom. Initalize evaluation points vector with fixed values."<<endl;
        // Initialize the evaluation points vectors with values like: [0, ..., sizeVectorPtsEval-1].
@@ -1033,6 +1046,7 @@ int main(int argc, char *argv[])
 	   }
    }
    std::cout <<"vector X of random points -> "<< x <<endl;
+
 
    // ***Definition of the polynome.***
    ZZX poly;

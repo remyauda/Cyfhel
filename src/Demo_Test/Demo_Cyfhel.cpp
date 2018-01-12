@@ -993,12 +993,18 @@ int main(int argc, char *argv[])
 
    std::cout <<"******Homomorphic Polynomial Evaluation******"<<endl;
 
-   const long d = 3; // Degree of the polynome.
    const long p2r = cy.getp2r(); // Value of p power r.
+
+   // Variables useful to define the vector points evaluation in which we will evaluate the polynome.
    const long sizeVectorPtsEval = 10; // We evaluate the polynome in ten points.
    const bool isVectorPtsEvalRandom = true; // Is the vector of evaluation points random?
+   vector<long> x; // Create an empty vector that will contain the evaluation points.
 
-   vector<long> x; // Create an empty vector.
+   // Variables useful to define the polynome.
+   const long d = 3; // Degree of the polynome.
+   const bool isPolynomeRandom = true; // Is the polynome coefficients are random?
+
+
 
    if(isVectorPtsEvalRandom){
        // ***evaluate at random points (at least one co-prime with p)***
@@ -1030,10 +1036,28 @@ int main(int argc, char *argv[])
 
    // ***Definition of the polynome.***
    ZZX poly;
-   for (long i=d; i>=0; i--)
-     SetCoeff(poly, i, RandomBnd(p2r)); // coefficients are random.
-   if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1.
-
+   if(isPolynomeRandom){
+      for (long i=d; i>=0; i--){
+          SetCoeff(poly, i, RandomBnd(p2r)); // coefficients are random.
+      }
+      if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1.
+   }
+   else if(!isPolynomeRandom){
+       vector<long> coeff(d+1, 2);
+       std::cout <<coeff<<endl;
+       for (long i=d; i>=0; i--){
+          SetCoeff(poly, i, coeff[i]); // coefficients are fixed.
+      }
+      if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1
+   }
+   else{
+        std::cout <<"Error: unable to evaluate isPolynomeRandom. Initalize coefficients of polynome with fixed values."<<endl;
+        vector<long> coeff(d+1, 2);
+        for (long i=d; i>=0; i--){
+          SetCoeff(poly, i, coeff[i]); // coefficients are fixed.
+        }
+        if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1
+   }
    // Print the polynome.
    std::cout <<"Polynome P(X) -> ";
    for (int i=deg(poly); i>0; i--){

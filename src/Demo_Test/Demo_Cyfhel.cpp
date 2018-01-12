@@ -996,21 +996,36 @@ int main(int argc, char *argv[])
    const long d = 3; // Degree of the polynome.
    const long p2r = cy.getp2r(); // Value of p power r.
    const long sizeVectorPtsEval = 10; // We evaluate the polynome in ten points.
+   const bool isVectorPtsEvalRandom = true; // Is the vector of evaluation points random?
 
-   // ***evaluate at random points (at least one co-prime with p)***
    vector<long> x; // Create an empty vector.
-   cy.random(x); // Initialize the vector with m_encryptedArray.size() random values.
-   /*for(int i=0; i<sizeVectorPtsEval; i++)
-	{
-		x.push_back(i);  
-	}*/
-   // (Facultatif) Replace the first random element of vector x with a value which is co-prime with p ie gcd(x[0], p)=1. 
-   // This step is not mandatory but we want to test a point with this property.
-   while (GCD(x[0], cy.getm_global_p())!=1) { x[0] = RandomBnd(p2r); }
-   // As x has m_encryptedArray.size() random values, we resize the vector of evaluation points to has only a size of sizeVectorPtsEval.
-   // For exemple, if m_encryptedArray.size()=1000 and sizeVectorPtsEval=10, we have 1000 random value points to evaluate the polynome but we only want to evaluate
-   // 10 points. So we resize the vector so that the evaluation points vector only contains the first 10 random value points to evalauate the polynome.  
-   x.resize(sizeVectorPtsEval);
+
+   if(isVectorPtsEvalRandom){
+       // ***evaluate at random points (at least one co-prime with p)***
+       cy.random(x); // Initialize the vector with m_encryptedArray.size() random values.
+       // (Facultatif) Replace the first random element of vector x with a value which is co-prime with p ie gcd(x[0], p)=1. 
+       // This step is not mandatory but we want to test a point with this property.
+       while (GCD(x[0], cy.getm_global_p())!=1) { x[0] = RandomBnd(p2r); }
+       // As x has m_encryptedArray.size() random values, we resize the vector of evaluation points to has only a size of sizeVectorPtsEval.
+       // For exemple, if m_encryptedArray.size()=1000 and sizeVectorPtsEval=10, we have 1000 random value points to evaluate the polynome but we only want to evaluate
+       // 10 points. So we resize the vector so that the evaluation points vector only contains the first 10 random value points to evalauate the polynome.  
+       x.resize(sizeVectorPtsEval);
+   }
+   else if(!isVectorPtsEvalRandom){
+       // Initialize the evaluation points vectors with values like: [0, ..., sizeVectorPtsEval-1].
+       for(int i=0; i<sizeVectorPtsEval; i++)
+	   {
+		    x.push_back(i);  
+	   }
+   }
+   else{
+       std::cout <<"Error: unable to evaluate isVectorPtsEvalRandom. Initalize evaluation points vector with fixed values."<<endl;
+       // Initialize the evaluation points vectors with values like: [0, ..., sizeVectorPtsEval-1].
+       for(int i=0; i<sizeVectorPtsEval; i++)
+	   {
+		    x.push_back(i);  
+	   }
+   }
    std::cout <<"vector X of random points -> "<< x <<endl;
 
    // ***Definition of the polynome.***

@@ -997,19 +997,23 @@ int main(int argc, char *argv[])
    const long p2r = cy.getp2r(); // Value of p power r.
    const long sizeVectorPtsEval = 10; // We evaluate the polynome in ten points.
 
-   // evaluate at random points (at least one co-prime with p)
-   vector<long> x;
-   cy.random(x);
+   // ***evaluate at random points (at least one co-prime with p)***
+   vector<long> x; // Create an empty vector.
+   cy.random(x); // Initialize the vector with m_encryptedArray.size() random values.
    /*for(int i=0; i<sizeVectorPtsEval; i++)
 	{
 		x.push_back(i);  
 	}*/
-
+   // (Facultatif) Replace the first random element of vector x with a value which is co-prime with p ie gcd(x[0], p)=1. 
+   // This step is not mandatory but we want to test a point with this property.
    while (GCD(x[0], cy.getm_global_p())!=1) { x[0] = RandomBnd(p2r); }
+   // As x has m_encryptedArray.size() random values, we resize the vector of evaluation points to has only a size of sizeVectorPtsEval.
+   // For exemple, if m_encryptedArray.size()=1000 and sizeVectorPtsEval=10, we have 1000 random value points to evaluate the polynome but we only want to evaluate
+   // 10 points. So we resize the vector so that the evaluation points vector only contains the first 10 random value points to evalauate the polynome.  
    x.resize(sizeVectorPtsEval);
    std::cout <<"vector X of random points -> "<< x <<endl;
 
-   // Definition of the polynome.
+   // ***Definition of the polynome.***
    ZZX poly;
    for (long i=d; i>=0; i--)
      SetCoeff(poly, i, RandomBnd(p2r)); // coefficients are random.
@@ -1022,22 +1026,24 @@ int main(int argc, char *argv[])
    }
    std::cout << poly[0] <<endl;
 
-   // Encrypt the vectors of points to evaluate the polynome.
+   // ***Encrypt the vectors of points to evaluate the polynome.***
    CyCtxt cx = cy.encrypt(x);
    std::cout <<"Encryption of vector x..."<<endl;
    std::cout << "Encrypted x: Encrypt(" << x << ")"<<endl;
 
+   // ***Evaluate the polynome by each cypher elements of the CyCtxt containing the cypher evaluation points.***
    // Creation of a CyCtxt to contain the result CyCtxt of the polynomial evaluation.
    CyCtxt cEvalPoly = cx; 
    // Evaluate poly on the ciphertext.
    polyEval(cEvalPoly, poly, cx, 0);
 
 
-  // Decrypt the CyCtxt which contain the polynomial evaluation.
+  // ***Decrypt the CyCtxt which contain the polynomial evaluation.***
   vector<long> vect_polyEval = cy.decrypt(cEvalPoly);
   // The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
   std::cout <<"Decrypt(P(encrypt(x))) -> "<< vect_polyEval<<endl;
 
+  // Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
   vector<long> plainTextEval;
   for (long i=0; i<sizeVectorPtsEval; i++) {
      long ret = polyEvalMod(poly, x[i], p2r);

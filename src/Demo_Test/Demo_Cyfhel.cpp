@@ -1027,6 +1027,7 @@ int main(int argc, char *argv[])
        // For exemple, if m_encryptedArray.size()=1000 and sizeVectorPtsEval=10, we have 1000 random value points to evaluate the polynome but we only want to evaluate
        // 10 points. So we resize the vector so that the evaluation points vector only contains the first 10 random value points to evalauate the polynome.  
        x.resize(sizeVectorPtsEval);
+       std::cout <<"vector X of random points -> "<< x <<endl;
    }
    // Else if we choose fixed points to test the evalauation...
    else if(!isVectorPtsEvalRandom){
@@ -1035,6 +1036,7 @@ int main(int argc, char *argv[])
 	   {
 		    x.push_back(i);  
 	   }
+       std::cout <<"vector X of fixed points -> "<< x <<endl;
    }
    // In case of error, we initialize with fixed points.
    else{
@@ -1044,8 +1046,9 @@ int main(int argc, char *argv[])
 	   {
 		    x.push_back(i);  
 	   }
+       std::cout <<"vector X of fixed points -> "<< x <<endl;
    }
-   std::cout <<"vector X of random points -> "<< x <<endl;
+   
 
 
    // ***Definition of the polynome.***
@@ -1055,6 +1058,13 @@ int main(int argc, char *argv[])
           SetCoeff(poly, i, RandomBnd(p2r)); // coefficients are random.
       }
       if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1.
+
+      // Print the polynome.
+      std::cout <<"Polynome P(X) with random coefficients of degree " << d <<" -> ";
+      for (int i=deg(poly); i>0; i--){
+      std::cout << poly[i] <<"X^"<<i<<" + ";
+      }
+      std::cout << poly[0] <<endl;
    }
    else if(!isPolynomeRandom){
        vector<long> coeff(d+1, 2);
@@ -1063,6 +1073,13 @@ int main(int argc, char *argv[])
           SetCoeff(poly, i, coeff[i]); // coefficients are fixed.
       }
       if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1
+
+      // Print the polynome.
+      std::cout <<"Polynome P(X) with fixed coefficients of degree " << d <<" -> ";
+      for (int i=deg(poly); i>0; i--){
+      std::cout << poly[i] <<"X^"<<i<<" + ";
+      }
+      std::cout << poly[0] <<endl;
    }
    else{
         std::cout <<"Error: unable to evaluate isPolynomeRandom. Initalize coefficients of polynome with fixed values."<<endl;
@@ -1071,13 +1088,15 @@ int main(int argc, char *argv[])
           SetCoeff(poly, i, coeff[i]); // coefficients are fixed.
         }
         if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1
+
+        // Print the polynome.
+        std::cout <<"Polynome P(X) with fixed coefficients of degree " << d <<" -> ";
+        for (int i=deg(poly); i>0; i--){
+        std::cout << poly[i] <<"X^"<<i<<" + ";
+        }
+        std::cout << poly[0] <<endl;
    }
-   // Print the polynome.
-   std::cout <<"Polynome P(X) -> ";
-   for (int i=deg(poly); i>0; i--){
-   std::cout << poly[i] <<"X^"<<i<<" + ";
-   }
-   std::cout << poly[0] <<endl;
+
 
    // ***Encrypt the vectors of points to evaluate the polynome.***
    CyCtxt cx = cy.encrypt(x);
@@ -1102,12 +1121,12 @@ int main(int argc, char *argv[])
      long ret = polyEvalMod(poly, x[i], p2r);
      plainTextEval.push_back(ret);
      if (ret != vect_polyEval[i]) {
-       std::cout << "plaintext poly MISMATCH\n";
+       std::cout << "Decrypt(P(encrypt(x))) != P(x). Plaintext poly MISMATCH\n";
        number_fail += 1;
     }
   }
    std::cout <<"P(x) -> "<< plainTextEval<<endl;
-   std::cout << "plaintext poly match\n" << std::flush;
+   std::cout << "Decrypt(P(encrypt(x))) == P(x). Plaintext poly match\n" << std::flush;
    number_success += 1;
 
    // Skip a line.

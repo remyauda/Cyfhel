@@ -48,6 +48,29 @@
 /* Define if the polynome is monic or not during the tests.*/
 #define isMonic 0
 
+
+
+
+/*
+	@name: vectMod
+	@description: Take a vector v and a long m. each element of the vector will undergo the operation modulo m. The vector v is modified by this function.
+
+	@param: The method vectMod takes two mandatory parameter: a vector and a long.
+	-param1: the vector that will undergo the modulo operator for each of its elements.
+    -param2: the value of the modulo.
+*/
+vector<long> vectMod(vector<long>& v, long const& modulo){
+    for(unsigned long i=0; i<v.size(); i++)
+	    {
+            // The thing is that the % operator isn't the "modulo operator" but the "division remainder".
+            // So if you do a % b, if a is negative, you will have problem has a will remain negative.
+            // To perform a real modulo, you have to apply the formula: (a%b+b)%b.
+		    v[i] = (v[i] % modulo + modulo) % modulo; 
+	    }
+// Return the modified vector which has undergo the modulo operation on each of its elements.
+return v;
+}
+
 void initVectorFixe(vector<long>& v1, vector<long>& v2, vector<long>& v12, vector<long>& v22){
 	// Initialization of v1.
 	for(int i=0; i<VECTOR_SIZE; i++)
@@ -283,7 +306,9 @@ int main(int argc, char *argv[])
        and returns some result value convertible to the type pointed by OutputIterator.*/
     vector<long> v1Plusv2(VECTOR_SIZE, 0);
     std::transform (v1.begin(), v1.end(), v2.begin(), v1Plusv2.begin(), std::plus<long>());
-    std::cout <<"v3 = v1 + v2 -> "<< v1Plusv2<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v1Plusv2.
+    vectMod(v1Plusv2, cy.getp2r());
+    std::cout <<"v3 = v1 + v2 mod("<< cy.getp2r() <<") -> "<< v1Plusv2<<endl;
     // If Decrypt(Encrypt(v1) + Encrypt(v2)) equal to v1 + v2, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_add_v1_v2 == v1Plusv2){
    	std::cout <<"Homeomorphic operation add with operator += is a success: Decrypt(Encrypt(v1) + Encrypt(v2)) equal to v1 + v2."<<endl;
@@ -329,7 +354,9 @@ int main(int argc, char *argv[])
        and returns some result value convertible to the type pointed by OutputIterator.*/
     vector<long> v3Minusv2(VECTOR_SIZE, 0);
     std::transform (v_add_v1_v2.begin(), v_add_v1_v2.end(), v2.begin(), v3Minusv2.begin(), std::minus<long>());
-    std::cout <<"v4 = v3 - v2 -> "<< v3Minusv2<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v3Minusv2.
+    vectMod(v3Minusv2, cy.getp2r());
+    std::cout <<"v4 = v3 - v2 mod("<< cy.getp2r() <<") -> "<< v3Minusv2<<endl;
     // If Decrypt(Encrypt(v3) - Encrypt(v2)) equal to v3 - v2, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_minus_v3_v2 == v3Minusv2){
    	std::cout <<"Homeomorphic operation substraction with operator -= is a success: Decrypt(Encrypt(v3) - Encrypt(v2)) equal to v3 - v2."<<endl;
@@ -374,7 +401,9 @@ int main(int argc, char *argv[])
        and returns some result value convertible to the type pointed by OutputIterator.*/
     vector<long> v4Multv2(VECTOR_SIZE, 0);
     std::transform (v_minus_v3_v2.begin(), v_minus_v3_v2.end(), v2.begin(), v4Multv2.begin(), std::multiplies<long>());
-    std::cout <<"v5 = v4 * v2 -> "<< v4Multv2<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v4Multv2.
+    vectMod(v4Multv2, cy.getp2r());
+    std::cout <<"v5 = v4 * v2 mod("<< cy.getp2r() <<") -> "<< v4Multv2<<endl;
     // If Decrypt(Encrypt(v4) * Encrypt(v2)) equal to v4 * v2, The homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_mult_v4_v2 == v4Multv2){
    	std::cout <<"Homeomorphic operation mult with operator *= is a success: Decrypt(Encrypt(v4) * Encrypt(v2)) equal to v4 * v2."<<endl;
@@ -440,7 +469,9 @@ int main(int argc, char *argv[])
        and returns some result value convertible to the type pointed by OutputIterator.*/
     vector<long> v12Plusv22(VECTOR_SIZE, 0);
     std::transform (v12.begin(), v12.end(), v22.begin(), v12Plusv22.begin(), std::plus<long>());
-    std::cout <<"v32 = v12 + v22 -> "<< v12Plusv22<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v12Plusv22.
+    vectMod(v12Plusv22, cy.getp2r());
+    std::cout <<"v32 = v12 + v22 mod("<< cy.getp2r() <<") -> "<< v12Plusv22<<endl;
     // If Decrypt(Encrypt(v12) + Encrypt(v22)) equal to v12 + v22, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_add_v12_v22 == v12Plusv22){
    	std::cout <<"Homeomorphic operation add with operator + is a success: Decrypt(Encrypt(v12) + Encrypt(v22)) equal to v12 + v22."<<endl;
@@ -485,7 +516,9 @@ int main(int argc, char *argv[])
     vector<long> vect_2(VECTOR_SIZE, 2);
     vector<long> twoPlusv12(VECTOR_SIZE, 0);
     std::transform (vect_2.begin(), vect_2.end(), v12.begin(), twoPlusv12.begin(), std::plus<long>());
-    std::cout <<"vAdd_2 = vect(2) + v12 -> "<< twoPlusv12<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector twoPlusv12.
+    vectMod(twoPlusv12, cy.getp2r());
+    std::cout <<"vAdd_2 = vect(2) + v12 mod("<< cy.getp2r() <<") -> "<< twoPlusv12<<endl;
     // If Decrypt(2 + Encrypt(v12)) equal to vect(2) + v12, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_add_2_v12 == twoPlusv12){
    	std::cout <<"Homeomorphic operation add with operator + between a long and a CyCtxt is a success: Decrypt(2 + Encrypt(v12)) equal to vect(2) + v12."<<endl;
@@ -530,7 +563,9 @@ int main(int argc, char *argv[])
 	vector<long> vectOf2(VECTOR_SIZE, 2);
     vector<long> v12Plustwo(VECTOR_SIZE, 0);
     std::transform (v12.begin(), v12.end(), vectOf2.begin(), v12Plustwo.begin(), std::plus<long>());
-    std::cout <<"vAdd_2 = v12 + vect(2) -> "<< v12Plustwo<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v12Plustwo.
+    vectMod(v12Plustwo, cy.getp2r());
+    std::cout <<"vAdd_2 = v12 + vect(2) mod("<< cy.getp2r() <<") -> "<< v12Plustwo<<endl;
     // If Decrypt(Encrypt(v12) + 2) equal to v12 + vect(2), the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_add_v12_2 == v12Plustwo){
    	std::cout <<"Homeomorphic operation add with operator + between a CyCtxt and a long is a success: Decrypt(Encrypt(v12) + 2) equal to v12 + vect(2)."<<endl;
@@ -575,7 +610,9 @@ int main(int argc, char *argv[])
        and returns some result value convertible to the type pointed by OutputIterator.*/
     vector<long> v12Minusv22(VECTOR_SIZE, 0);
     std::transform (v12.begin(), v12.end(), v22.begin(), v12Minusv22.begin(), std::minus<long>());
-    std::cout <<"v42 = v12 - v22 -> "<< v12Minusv22<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v12Minusv22.
+    vectMod(v12Minusv22, cy.getp2r());
+    std::cout <<"v42 = v12 - v22 mod("<< cy.getp2r() <<") -> "<< v12Minusv22<<endl;
     // If Decrypt(Encrypt(v12) - Encrypt(v22)) equal to v12 - v22, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_minus_v12_v22 == v12Minusv22){
    	std::cout <<"Homeomorphic operation minus with operator - is a success: Decrypt(Encrypt(v12) - Encrypt(v22)) equal to v12 - v22."<<endl;
@@ -620,7 +657,9 @@ int main(int argc, char *argv[])
     vector<long> vect_2_forMinus(VECTOR_SIZE, 6);
     vector<long> twoMinusv12(VECTOR_SIZE, 0);
     std::transform (vect_2_forMinus.begin(), vect_2_forMinus.end(), v12.begin(), twoMinusv12.begin(), std::minus<long>());
-    std::cout <<"vMinus_2 = vect(6) - v12 -> "<< twoMinusv12<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector twoMinusv12.
+    vectMod(twoMinusv12, cy.getp2r());
+    std::cout <<"vMinus_2 = vect(6) - v12 mod("<< cy.getp2r() <<") -> "<< twoMinusv12<<endl;
     // If Decrypt(6 - Encrypt(v12)) equal to vect(6) - v12, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_minus_2_v12 == twoMinusv12){
    	std::cout <<"Homeomorphic operation substraction with operator - between a long and a CyCtxt is a success: Decrypt(6 - Encrypt(v12)) equal to vect(6) - v12."<<endl;
@@ -665,7 +704,9 @@ int main(int argc, char *argv[])
     vector<long> vectOf2_1(VECTOR_SIZE, 2);
     vector<long> v12Minustwo_1(VECTOR_SIZE, 0);
     std::transform (v12.begin(), v12.end(), vectOf2_1.begin(), v12Minustwo_1.begin(), std::minus<long>());
-    std::cout <<"vMinus_2 = v12 - vect(2) -> "<< v12Minustwo_1<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector vectOf2_1.
+    vectMod(vectOf2_1, cy.getp2r());
+    std::cout <<"vMinus_2 = v12 - vect(2) mod("<< cy.getp2r() <<") -> "<< v12Minustwo_1<<endl;
     // If Decrypt(Encrypt(v12) - 2) equal to v12 - vect(2), the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_minus_v12_2 == v12Minustwo_1){
    	std::cout <<"Homeomorphic operation substraction with operator - between a CyCtxt and a long is a success: Decrypt(Encrypt(v12) - 2) equal to v12 - vect(2)."<<endl;
@@ -710,7 +751,9 @@ int main(int argc, char *argv[])
        and returns some result value convertible to the type pointed by OutputIterator.*/
     vector<long> v12Multv22(VECTOR_SIZE, 0);
     std::transform (v12.begin(), v12.end(), v22.begin(), v12Multv22.begin(), std::multiplies<long>());
-    std::cout <<"v52 = v12 * v22 -> "<< v12Multv22<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v12Multv22.
+    vectMod(v12Multv22, cy.getp2r());
+    std::cout <<"v52 = v12 * v22 mod("<< cy.getp2r() <<") -> "<< v12Multv22<<endl;
     // If Decrypt(Encrypt(v12) * Encrypt(v22)) equal to v12 * v22, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_mult_v12_v22 == v12Multv22){
    	std::cout <<"Homeomorphic operation multiplication with operator * is a success: Decrypt(Encrypt(v12) * Encrypt(v22)) equal to v12 * v22."<<endl;
@@ -755,7 +798,9 @@ int main(int argc, char *argv[])
     vector<long> vect_2_forMult1(VECTOR_SIZE, 2);
     vector<long> twoMultv12(VECTOR_SIZE, 0);
     std::transform (vect_2_forMult1.begin(), vect_2_forMult1.end(), v12.begin(), twoMultv12.begin(), std::multiplies<long>());
-    std::cout <<"vMult_2 = vect(2) * v12 -> "<< twoMultv12<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector twoMultv12.
+    vectMod(twoMultv12, cy.getp2r());
+    std::cout <<"vMult_2 = vect(2) * v12 mod("<< cy.getp2r() <<") -> "<< twoMultv12<<endl;
     // If Decrypt(2 * Encrypt(v12)) equal to vect(2) * v12, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_mult_2_v12 == twoMultv12){
    	std::cout <<"Homeomorphic operation multiplication with operator * between a long and a CyCtxt is a success: Decrypt(2 * Encrypt(v12)) equal to vect(2) * v12."<<endl;
@@ -800,7 +845,9 @@ int main(int argc, char *argv[])
     vector<long> vect_2_forMult2(VECTOR_SIZE, 2);
     vector<long> v12Multtwo(VECTOR_SIZE, 0);
     std::transform (v12.begin(), v12.end(), vect_2_forMult2.begin(), v12Multtwo.begin(), std::multiplies<long>());
-    std::cout <<"vMult_2 = v12 * vect(2) -> "<< v12Multtwo<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v12Multtwo.
+    vectMod(v12Multtwo, cy.getp2r());
+    std::cout <<"vMult_2 = v12 * vect(2) mod("<< cy.getp2r() <<") -> "<< v12Multtwo<<endl;
     // If Decrypt(Encrypt(v12) * 2) equal to v12 * vect(2), the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_mult_v12_2 == v12Multtwo){
    	std::cout <<"Homeomorphic operation multiplication with operator * between a CyCtxt and a long is a success: Decrypt(Encrypt(v12) * 2) equal to v12 * vect(2)."<<endl;
@@ -838,7 +885,9 @@ int main(int argc, char *argv[])
     // Perform the scalar product with returnScalarProd method on the unencrypted vectors. 
     // Use of std::inner_product preform scalar product together its two arguments.
     vector<long> v12ScalarProdv22(VECTOR_SIZE, std::inner_product(std::begin(v12), std::end(v12), std::begin(v22), 0.0));
-    std::cout <<"vScalarProd = v12.returnScalarProd(v22) -> "<< v12ScalarProdv22<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v12ScalarProdv22.
+    vectMod(v12ScalarProdv22, cy.getp2r());
+    std::cout <<"vScalarProd = v12.returnScalarProd(v22) mod("<< cy.getp2r() <<") -> "<< v12ScalarProdv22<<endl;
     // If Decrypt(Encrypt(v12).returnScalarProd(Encrypt(v22))) equal to v12.returnScalarProd(v22), the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_scalarProd_v12_v22 == v12ScalarProdv22){
    	std::cout <<"Homeomorphic operation scalar product with returnScalarProd method is a success: Decrypt(Encrypt(v12).returnScalarProd(Encrypt(v22)) equal to v12.returnScalarProd(v22)."<<endl;
@@ -876,7 +925,9 @@ int main(int argc, char *argv[])
     // Perform the scalar product on the unencrypted vectors. 
     // Use of std::inner_product preform scalar product together its two arguments.
     vector<long> v12ScalarProdv22_op(VECTOR_SIZE, std::inner_product(std::begin(v12), std::end(v12), std::begin(v22), 0.0));
-    std::cout <<"vScalarProd_operator = v12 % v22 -> "<< v12ScalarProdv22_op<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v12ScalarProdv22_op.
+    vectMod(v12ScalarProdv22_op, cy.getp2r());
+    std::cout <<"vScalarProd_operator = v12 % v22 mod("<< cy.getp2r() <<") -> "<< v12ScalarProdv22_op<<endl;
     // If Decrypt(Encrypt(v12) % Encrypt(v22)) equal to v12 % v22, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_scalarProd_v12_v22_op == v12ScalarProdv22_op){
    	std::cout <<"Homeomorphic operation scalar product with operator % is a success: Decrypt(Encrypt(v12) % Encrypt(v22) equal to v12 % v22."<<endl;
@@ -920,7 +971,9 @@ int main(int argc, char *argv[])
        and returns some result value convertible to the type pointed by OutputIterator.*/
     vector<long> v12Squarev22(VECTOR_SIZE, 0);
     std::transform (v12.begin(), v12.end(), v12.begin(), v12Squarev22.begin(), std::multiplies<long>());
-    std::cout <<"v62 = v12² -> "<< v12Squarev22<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v12Squarev22.
+    vectMod(v12Squarev22, cy.getp2r());
+    std::cout <<"v62 = v12² mod("<< cy.getp2r() <<") -> "<< v12Squarev22<<endl;
     // If Decrypt(Encrypt(v12)²) equal to v12², the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_square_v12_v22 == v12Squarev22){
    	std::cout <<"Homeomorphic operation square with operator ² is a success: Decrypt(Encrypt(v12)²) equal to v12²."<<endl;
@@ -965,7 +1018,9 @@ int main(int argc, char *argv[])
     vector<long> v12Cubev22(VECTOR_SIZE, 0);
     std::transform (v12.begin(), v12.end(), v12.begin(), v12Cubev22_0.begin(), std::multiplies<long>());
     std::transform (v12Cubev22_0.begin(), v12Cubev22_0.end(), v12.begin(), v12Cubev22.begin(), std::multiplies<long>());
-    std::cout <<"v72 = v12³ -> "<< v12Cubev22<<endl;
+    // All the operations are done modulo p^r. So we apply the operation mod(p^r) on each elements of the vector v12Cubev22.
+    vectMod(v12Cubev22, cy.getp2r());
+    std::cout <<"v72 = v12³ mod("<< cy.getp2r() <<") -> "<< v12Cubev22<<endl;
     // If Decrypt(Encrypt(v12)³) equal to v12³, the homeomorphic operation works and so it is a success. Else, it is a fail.
     if (v_cube_v12_v22 == v12Cubev22){
    	std::cout <<"Homeomorphic operation cube with operator ³ is a success: Decrypt(Encrypt(v12)³) equal to v12³."<<endl;

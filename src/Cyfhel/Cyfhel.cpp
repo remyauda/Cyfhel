@@ -376,6 +376,98 @@ void Cyfhel::random(vector<long>& array) const{
 	return m_encryptedArray->random(array);
 }
 
+/*
+	@name: polyEval
+	@description: Choose a vector of n points x = [x1, x2, ..., xn]. 
+                  Then, define a polynome Poly of degree d by choosing a vector coeffPoly of d+1 coefficients. 
+                  Then, we cyphered the vector of points x to obtain cx = [c1, c2, ..., cn].
+                  Then, we evaluate the n cyphered points with the polynome we have defined previously ie P(cx) = [P(c1), P(c2), ..., P(cn)].
+                  Then, we decrypt the previous vector: Decrypt(P(cx)) = Decrypt([P(c1), P(c2), ..., P(cn)]) = [P(x1), P(x2), ..., P(xn)].
+                  Then, we perform the polynomiale evaluation on the plaintext vector x: P(x) = [P(x1), P(x2), ..., P(xn)].
+                  Finally, we verify if Decrypt(P(cx)) = P(x).
+
+	@param: The method encrypt takes two mandatory parameters: a vector of long and a vector of long.
+	-param1: a mandatory vector of long which corresponds to the points of the polynomial evaluation.
+    -param2: a mandatory vector of long which corresponds to the coefficients of the polynome.
+
+    @return: Return a boolean: true if Decrypt(P(cx)) = P(x), false otherwise.
+*/
+bool polyEval(vector<long>& vectorPtsEval, vector<long> const& coeffPoly){
+   
+   // Value of p power r.
+   const long p2r = this->getp2r(); 
+
+   if(m_isVerbose){
+   // Cout the vector that contains the evaluation points.
+   std::cout <<"vector X of fixed points -> "<< vectorPtsEval <<endl;
+   }
+
+   // ***Definition of the polynome.***
+   ZZX poly;
+   
+   // Definition of the degree of the polynome. The degree of the polynome is the number of coefficients -1.
+   const long d = coeffPoly.size()-1;
+
+   if(m_isVerbose){
+   std::cout <<coeffPoly<<endl;
+   }
+   // Set the coefficients of the polynome with the values of the vector vectorPtsEval given in parameters.
+   for (long i=d; i>=0; i--){
+       SetCoeff(poly, i, coeffPoly[i]); // coefficients are fixed.
+   }
+   if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1
+
+   if(m_isVerbose){
+   // Print the polynome.
+   std::cout <<"Polynome P(X) with fixed coefficients of degree " << d <<" -> ";
+   for (int i=deg(poly); i>0; i--){
+   std::cout << poly[i] <<"X^"<<i<<" + ";
+   }
+   std::cout << poly[0] <<endl;
+   }
+ 
+
+   // ***Encrypt the vectors of points to evaluate the polynome.***
+   CyCtxt cx = cy.encrypt(vectorPtsEval);
+   if(m_isVerbose){
+   std::cout <<"Encryption of vector x..."<<endl;
+   std::cout << "Encrypted x: Encrypt(" << vectorPtsEval << ")"<<endl;
+   }
+
+   // ***Evaluate the polynome by each cypher elements of the CyCtxt containing the cypher evaluation points.***
+   // Creation of a CyCtxt to contain the result CyCtxt of the polynomial evaluation.
+   CyCtxt cEvalPoly = cx; 
+   // Evaluate poly on the ciphertext.
+   polyEval(cEvalPoly, poly, cx, 0);
+
+
+  // ***Decrypt the CyCtxt which contain the polynomial evaluation.***
+  vector<long> vect_polyEval = cy.decrypt(cEvalPoly);
+  if(m_isVerbose){
+  // The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
+  std::cout <<"Decrypt(P(encrypt(x))) -> "<< vect_polyEval<<endl;
+  }
+
+  // Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
+  vector<long> plainTextEval;
+  // Polynomial evaluation on plaintext vector.
+  for (long i=0; i<vectorPtsEval.size(); i++) {
+     long ret = polyEvalMod(poly, vectorPtsEval[i], p2r);
+     plainTextEval.push_back(ret);
+     if (ret != vect_polyEval[i]) {
+       if(m_isVerbose){
+       std::cout << "Decrypt(P(encrypt(x))) != P(x). Plaintext poly MISMATCH\n";
+       }
+       return false;
+    }
+  }
+   if(m_isVerbose){
+   std::cout <<"P(x) -> "<< plainTextEval<<endl;
+   std::cout << "Decrypt(P(encrypt(x))) == P(x). Plaintext poly match\n" << std::flush;
+   }
+   return true;
+}
+
 //------ENCRYPTION------
 //ENCRYPTION
 /*

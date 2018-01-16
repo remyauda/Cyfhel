@@ -351,6 +351,8 @@ void Cyfhel::keyGen(long const& p, long const& r, long const& c, long const& d, 
 	@description: Get p power r.
 
 	@param: null.
+
+    @return: a long which correspond to the value of p^r.
 */
 long Cyfhel::getp2r() const {
 	return m_context->alMod.getPPowR();
@@ -361,6 +363,8 @@ long Cyfhel::getp2r() const {
 	@description: Get size of m_encryptedArray.
 
 	@param: null.
+
+    @return: a long which correspond to the size of the m_encryptedArray.
 */
 long Cyfhel::getm_encryptedArraySize() const {
 	return m_encryptedArray->size();
@@ -370,14 +374,52 @@ long Cyfhel::getm_encryptedArraySize() const {
 	@name: random
 	@description: Get a random vector of size m_encryptedArray.size().
 
-	@param: null.
+	@param: The method random takes one mandatory parameter: a vector of long.
+	-param1: a mandatory vector of long which corresponds the array we want to randomize.
+
+    @return: null.
 */
 void Cyfhel::random(vector<long>& array) const{
 	return m_encryptedArray->random(array);
 }
 
+
 /*
-	@name: polyEval
+	@name: createPolynomeWithCoeff
+	@description: Given a vector of coefficients, give the associated polynome ZZX.
+
+	@param: The method createPolynomeWithCoeff takes one mandatory parameter: a vector of long.
+	-param1: a mandatory vector of long which corresponds to the coefficients of the polynome. Be carreful: [a0, a1, ..., an] will give: P(x)=an*X^n+...+a1*X¹+a0.
+
+    @return: Return a ZZX. The corresponding polynome with the coefficients given.
+*/
+ZZX Cyfhel::createPolynomeWithCoeff(vector<long> const& coeffPoly){
+   // ***Definition of the polynome.***
+   ZZX poly;
+   
+   // Definition of the degree of the polynome. The degree of the polynome is the number of coefficients -1.
+   const long d = coeffPoly.size()-1;
+
+   // Set the coefficients of the polynome with the values of the vector vectorPtsEval given in parameters.
+   for (long i=d; i>=0; i--){
+       SetCoeff(poly, i, coeffPoly[i]); // coefficients are fixed.
+   }
+   //if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1
+
+   if(m_isVerbose){
+   // Print the polynome.
+   std::cout <<"Polynome P(X) with fixed coefficients of degree " << d <<" -> ";
+   for (int i=deg(poly); i>0; i--){
+   std::cout << poly[i] <<"X^"<<i<<" + ";
+   }
+   std::cout << poly[0] <<endl;
+   }
+return poly;
+}
+
+
+/*
+	@name: polynomialEval
 	@description: Choose a vector of n points x = [x1, x2, ..., xn]. 
                   Then, define a polynome Poly of degree d by choosing a vector coeffPoly of d+1 coefficients. 
                   Then, we cyphered the vector of points x to obtain cx = [c1, c2, ..., cn].
@@ -392,10 +434,7 @@ void Cyfhel::random(vector<long>& array) const{
 
     @return: Return a boolean: true if Decrypt(P(cx)) = P(x), false otherwise.
 */
-CyCtxt Cyfhel::polyEval(vector<long>& vectorPtsEval, vector<long> const& coeffPoly){
-   
-   // Value of p power r.
-   const long p2r = this->getp2r(); 
+CyCtxt Cyfhel::polynomialEval(vector<long>& vectorPtsEval, vector<long> const& coeffPoly){
 
    if(m_isVerbose){
    // Cout the vector that contains the evaluation points.
@@ -408,14 +447,11 @@ CyCtxt Cyfhel::polyEval(vector<long>& vectorPtsEval, vector<long> const& coeffPo
    // Definition of the degree of the polynome. The degree of the polynome is the number of coefficients -1.
    const long d = coeffPoly.size()-1;
 
-   if(m_isVerbose){
-   std::cout <<coeffPoly<<endl;
-   }
    // Set the coefficients of the polynome with the values of the vector vectorPtsEval given in parameters.
    for (long i=d; i>=0; i--){
        SetCoeff(poly, i, coeffPoly[i]); // coefficients are fixed.
    }
-   if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1
+   //if (isMonic) SetCoeff(poly, d);    // set top coefficient to 1
 
    if(m_isVerbose){
    // Print the polynome.
@@ -428,7 +464,7 @@ CyCtxt Cyfhel::polyEval(vector<long>& vectorPtsEval, vector<long> const& coeffPo
  
 
    // ***Encrypt the vectors of points to evaluate the polynome.***
-   CyCtxt cx = cy.encrypt(vectorPtsEval);
+   CyCtxt cx = this->encrypt(vectorPtsEval);
    if(m_isVerbose){
    std::cout <<"Encryption of vector x..."<<endl;
    std::cout << "Encrypted x: Encrypt(" << vectorPtsEval << ")"<<endl;

@@ -29,6 +29,8 @@
 
 #include "CyCtxt.h"
 
+#include "polyEval.h"
+
 //The Cyfhel Class
 class Cyfhel {
 
@@ -109,7 +111,12 @@ class Cyfhel {
 
 	void random(vector<long>& array) const; //Get a random vector of size ea.size().
 
-    CyCtxt polyEval(vector<long>& vectorPtsEval, vector<long> const& coeffPoly);
+    ZZX createPolynomeWithCoeff(vector<long> const& coeffPoly); // Given a vector of coefficients, give the associated polynome ZZX.
+
+    CyCtxt polynomialEval(vector<long>& vectorPtsEval, vector<long> const& coeffPoly); // Given a vector of evaluation points and a vector of coefficients of a polynome.
+                                                                                       // Give a CyCtxt which is the polynomial evaluation of the encrypted evaluation 
+                                                                                       // points.
+
 
 	//------ENCRYPTION------
 	CyCtxt encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize = true) const;//Encryption

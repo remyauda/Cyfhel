@@ -37,7 +37,6 @@
 #include <cassert>
 #include <cstdio>
 
-#include "polyEval.h"
 
 /* The vector size of the plaintext that we will use for the demo.*/
 #define VECTOR_SIZE 5
@@ -70,6 +69,7 @@ vector<long> vectMod(vector<long>& v, long const& modulo){
 // Return the modified vector which has undergo the modulo operation on each of its elements.
 return v;
 }
+
 
 void initVectorFixe(vector<long>& v1, vector<long>& v2, vector<long>& v12, vector<long>& v22){
 	// Initialization of v1.
@@ -1178,6 +1178,7 @@ int main(int argc, char *argv[])
      if (ret != vect_polyEval[i]) {
        std::cout << "Decrypt(P(encrypt(x))) != P(x). Plaintext poly MISMATCH\n";
        number_fail += 1;
+       break; // Break the for loop to count only one fail.
     }
   }
    std::cout <<"P(x) -> "<< plainTextEval<<endl;
@@ -1211,30 +1212,32 @@ int main(int argc, char *argv[])
    }
    
    // Polynomial evaluation.
-   CyCtxt cEvalPoly = cy.polyEval(vectorPtsEval, coeffPoly);
+   CyCtxt cEvalPoly_cyfhel = cy.polynomialEval(vectorPtsEval, coeffPoly);
 
    // ***Decrypt the CyCtxt which contain the polynomial evaluation.***
-   vector<long> vect_polyEval = cy.decrypt(cEvalPoly);
-   if(m_isVerbose){
+   vector<long> vect_polynomialEval = cy.decrypt(cEvalPoly_cyfhel);
+   if(cy.getm_isVerbose()){
    // The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
-   std::cout <<"Decrypt(P(encrypt(x))) -> "<< vect_polyEval<<endl;
+   std::cout <<"Decrypt(P(encrypt(x))) -> "<< vect_polynomialEval<<endl;
    }
 
    // Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
-   vector<long> plainTextEval;
+   vector<long> plainTextPolyEval;
    // Polynomial evaluation on plaintext vector.
-   for (long i=0; i<vectorPtsEval.size(); i++) {
-       long ret = polyEvalMod(poly, vectorPtsEval[i], p2r);
-       plainTextEval.push_back(ret);
-       if (ret != vect_polyEval[i]) {
-           if(m_isVerbose){
+   ZZX polynome = cy.createPolynomeWithCoeff(coeffPoly); // Create a ZZX polynome with the coefficients provide by the user.
+   for (unsigned long i=0; i<vectorPtsEval.size(); i++) {
+       long ret = polyEvalMod(polynome, vectorPtsEval[i], p2r);
+       plainTextPolyEval.push_back(ret);
+       if (ret != vect_polynomialEval[i]) {
+           if(cy.getm_isVerbose()){
                std::cout << "Decrypt(P(encrypt(x))) != P(x). Plaintext poly MISMATCH\n";
            }
        number_fail += 1;
+       break; // Break the for loop to count only one fail.
        }
    }
-   if(m_isVerbose){
-   std::cout <<"P(x) -> "<< plainTextEval<<endl;
+   if(cy.getm_isVerbose()){
+   std::cout <<"P(x) -> "<< plainTextPolyEval<<endl;
    std::cout << "Decrypt(P(encrypt(x))) == P(x). Plaintext poly match\n" << std::flush;
    }
    number_success += 1;

@@ -1193,7 +1193,7 @@ int main(int argc, char *argv[])
 
 
 
-   std::cout <<"******Homomorphic Polynomial Evaluation with Cyfhel method polyEval******"<<endl;
+   std::cout <<"******Homomorphic Polynomial Evaluation with Cyfhel method polynomeEval******"<<endl;
    // Definition of a vector of points for polynomial evaluation.
    vector<long> vectorPtsEval;
    // Definition of the coefficients of the polynome.
@@ -1216,31 +1216,35 @@ int main(int argc, char *argv[])
 
    // ***Decrypt the CyCtxt which contain the polynomial evaluation.***
    vector<long> vect_polynomialEval = cy.decrypt(cEvalPoly_cyfhel);
-   if(cy.getm_isVerbose()){
    // The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
-   std::cout <<"Decrypt(P(encrypt(x))) -> "<< vect_polynomialEval<<endl;
-   }
+   std::cout <<"Decrypt(P(encrypt(x))) mod("<< cy.getp2r() <<") -> "<< vect_polynomialEval<<endl;
 
    // Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
    vector<long> plainTextPolyEval;
    // Polynomial evaluation on plaintext vector.
    ZZX polynome = cy.createPolynomeWithCoeff(coeffPoly); // Create a ZZX polynome with the coefficients provide by the user.
+   // Perform the polynomial evaluation for all the elements of the plaintext evalauation points vector and put it in the vector plainTextPolyEval.
    for (unsigned long i=0; i<vectorPtsEval.size(); i++) {
-       long ret = polyEvalMod(polynome, vectorPtsEval[i], p2r);
-       plainTextPolyEval.push_back(ret);
-       if (ret != vect_polynomialEval[i]) {
-           if(cy.getm_isVerbose()){
-               std::cout << "Decrypt(P(encrypt(x))) != P(x). Plaintext poly MISMATCH\n";
-           }
+       long elementPolyEval = polyEvalMod(polynome, vectorPtsEval[i], p2r); // Polynomial evaluation of the ieme element of the plaintext vector.
+       plainTextPolyEval.push_back(elementPolyEval); // Push the polynomial evaluation of the ieme element of the plaintext vector within the vector plainTextPolyEval.
+   }
+   // Display the plaintext vector that contain the polynomial evaluation of vectorPtsEval ie P(x).
+   std::cout <<"P(x) mod("<< cy.getp2r() <<") -> "<< plainTextPolyEval<<endl;
+   // If Decrypt(P(encrypt(x))) equal to P(x), the homeomorphic operation works and so it is a success. Else, it is a fail.
+   if(vect_polynomialEval == plainTextPolyEval){
+       std::cout <<"Homeomorphic operation polynomeEval is a success: Decrypt(P(encrypt(x))) equal to P(x).\n"<<endl;
+       number_success += 1;
+   }
+   else if(vect_polynomialEval != plainTextPolyEval){
+       std::cout <<"Homeomorphic operation polynomeEval is a fail: Decrypt(P(encrypt(x))) not equal to P(x)."<<endl;
        number_fail += 1;
-       break; // Break the for loop to count only one fail.
-       }
    }
-   if(cy.getm_isVerbose()){
-   std::cout <<"P(x) -> "<< plainTextPolyEval<<endl;
-   std::cout << "Decrypt(P(encrypt(x))) == P(x). Plaintext poly match\n" << std::flush;
+   else{
+       std::cout <<"Error: unexpected result during the comparison of vect_polynomialEval and plainTextPolyEval."<<endl;
+	   number_unexpeted_error += 1;
    }
-   number_success += 1;
+
+   
 
    // Skip a line.
    std::cout <<"\n"<<endl;

@@ -1184,6 +1184,61 @@ int main(int argc, char *argv[])
    std::cout << "Decrypt(P(encrypt(x))) == P(x). Plaintext poly match\n" << std::flush;
    number_success += 1;
 
+
+
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
+
+
+   std::cout <<"******Homomorphic Polynomial Evaluation with Cyfhel method polyEval******"<<endl;
+   // Definition of a vector of points for polynomial evaluation.
+   vector<long> vectorPtsEval;
+   // Definition of the coefficients of the polynome.
+   vector<long> coeffPoly;
+
+   // Initialization of the vector of points for polynomial evaluation.
+   for(unsigned long i=0; i<VECTOR_SIZE; i++)
+   {
+       vectorPtsEval.push_back(i);
+   }
+
+   // Initialization of the vector of coefficients for polynome.
+   for(unsigned long i=0; i<VECTOR_SIZE; i++)
+   {
+       coeffPoly.push_back(i+2);
+   }
+   
+   // Polynomial evaluation.
+   CyCtxt cEvalPoly = cy.polyEval(vectorPtsEval, coeffPoly);
+
+   // ***Decrypt the CyCtxt which contain the polynomial evaluation.***
+   vector<long> vect_polyEval = cy.decrypt(cEvalPoly);
+   if(m_isVerbose){
+   // The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
+   std::cout <<"Decrypt(P(encrypt(x))) -> "<< vect_polyEval<<endl;
+   }
+
+   // Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
+   vector<long> plainTextEval;
+   // Polynomial evaluation on plaintext vector.
+   for (long i=0; i<vectorPtsEval.size(); i++) {
+       long ret = polyEvalMod(poly, vectorPtsEval[i], p2r);
+       plainTextEval.push_back(ret);
+       if (ret != vect_polyEval[i]) {
+           if(m_isVerbose){
+               std::cout << "Decrypt(P(encrypt(x))) != P(x). Plaintext poly MISMATCH\n";
+           }
+       number_fail += 1;
+       }
+   }
+   if(m_isVerbose){
+   std::cout <<"P(x) -> "<< plainTextEval<<endl;
+   std::cout << "Decrypt(P(encrypt(x))) == P(x). Plaintext poly match\n" << std::flush;
+   }
+   number_success += 1;
+
    // Skip a line.
    std::cout <<"\n"<<endl;
    std::cout <<"Number of successful tests: "<< number_success<<endl;

@@ -109,7 +109,7 @@ class Cyfhel {
 
 	void random(vector<long>& array) const; //Get a random vector of size ea.size().
 
-    bool polyEval(vector<long>& vectorPtsEval, vector<long> const& coeffPoly);
+    CyCtxt polyEval(vector<long>& vectorPtsEval, vector<long> const& coeffPoly);
 
 	//------ENCRYPTION------
 	CyCtxt encrypt(vector<long> &ptxt_vect, bool isPtxt_vectResize = true) const;//Encryption

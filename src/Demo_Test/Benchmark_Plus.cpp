@@ -38,8 +38,6 @@
 #include <cassert>
 #include <cstdio>
 
-#include "polyEval.h"
-
 /* The vector size of the plaintext that we will use for the demo.*/
 #define VECTOR_SIZE 5
 

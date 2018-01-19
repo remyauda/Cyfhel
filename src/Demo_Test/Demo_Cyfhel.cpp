@@ -1194,10 +1194,9 @@ int main(int argc, char *argv[])
 
 
    std::cout <<"******Homomorphic Polynomial Evaluation with Cyfhel method polynomeEval******"<<endl;
-   // Definition of a vector of points for polynomial evaluation.
-   vector<long> vectorPtsEval;
-   // Definition of the coefficients of the polynome.
-   vector<long> coeffPoly;
+
+   vector<long> vectorPtsEval;// Definition of a vector of points for polynomial evaluation.
+   vector<long> coeffPoly;// Definition of the coefficients of the polynome.
 
    // Initialization of the vector of points for polynomial evaluation.
    for(unsigned long i=0; i<VECTOR_SIZE; i++)

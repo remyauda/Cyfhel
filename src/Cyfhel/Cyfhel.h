@@ -117,6 +117,9 @@ class Cyfhel {
                                                                                        // Give a CyCtxt which is the polynomial evaluation of the encrypted evaluation 
                                                                                        // points.
 
+    CyCtxt polynomialEval(vector<long>& vectorPtsEval, ZZX const& poly); // Given a vector of evaluation points and a polynome (type ZZX).
+                                                                         // Give a CyCtxt which is the polynomial evaluation of the encrypted evaluation points.
+
     bool testPolynomialEvalAllRandom(long const& sizeVectorPtsEval = 1, long const& d = 1, bool const& isMonic = false);
 
 

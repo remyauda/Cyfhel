@@ -1210,6 +1210,72 @@ int main(int argc, char *argv[])
    // Skip a line.
    std::cout <<"\n"<<endl;
 
+   std::cout <<"******Homomorphic Polynomial Evaluation with Cyfhel method polynomeEval (ZZX version)******"<<endl;
+   /*
+	Choose a vector of n points x = [x1, x2, ..., xn]. 
+    Then, define a polynome Poly of degree d. 
+    Then, we cyphered the vector of points x to obtain cx = [c1, c2, ..., cn].
+    Then, we evaluate the n cyphered points with the polynome we have defined previously ie P(cx) = [P(c1), P(c2), ..., P(cn)].
+    Then, we decrypt the previous vector: Decrypt(P(cx)) = Decrypt([P(c1), P(c2), ..., P(cn)]) = [P(x1), P(x2), ..., P(xn)].
+    Then, we perform the polynomiale evaluation on the plaintext vector x: P(x) = [P(x1), P(x2), ..., P(xn)].
+    Finally, we verify if Decrypt(P(cx)) = P(x) or not.
+    */
+
+   vector<long> vectorPtsEval0;// Definition of a vector of points for polynomial evaluation.
+   vector<long> coeffPoly0;// Definition of the coefficients of the polynome.
+
+   // Initialization of the vector of points for polynomial evaluation.
+   for(unsigned long i=0; i<VECTOR_SIZE; i++)
+   {
+       vectorPtsEval0.push_back(i);
+   }
+
+   // Initialization of the vector of coefficients for polynome.
+   for(unsigned long i=0; i<VECTOR_SIZE; i++)
+   {
+       coeffPoly0.push_back(i+2);
+   }
+
+   // Create a polynome.
+   ZZX poly0 = cy.createPolynomeWithCoeff(coeffPoly0);
+   
+   // Polynomial evaluation.
+   CyCtxt cEvalPoly_cyfhel0 = cy.polynomialEval(vectorPtsEval0, poly0);
+
+   // ***Decrypt the CyCtxt which contain the polynomial evaluation.***
+   vector<long> vect_polynomialEval0 = cy.decrypt(cEvalPoly_cyfhel0);
+   // The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
+   std::cout <<"Decrypt(P(encrypt(x))) mod("<< cy.getp2r() <<") -> "<< vect_polynomialEval0<<endl;
+
+   // Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
+   vector<long> plainTextPolyEval0;
+   // Polynomial evaluation on plaintext vector.
+   ZZX polynome0 = cy.createPolynomeWithCoeff(coeffPoly0); // Create a ZZX polynome with the coefficients provide by the user.
+   // Perform the polynomial evaluation for all the elements of the plaintext evalauation points vector and put it in the vector plainTextPolyEval.
+   for (unsigned long i=0; i<vectorPtsEval0.size(); i++) {
+       long elementPolyEval0 = polyEvalMod(polynome0, vectorPtsEval0[i], p2r); // Polynomial evaluation of the ieme element of the plaintext vector.
+       plainTextPolyEval0.push_back(elementPolyEval0); // Push the polynomial evaluation of the ieme element of the plaintext vector within the vector plainTextPolyEval.
+   }
+   // Display the plaintext vector that contain the polynomial evaluation of vectorPtsEval ie P(x).
+   std::cout <<"P(x) mod("<< cy.getp2r() <<") -> "<< plainTextPolyEval0<<endl;
+   // If Decrypt(P(encrypt(x))) equal to P(x), the homeomorphic operation works and so it is a success. Else, it is a fail.
+   if(vect_polynomialEval0 == plainTextPolyEval0){
+       std::cout <<"Homeomorphic operation polynomeEval is a success: Decrypt(P(encrypt(x))) equal to P(x).\n"<<endl;
+       number_success += 1;
+   }
+   else if(vect_polynomialEval0 != plainTextPolyEval0){
+       std::cout <<"Homeomorphic operation polynomeEval is a fail: Decrypt(P(encrypt(x))) not equal to P(x)."<<endl;
+       number_fail += 1;
+   }
+   else{
+       std::cout <<"Error: unexpected result during the comparison of vect_polynomialEval and plainTextPolyEval."<<endl;
+	   number_unexpeted_error += 1;
+   }
+
+
+   // Skip a line.
+   std::cout <<"\n"<<endl;
+
    std::cout <<"******Homomorphic Polynomial Evaluation with Cyfhel method polynomeEval******"<<endl;
    /*In this test, we choose n points (choosen by the user) and put them in a vector vectorPtsEval = [x1, x2, ..., xn]. 
      Then, we define a polynome poly of degree d by choosing d+1 coefficients of the polynome in a vector coeffPoly. 

@@ -425,14 +425,12 @@ return poly;
                   Then, we cyphered the vector of points x to obtain cx = [c1, c2, ..., cn].
                   Then, we evaluate the n cyphered points with the polynome we have defined previously ie P(cx) = [P(c1), P(c2), ..., P(cn)].
                   Then, we decrypt the previous vector: Decrypt(P(cx)) = Decrypt([P(c1), P(c2), ..., P(cn)]) = [P(x1), P(x2), ..., P(xn)].
-                  Then, we perform the polynomiale evaluation on the plaintext vector x: P(x) = [P(x1), P(x2), ..., P(xn)].
-                  Finally, we verify if Decrypt(P(cx)) = P(x).
 
 	@param: The method encrypt takes two mandatory parameters: a vector of long and a vector of long.
 	-param1: a mandatory vector of long which corresponds to the points of the polynomial evaluation.
     -param2: a mandatory vector of long which corresponds to the coefficients of the polynome.
 
-    @return: Return a boolean: true if Decrypt(P(cx)) = P(x), false otherwise.
+    @return: Return a CyCtxt: P(cx).
 */
 CyCtxt Cyfhel::polynomialEval(vector<long>& vectorPtsEval, vector<long> const& coeffPoly){
 
@@ -479,6 +477,60 @@ CyCtxt Cyfhel::polynomialEval(vector<long>& vectorPtsEval, vector<long> const& c
 return cEvalPoly;
  
 }
+
+
+/*
+	@name: polynomialEval
+	@description: Choose a vector of n points x = [x1, x2, ..., xn]. 
+                  Then, define a polynome Poly of degree d. 
+                  Then, we cyphered the vector of points x to obtain cx = [c1, c2, ..., cn].
+                  Then, we evaluate the n cyphered points with the polynome we have defined previously ie P(cx) = [P(c1), P(c2), ..., P(cn)].
+                  Then, we decrypt the previous vector: Decrypt(P(cx)) = Decrypt([P(c1), P(c2), ..., P(cn)]) = [P(x1), P(x2), ..., P(xn)].
+
+	@param: The method encrypt takes two mandatory parameters: a vector of long and a ZZX.
+	-param1: a mandatory vector of long which corresponds to the points of the polynomial evaluation.
+    -param2: a mandatory ZZX which corresponds to the polynome.
+
+    @return: Return a CyCtxt: P(cx).
+*/
+CyCtxt Cyfhel::polynomialEval(vector<long>& vectorPtsEval, ZZX const& poly){
+
+   const long d = deg(poly);
+
+   if(m_isVerbose){
+   // Cout the vector that contains the evaluation points.
+   std::cout <<"vector X of fixed points -> "<< vectorPtsEval <<endl;
+   }
+
+   if(m_isVerbose){
+   // Print the polynome.
+   std::cout <<"Polynome P(X) with fixed coefficients of degree " << d <<" -> ";
+   for (int i=d; i>0; i--){
+   std::cout << poly[i] <<"X^"<<i<<" + ";
+   }
+   std::cout << poly[0] <<endl;
+   }
+ 
+
+   // ***Encrypt the vectors of points to evaluate the polynome.***
+   CyCtxt cx = this->encrypt(vectorPtsEval);
+   if(m_isVerbose){
+   std::cout <<"Encryption of vector x..."<<endl;
+   std::cout << "Encrypted x: Encrypt(" << vectorPtsEval << ")"<<endl;
+   }
+
+   // ***Evaluate the polynome by each cypher elements of the CyCtxt containing the cypher evaluation points.***
+   // Creation of a CyCtxt to contain the result CyCtxt of the polynomial evaluation.
+   CyCtxt cEvalPoly = cx; 
+   // Evaluate poly on the ciphertext.
+   polyEval(cEvalPoly, poly, cx, 0);
+
+return cEvalPoly;
+ 
+}
+
+
+
 
 /*
 	@name: polynomialEvalAllRandom

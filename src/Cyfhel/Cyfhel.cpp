@@ -480,6 +480,104 @@ return cEvalPoly;
  
 }
 
+/*
+	@name: polynomialEvalAllRandom
+	@description: Choose a  size sizeVectorPtsEval of a vector. the method will then generate sizeVectorPtsEval points x = [x1, x2, ..., xn]. 
+                  Then, define a polynome poly of degree d (degree specicify by the user) with random coefficients. 
+                  Then, we cyphered the vector of points x to obtain cx = [c1, c2, ..., cn].
+                  Then, we evaluate the n cyphered points with the polynome we have defined previously ie P(cx) = [P(c1), P(c2), ..., P(cn)].
+
+	@param: The method encrypt takes two optional parameters: a long and a long.
+	-param1: a optional long which corresponds to the number of points of the polynomial evaluation.
+    -param2: a optional of long which corresponds to the degree of the polynome.
+    -param3: a optional boolean which say if the polynome is monic or not.
+
+    @return: Return a boolean: true if Decrypt(P(cx)) = P(x), false otherwise.
+
+    note: This method is useless normaly since it just test if polyEval from Helib works. However, it can be useful to test the max value for the degree of the polynome.
+*/
+bool Cyfhel::testPolynomialEvalAllRandom(long const& sizeVectorPtsEval, long const& d, bool const& isMonic){
+
+    // Value of p power r.
+    const long p2r = getp2r(); 
+
+    // Variables useful to define the vector points evaluation in which we will evaluate the polynome.
+    vector<long> x; // Create an empty vector that will contain the evaluation points.
+
+
+    // ***Initialization of the vector that contains the evaluations points.***
+
+    // If we choose random points for evaluation...
+    // ***evaluate at random points (at least one co-prime with p)***
+    this->random(x); // Initialize the vector with m_encryptedArray.size() random values.
+    // (Facultatif) Replace the first random element of vector x with a value which is co-prime with p ie gcd(x[0], p)=1. 
+    // This step is not mandatory but we want to test a point with this property.
+    while (GCD(x[0], getm_global_p())!=1) { x[0] = RandomBnd(p2r); }
+    // As x has m_encryptedArray.size() random values, we resize the vector of evaluation points to has only a size of sizeVectorPtsEval.
+    // For exemple, if m_encryptedArray.size()=1000 and sizeVectorPtsEval=10, we have 1000 random value points to evaluate the polynome but we only want to evaluate
+    // 10 points. So we resize the vector so that the evaluation points vector only contains the first 10 random value points to evalauate the polynome.  
+    x.resize(sizeVectorPtsEval);
+    std::cout <<"vector X of random points -> "<< x <<endl;
+
+
+    // ***Definition of the polynome.***
+    ZZX poly;
+
+    for (long i=d; i>=0; i--){
+        SetCoeff(poly, i, RandomBnd(p2r)); // coefficients are random.
+    }
+    if (isMonic) {
+        SetCoeff(poly, d);    // set top coefficient to 1.
+    }
+
+    // Print the polynome.
+    std::cout <<"Polynome P(X) with random coefficients of degree " << d <<" -> ";
+    for (int i=deg(poly); i>0; i--){
+        std::cout << poly[i] <<"X^"<<i<<" + ";
+    }
+    std::cout << poly[0] <<endl;
+
+
+   // ***Encrypt the vectors of points to evaluate the polynome.***
+   CyCtxt cx = encrypt(x);
+   std::cout <<"Encryption of vector x..."<<endl;
+   std::cout << "Encrypted x: Encrypt(" << x << ")"<<endl;
+
+   // ***Evaluate the polynome by each cypher elements of the CyCtxt containing the cypher evaluation points.***
+   // Creation of a CyCtxt to contain the result CyCtxt of the polynomial evaluation.
+   CyCtxt cEvalPoly = cx; 
+   // Evaluate poly on the ciphertext.
+   polyEval(cEvalPoly, poly, cx, 0);
+
+
+   // ***Decrypt the CyCtxt which contain the polynomial evaluation.***
+   vector<long> vect_polynomialEval = decrypt(cEvalPoly);
+   // The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
+   std::cout <<"Decrypt(P(encrypt(x))) mod("<< getp2r() <<") -> "<< vect_polynomialEval<<endl;
+
+   // Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
+   vector<long> plainTextPolyEval;
+   for (long i=0; i<sizeVectorPtsEval; i++) {
+       long ret = polyEvalMod(poly, x[i], p2r);
+       plainTextPolyEval.push_back(ret);
+       if (ret != vect_polynomialEval[i]) {
+           std::cout << "Decrypt(P(encrypt(x))) != P(x). Plaintext poly MISMATCH\n";
+           return false;
+       }
+   }
+  std::cout <<"P(x) -> "<< vect_polynomialEval<<endl;
+  std::cout << "Decrypt(P(encrypt(x))) == P(x). Plaintext poly match\n" << std::flush;
+  return true;
+}
+
+
+
+
+
+
+
+
+
 //------ENCRYPTION------
 //ENCRYPTION
 /*

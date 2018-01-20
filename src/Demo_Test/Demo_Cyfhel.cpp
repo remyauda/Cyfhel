@@ -1191,9 +1191,34 @@ int main(int argc, char *argv[])
    // Skip a line.
    std::cout <<"\n"<<endl;
 
+   std::cout <<"******Homomorphic Polynomial Evaluation with random values for points evaluation and random polynome (testPolynomialEvalAllRandom)******"<<endl;
+   // Test poly eval with 10 points of evaluation and a random polnome of degree 5.
+   const bool isPolyEvalSuccess = cy.testPolynomialEvalAllRandom(10, 10);
+   if(isPolyEvalSuccess){
+       std::cout <<"testPolynomialEvalAllRandom -> true" <<endl;
+       number_success += 1;
+   }
+   else if(!isPolyEvalSuccess){
+       std::cout <<"testPolynomialEvalAllRandom -> false" <<endl;
+       number_fail += 1;
+   }
+   else{
+       std::cout <<"testPolynomialEvalAllRandom -> unexpected error" <<endl;
+       number_unexpeted_error += 1;
+   }
 
+   // Skip a line.
+   std::cout <<"\n"<<endl;
 
    std::cout <<"******Homomorphic Polynomial Evaluation with Cyfhel method polynomeEval******"<<endl;
+   /*In this test, we choose n points (choosen by the user) and put them in a vector vectorPtsEval = [x1, x2, ..., xn]. 
+     Then, we define a polynome poly of degree d by choosing d+1 coefficients of the polynome in a vector coeffPoly. 
+     Then, call the method polynomeEval to evaluate the n cyphered points corresponding to vectorPtsEval with the polynome we have defined previously ie
+     P(cx) = [P(c1), P(c2), ..., P(cn)].
+     Then, we decrypt the previous vector: Decrypt(P(cx)) = Decrypt([P(c1), P(c2), ..., P(cn)]) = [P(x1), P(x2), ..., P(xn)].
+     Then, we perform the polynomiale evaluation on the plaintext vector x: P(x) = [P(x1), P(x2), ..., P(xn)].
+     Finally, we verify if Decrypt(P(cx)) = P(x) or not.
+   */
 
    vector<long> vectorPtsEval;// Definition of a vector of points for polynomial evaluation.
    vector<long> coeffPoly;// Definition of the coefficients of the polynome.
@@ -1242,7 +1267,6 @@ int main(int argc, char *argv[])
        std::cout <<"Error: unexpected result during the comparison of vect_polynomialEval and plainTextPolyEval."<<endl;
 	   number_unexpeted_error += 1;
    }
-
    
 
    // Skip a line.

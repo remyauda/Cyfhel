@@ -24,7 +24,14 @@ public:
 
     static void writeDoubleInFileWithEraseData(std::string const& stringNameFile, double const& valueWrite, std::string const& stringNameDirectory="ResultOfBenchmark/");//Permet d'ecrire un double pris en parametre dans un fichier en effacant au prealable son contenu.
 
+    static void writeDoubleInFileWithoutEraseData(std::string const& stringNameFile, double const& valueWrite, std::string const& stringNameDirectory="ResultOfBenchmark/");//Permet d'ecrire un double pris en parametre dans un fichier sans effacer au prealable son contenu.
+
 	static void writeStringInFileWithEraseData(std::string const& stringNameFile, std::string const& stringWrite, std::string const& stringNameDirectory="ResultOfBenchmark/");//Permet d'ecrire un string pris en parametre dans un fichier en effacant au prealable son contenu.
+
+	static void writeStringInFileWithoutEraseData(std::string const& stringNameFile, std::string stringWrite, std::string const& stringNameDirectory="ResultOfBenchmark/");//Permet d'ecrire un string pris en parametre dans un fichier sans effacer au prealable son contenu.
+
+	static void removeAllDataInFile(std::string const& stringNameFile, std::string const& stringNameDirectory="ResultOfBenchmark/");//Permet d'effacer tout le contenu d'un fichier.
+
 
 	static std::string transformSecondToYearMonthWeekHourMinSecMilli(double const& seconds);//Transform seconds to string verbose Years, Months, Weeks, Hours, Minutes, Seconds, Milliseconds
 

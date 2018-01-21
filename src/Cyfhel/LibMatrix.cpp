@@ -127,6 +127,32 @@ void LibMatrix::writeDoubleInFileWithEraseData(string const& stringNameFile, dou
 
 /*
 @description:
+La methode writeDoubleInFileWithoutEraseData permet d'ecrire un double pris en parametre dans dans un fichier sans effacer au prealable son contenu.
+@param: La methode writeDoubleInFileWithoutEraseData prend deux parametres obligatoires et un parametre facultatif: un string, un double et un string facultatif.
+-param1: Le string permet de specifier le nom du ficher dont on souhaite ecrire le int passee en second parametre.
+-param2: Le double permet de specifier le double que l'on souhaite ecrire dans le ficher sans effacer au prealable son contenu.
+-param3: Le string facultatif permet de specifier le nom du repertoire ou des multiples repertoires ou est stocke le fichier dont on souhaite ecrire le double passee en second parametre. Par defaut, le repertoire se nomme ResultOfBenchmark/.
+*/
+void LibMatrix::writeDoubleInFileWithoutEraseData(string const& stringNameFile, double const& valueWrite, string const& stringNameDirectory){
+
+    //On construit petit a petit l'arborescence du chemin pour trouver les fichiers
+    string stringPathFile=stringNameDirectory;
+    stringPathFile+=stringNameFile;
+    stringPathFile+=".txt";
+
+    ofstream flux(stringPathFile.c_str(), ios::app);//ouverture en mode ecriture sans ecrasement des donnees
+    //si l'ouverture du fichier reussi
+    if(flux){
+        flux<<valueWrite<<endl;//Ecriture du double dans le fichier
+    }
+    //En cas de probleme lors de l'ouverture du fichier
+    else{
+        cout << "ERREUR: Impossible d'ouvrir le fichier." << endl;// on affiche un message d'erreur
+    }
+}
+
+/*
+@description:
 La methode writeStringInFileWithEraseData permet d'ecrire un double pris en parametre dans dans un fichier en effacant au prealable son contenu.
 @param: La methode writeStringInFileWithEraseData prend deux parametres obligatoires et un parametre facultatif: un string, un string et un string facultatif.
 -param1: Le string permet de specifier le nom du ficher dont on souhaite ecrire le int passee en second parametre.
@@ -144,6 +170,60 @@ void LibMatrix::writeStringInFileWithEraseData(string const& stringNameFile, str
     //si l'ouverture du fichier reussi
     if(flux){
         flux<<stringWrite;//Ecriture du string dans le fichier
+    }
+    //En cas de probleme lors de l'ouverture du fichier
+    else{
+        cout << "ERREUR: Impossible d'ouvrir le fichier." << endl;// on affiche un message d'erreur
+    }
+}
+
+/*
+@description:
+La methode writeStringInFileWithoutEraseData permet d'ecrire un double pris en parametre dans dans un fichier sans effacer au prealable son contenu.
+@param: La methode writeStringInFileWithoutEraseData prend deux parametres obligatoires et un parametre facultatif: un string, un string et un string facultatif.
+-param1: Le string permet de specifier le nom du ficher dont on souhaite ecrire le int passee en second parametre.
+-param2: Le string permet de specifier le string que l'on souhaite ecrire dans le ficher sans efface au prealable son contenu.
+-param3: Le string facultatif permet de specifier le nom du repertoire ou des multiples repertoires ou est stocke le fichier dont on souhaite ecrire le double passee en second parametre. Par defaut, le repertoire se nomme ResultOfBenchmark/.
+*/
+void LibMatrix::writeStringInFileWithoutEraseData(string const& stringNameFile, string stringWrite, string const& stringNameDirectory){
+
+    //On construit petit a petit l'arborescence du chemin pour trouver les fichiers
+    string stringPathFile=stringNameDirectory;
+    stringPathFile+=stringNameFile;
+    stringPathFile+=".txt";
+
+	stringWrite+="\n";
+
+    ofstream flux(stringPathFile.c_str(), ios::app);//ouverture en mode ecriture sans ecrasement des donnees
+    //si l'ouverture du fichier reussi
+    if(flux){
+        flux<<stringWrite;//Ecriture du string dans le fichier
+    }
+    //En cas de probleme lors de l'ouverture du fichier
+    else{
+        cout << "ERREUR: Impossible d'ouvrir le fichier." << endl;// on affiche un message d'erreur
+    }
+}
+
+
+/*
+@description:
+La methode removeAllDataInFile permet d'effacer le contenu d'un ficher.
+@param: La methode removeAllDataInFile prend un parametre obligatoire et un parametre facultatif: un string et un string facultatif.
+-param1: Le string permet de specifier le nom du ficher dont on souhaite effacer le contenu.
+-param2: Le string facultatif permet de specifier le nom du repertoire ou des multiples repertoires ou est stocke le fichier dont on souhaite effacer le contenu. Par defaut, le repertoire se nomme ResultOfBenchmark/.
+*/
+void LibMatrix::removeAllDataInFile(string const& stringNameFile, string const& stringNameDirectory){
+
+    //On construit petit a petit l'arborescence du chemin pour trouver les fichiers
+    string stringPathFile=stringNameDirectory;
+    stringPathFile+=stringNameFile;
+    stringPathFile+=".txt";
+
+    ofstream flux(stringPathFile.c_str());//ouverture en mode ecriture avec ecrasement des donnees
+    //si l'ouverture du fichier reussi
+    if(flux){
+        
     }
     //En cas de probleme lors de l'ouverture du fichier
     else{

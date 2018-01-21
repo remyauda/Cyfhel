@@ -59,6 +59,8 @@ int main(int argc, char *argv[])
 	
 	int i =	0;
 
+	bool isEncryptedEvaluationTrue = true;
+
 	vector<long> vectorPtsEval;// Definition of a vector of points for polynomial evaluation.
 	vector<long> coeffPoly;// Definition of the coefficients of the polynome.
 
@@ -82,7 +84,7 @@ int main(int argc, char *argv[])
 	// Use this initialization for strong encryption. However, the computation time will be greater (takes several minutes at least).
 	Cyfhel cy(true);
 
-	while(i<VECTOR_SIZE)
+	while(i<=VECTOR_SIZE)
 	{
 		vector<double> vectorBenchmark;// Vector for store execution time.
 		std::cout <<endl<<endl<<"     ******Degree of polynome equal to "<< i <<"******";
@@ -105,6 +107,48 @@ int main(int argc, char *argv[])
 			timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
 
 			vectorBenchmark.push_back(timerDemo.getm_benchmarkSecond());//Push in the vector the execution time in seconds.
+
+			// ***Decrypt the CyCtxt which contain the polynomial evaluation.***
+			vector<long> vect_polynomialEval = cy.decrypt(cEvalPoly_cyfhel);
+			// The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
+			std::cout <<endl<<"Decrypt(P(encrypt(x))) mod("<< cy.getp2r() <<") -> "<< vect_polynomialEval<<endl;
+
+			// Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
+			vector<long> plainTextPolyEval;
+			// Polynomial evaluation on plaintext vector.
+			ZZX polynome = cy.createPolynomeWithCoeff(coeffPoly); // Create a ZZX polynome with the coefficients provide by the user.
+			// Perform the polynomial evaluation for all the elements of the plaintext evalauation points vector and put it in the vector plainTextPolyEval.
+			for (unsigned long j=0;j<vectorPtsEval.size(); j++)
+			{
+				long elementPolyEval = polyEvalMod(polynome, vectorPtsEval[j], cy.getp2r()); // Polynomial evaluation of the ieme element of the plaintext vector.
+				plainTextPolyEval.push_back(elementPolyEval); // Push the polynomial evaluation of the ieme element of the plaintext vector within the vector plainTextPolyEval.
+			}
+			// Display the plaintext vector that contain the polynomial evaluation of vectorPtsEval ie P(x).
+			std::cout <<"P(x) mod("<< cy.getp2r() <<") -> "<< plainTextPolyEval<<endl;
+			// If Decrypt(P(encrypt(x))) equal to P(x), the homeomorphic operation works and so it is a success. Else, it is a fail.
+			if(vect_polynomialEval == plainTextPolyEval)
+			{
+				std::cout <<"Homeomorphic operation polynomeEval is a success: Decrypt(P(encrypt(x))) equal to P(x).\n"<<endl;
+				isEncryptedEvaluationTrue = true;
+			}
+			else if(vect_polynomialEval != plainTextPolyEval)
+			{
+				std::cout <<"Homeomorphic operation polynomeEval is a fail: Decrypt(P(encrypt(x))) not equal to P(x)."<<endl;
+				isEncryptedEvaluationTrue = false;
+				break;
+			}
+			else
+			{
+				std::cout <<"Error: unexpected result during the comparison of vect_polynomialEval and plainTextPolyEval."<<endl;
+				isEncryptedEvaluationTrue = false;
+				break;
+			}
+		}
+
+		// If Decrypt(P(encrypt(x))) equal to P(x), the homeomorphic operation don't works, stop the benchmark.
+		if(!isEncryptedEvaluationTrue)
+		{
+			break;
 		}
 
 		double averageOfExecutionTime = std::accumulate(vectorBenchmark.begin(), vectorBenchmark.end(), 0.0)/vectorBenchmark.size();// Compute the average of execution time.

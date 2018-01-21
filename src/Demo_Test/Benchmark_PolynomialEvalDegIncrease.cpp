@@ -37,7 +37,7 @@
 
 #include <cassert>
 #include <cstdio>
-
+#include <numeric>
 
 /* The vector size of the plaintext that we will use for the demo.*/
 #define VECTOR_SIZE 30
@@ -49,7 +49,7 @@
 #define isMonic 0
 
 /* Define the number of execution of Benchmark*/
-#define NB_BENCHMARK 2
+#define NB_BENCHMARK 15
 
 
 int main(int argc, char *argv[])

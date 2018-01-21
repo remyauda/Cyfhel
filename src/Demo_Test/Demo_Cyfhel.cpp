@@ -1192,7 +1192,7 @@ int main(int argc, char *argv[])
    std::cout <<"\n"<<endl;
 
    std::cout <<"******Homomorphic Polynomial Evaluation with random values for points evaluation and random polynome (testPolynomialEvalAllRandom)******"<<endl;
-   // Test poly eval with 10 points of evaluation and a random polnome of degree 5.
+   // Test poly eval with 10 points of evaluation and a random polnome of degree 10.
    const bool isPolyEvalSuccess = cy.testPolynomialEvalAllRandom(10, 10);
    if(isPolyEvalSuccess){
        std::cout <<"testPolynomialEvalAllRandom -> true" <<endl;

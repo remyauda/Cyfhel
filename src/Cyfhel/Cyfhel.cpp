@@ -623,13 +623,6 @@ bool Cyfhel::testPolynomialEvalAllRandom(long const& sizeVectorPtsEval, long con
 }
 
 
-
-
-
-
-
-
-
 //------ENCRYPTION------
 //ENCRYPTION
 /*

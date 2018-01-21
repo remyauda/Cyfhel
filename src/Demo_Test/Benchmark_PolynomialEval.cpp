@@ -1,7 +1,7 @@
 /*
 #   Benchmark_PolynomialEval
 #   --------------------------------------------------------------------
-#   Perform tests on operation +. 
+#   Perform tests on operation polynomialEval. 
 #   --------------------------------------------------------------------
 #   Author: Remy AUDA
 #   Date: 31/12/2017  

@@ -1,0 +1,330 @@
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 538 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 561 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 500 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 207 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 407 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 761 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 867 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 750 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 7 seconds 531 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 798 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 918 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 12 seconds 177 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 12 seconds 224 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 12 seconds 94 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 11 seconds 435 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 11 seconds 936 milliseconds.
+
+******Test with 1 evaluation points******
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 826 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 1 seconds 70 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 247 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 4 seconds 800 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 722 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 122 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 323 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 907 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 384 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 12 seconds 51 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 143 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 13 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 880 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 440 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 105 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 624 milliseconds.
+
+******Test with 2 evaluation points******
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 579 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 592 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 239 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 140 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 724 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 46 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 241 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 946 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 542 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 137 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 952 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 16 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 23 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 946 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 48 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 743 milliseconds.
+
+******Test with 3 evaluation points******
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 607 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 588 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 278 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 4 seconds 764 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 567 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 398 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 564 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 24 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 690 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 29 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 831 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 276 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 175 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 392 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 650 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 897 milliseconds.
+
+******Test with 4 evaluation points******
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 578 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 601 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 549 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 4 seconds 828 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 706 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 165 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 914 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 111 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 263 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 977 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 844 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 171 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 160 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 366 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 334 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 11 seconds 575 milliseconds.
+
+******Test with 5 evaluation points******
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 579 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 590 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 337 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 4 seconds 750 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 625 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 179 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 115 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 675 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 747 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 989 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 861 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 5 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 310 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 420 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 426 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 651 milliseconds.
+
+******Test with 6 evaluation points******
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 594 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 592 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 529 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 4 seconds 824 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 502 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 445 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 923 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 62 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 258 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 33 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 0 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 951 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 893 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 226 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 280 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 11 seconds 218 milliseconds.
+
+******Test with 7 evaluation points******
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 578 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 601 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 424 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 4 seconds 578 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 489 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 355 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 237 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 957 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 499 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 955 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 67 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 962 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 955 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 349 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 943 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 11 seconds 957 milliseconds.
+
+******Test with 8 evaluation points******
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 630 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 661 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 408 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 4 seconds 765 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 174 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 606 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 281 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 326 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 778 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 32 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 45 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 514 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 464 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 506 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 789 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 11 seconds 216 milliseconds.
+
+******Test with 9 evaluation points******
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 676 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 0 seconds 625 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 2 seconds 404 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 4 seconds 888 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 5 seconds 713 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 8 seconds 794 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 525 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 526 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 6 seconds 841 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 227 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 9 seconds 114 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 381 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 302 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 934 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 10 seconds 618 milliseconds.
+
+Elapsed time: 0 years 0 months 0 weeks 0 days 0 hours 0 minutes 11 seconds 429 milliseconds.
+
+******Test with 10 evaluation points******

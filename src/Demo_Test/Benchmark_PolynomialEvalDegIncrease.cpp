@@ -1,10 +1,10 @@
 /*
 #   Benchmark_PolynomialEvalDegIncrease
 #   --------------------------------------------------------------------
-#   Perform tests on operation PolynomialEval with degree increase. 
+#   Perform tests on operation PolynomialEval with degree increase.
 #   --------------------------------------------------------------------
 #   Author: Remy AUDA
-#   Date: 31/12/2017  
+#   Date: 31/12/2017
 #   --------------------------------------------------------------------
 #   License: GNU GPL v3
 #
@@ -39,8 +39,11 @@
 #include <cstdio>
 #include <numeric>
 
-/* The vector size of the plaintext that we will use for the demo.*/
-#define VECTOR_SIZE 30
+/* The vector size of the plaintext that we will use for the demo. The effective size of evaluation points vector will be: (VECTOR_SIZE+1).*/
+#define VECTOR_SIZE 9
+
+/* The maximum degree that we will use for the demo.*/
+#define DEGREE_MAX 15
 
 /* Define the max value of an element in the vector when the user choose the random vectors (value will be choosen between 0 and RANGEOFRANDOM).*/
 #define RANGEOFRANDOM 10
@@ -49,26 +52,17 @@
 #define isMonic 0
 
 /* Define the number of execution of Benchmark*/
-#define NB_BENCHMARK 15
+#define NB_BENCHMARK 10
 
 
 int main(int argc, char *argv[])
 {
-	LibMatrix::removeAllDataInFile("Result_Benchmark_PolynomialEvalDegIncrease");
-	LibMatrix::removeAllDataInFile("ResultVerbose_Benchmark_PolynomialEvalDegIncrease");
-	
-	int i =	0;
+    // Remove all data in Result_Benchmark_PolynomialEvalDegIncrease and ResultVerbose_Benchmark_PolynomialEvalDegIncrease file to have clear text file.
+    LibMatrix::removeAllDataInFile("Result_Benchmark_PolynomialEvalDegIncrease");
+    LibMatrix::removeAllDataInFile("ResultVerbose_Benchmark_PolynomialEvalDegIncrease");
 
-	bool isEncryptedEvaluationTrue = true;
-
-	vector<long> vectorPtsEval;// Definition of a vector of points for polynomial evaluation.
-	vector<long> coeffPoly;// Definition of the coefficients of the polynome.
-
-	// Initialization of the vector of points for polynomial evaluation.
-	vectorPtsEval.push_back(0);
-
-	// Initialization of the vector of coefficients for polynome.
-	coeffPoly.push_back(2);
+    // Boolean to know if the encrypted evaluation is the same that the unencrypted one.
+    bool isEncryptedEvaluationTrue = true;
 
     // Display the title of the program.
     std::cout <<"" <<endl;
@@ -76,95 +70,129 @@ int main(int argc, char *argv[])
     std::cout <<"" <<endl;
 
     // Create object Cyfhel and enable print for all functions.
-    // Cyfhel is an object that create keys for homeomorphism encryption with the parameter used in its constructor. 
+    // Cyfhel is an object that create keys for homeomorphism encryption with the parameter used in its constructor.
     // If no parameter are provided, uses default values for the generation of the keys.
     // Cyfhel is an object that allow the user to encrypt and decrypt vectors in a homeomorphism way.
     std::cout <<"******Generation of the keys for encryption******"<<endl<<endl;
 
-	// Use this initialization for strong encryption. However, the computation time will be greater (takes several minutes at least).
-	Cyfhel cy(true);
+    // Use this initialization for strong encryption. However, the computation time will be greater (takes several minutes at least).
+    Cyfhel cy(true);
 
-	while(i<=VECTOR_SIZE)
-	{
-		vector<double> vectorBenchmark;// Vector for store execution time.
-		std::cout <<endl<<endl<<"     ******Degree of polynome equal to "<< i <<"******";
+    int nbEvalPts = 0; // Counter for the vector size.
 
-		for(int k=0; k<NB_BENCHMARK; k++)
-		{
-			std::cout <<endl<<endl<<"******Perform polynomialEval operation "<< k+1 <<"******"<<endl<<endl;
+    // Definition of a vector of points for polynomial evaluation.
+    vector<long> vectorPtsEval;
 
-			// Begin the chrono.
-			Timer timerDemo(true);
-			timerDemo.start();
+    // Initialization of the vector of points for polynomial evaluation.
+    vectorPtsEval.push_back(0);
+    
+    // While the number of evaluation points have not reach the max value...
+    while(nbEvalPts<=VECTOR_SIZE)
+    {
+        // Counter for the degree of polynome.
+        int degree = 0; 
 
-			// Polynomial evaluation.
-			CyCtxt cEvalPoly_cyfhel = cy.polynomialEval(vectorPtsEval, coeffPoly);
+        // Definition of the coefficients of the polynome.
+        vector<long> coeffPoly;
 
-			// Stop the chrono and display the execution time.
-			timerDemo.stop();
-			timerDemo.benchmarkInSeconds();
-			timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
-			timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
+        // Initialization of the vector of coefficients for polynome.
+        coeffPoly.push_back(2);
+        
+        // While the degree of the polynome has not reach the max value...
+        while(degree<=DEGREE_MAX)
+        {
+            vector<double> vectorBenchmark;// Vector for store execution time.
+            std::cout <<endl<<endl<<"     ******Degree of polynome equal to "<< degree <<"******";
 
-			vectorBenchmark.push_back(timerDemo.getm_benchmarkSecond());//Push in the vector the execution time in seconds.
+            // With the current number of evaluation points and with the current degree for the polynome, do NB_BENCHMARK benchmarks, store each computation time and take the average.
+            for(int k=0; k<NB_BENCHMARK; k++)
+            {
+                std::cout <<endl<<endl<<"******Perform polynomialEval operation "<< k+1 <<"******"<<endl<<endl;
 
-			// ***Decrypt the CyCtxt which contain the polynomial evaluation.***
-			vector<long> vect_polynomialEval = cy.decrypt(cEvalPoly_cyfhel);
-			// The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
-			std::cout <<endl<<"Decrypt(P(encrypt(x))) mod("<< cy.getp2r() <<") -> "<< vect_polynomialEval<<endl;
+                // Begin the chrono.
+                Timer timerDemo(true);
+                timerDemo.start();
 
-			// Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
-			vector<long> plainTextPolyEval;
-			// Polynomial evaluation on plaintext vector.
-			ZZX polynome = cy.createPolynomeWithCoeff(coeffPoly); // Create a ZZX polynome with the coefficients provide by the user.
-			// Perform the polynomial evaluation for all the elements of the plaintext evalauation points vector and put it in the vector plainTextPolyEval.
-			for (unsigned long j=0;j<vectorPtsEval.size(); j++)
-			{
-				long elementPolyEval = polyEvalMod(polynome, vectorPtsEval[j], cy.getp2r()); // Polynomial evaluation of the ieme element of the plaintext vector.
-				plainTextPolyEval.push_back(elementPolyEval); // Push the polynomial evaluation of the ieme element of the plaintext vector within the vector plainTextPolyEval.
-			}
-			// Display the plaintext vector that contain the polynomial evaluation of vectorPtsEval ie P(x).
-			std::cout <<"P(x) mod("<< cy.getp2r() <<") -> "<< plainTextPolyEval<<endl;
-			// If Decrypt(P(encrypt(x))) equal to P(x), the homeomorphic operation works and so it is a success. Else, it is a fail.
-			if(vect_polynomialEval == plainTextPolyEval)
-			{
-				std::cout <<"Homeomorphic operation polynomeEval is a success: Decrypt(P(encrypt(x))) equal to P(x).\n"<<endl;
-				isEncryptedEvaluationTrue = true;
-			}
-			else if(vect_polynomialEval != plainTextPolyEval)
-			{
-				std::cout <<"Homeomorphic operation polynomeEval is a fail: Decrypt(P(encrypt(x))) not equal to P(x)."<<endl;
-				isEncryptedEvaluationTrue = false;
-				break;
-			}
-			else
-			{
-				std::cout <<"Error: unexpected result during the comparison of vect_polynomialEval and plainTextPolyEval."<<endl;
-				isEncryptedEvaluationTrue = false;
-				break;
-			}
-		}
+                // Polynomial evaluation.
+                CyCtxt cEvalPoly_cyfhel = cy.polynomialEval(vectorPtsEval, coeffPoly);
 
-		// If Decrypt(P(encrypt(x))) equal to P(x), the homeomorphic operation don't works, stop the benchmark.
-		if(!isEncryptedEvaluationTrue)
-		{
-			break;
-		}
+                // Stop the chrono and display the execution time.
+                timerDemo.stop();
+                timerDemo.benchmarkInSeconds();
+                timerDemo.benchmarkInHoursMinutesSecondsMillisecondes(true);
+                timerDemo.benchmarkInYearMonthWeekHourMinSecMilli(true);
 
-		double averageOfExecutionTime = std::accumulate(vectorBenchmark.begin(), vectorBenchmark.end(), 0.0)/vectorBenchmark.size();// Compute the average of execution time.
+                vectorBenchmark.push_back(timerDemo.getm_benchmarkSecond());//Push in the vector the execution time in seconds.
 
-		LibMatrix::writeDoubleInFileWithoutEraseData("Result_Benchmark_PolynomialEvalDegIncrease", averageOfExecutionTime);// Write the double averageOfExecutionTime in the file Result_Benchmark_PolynomialEvalDegIncrease in the directory ResultOfBenchmark.
+                // ***Decrypt the CyCtxt which contain the polynomial evaluation.***
+                vector<long> vect_polynomialEval = cy.decrypt(cEvalPoly_cyfhel);
+                // The user can then verify if the result of the polynomial evaluation is the same that the polynomial evaluation without encryption.
+                std::cout <<endl<<"Decrypt(P(encrypt(x))) mod("<< cy.getp2r() <<") -> "<< vect_polynomialEval<<endl;
 
-		LibMatrix::writeStringInFileWithoutEraseData("ResultVerbose_Benchmark_PolynomialEvalDegIncrease", LibMatrix::transformSecondToYearMonthWeekHourMinSecMilli(averageOfExecutionTime));// Write the string verbose to transform the average of execution time in seconds to string verbose Years, Months, Weeks, Hours, Minutes, Seconds, Milliseconds in the file ResultVerbose_Benchmark_PolynomialEvalDegIncrease in the directory ResultOfBenchmark.
+                // Verify if the result of the Polynomial evaluation of the encrypted vector is the same that the polynomial evaluation of the vector without encryption.
+                vector<long> plainTextPolyEval;
+                // Polynomial evaluation on plaintext vector.
+                ZZX polynome = cy.createPolynomeWithCoeff(coeffPoly); // Create a ZZX polynome with the coefficients provide by the user.
+                // Perform the polynomial evaluation for all the elements of the plaintext evalauation points vector and put it in the vector plainTextPolyEval.
+                for (unsigned long j=0;j<vectorPtsEval.size(); j++)
+                {
+                    long elementPolyEval = polyEvalMod(polynome, vectorPtsEval[j], cy.getp2r()); // Polynomial evaluation of the ieme element of the plaintext vector.
+                    plainTextPolyEval.push_back(elementPolyEval); // Push the polynomial evaluation of the ieme element of the plaintext vector within the vector plainTextPolyEval.
+                }
+                // Display the plaintext vector that contain the polynomial evaluation of vectorPtsEval ie P(x).
+                std::cout <<"P(x) mod("<< cy.getp2r() <<") -> "<< plainTextPolyEval<<endl;
+                // If Decrypt(P(encrypt(x))) equal to P(x), the homeomorphic operation works and so it is a success. Else, it is a fail.
+                if(vect_polynomialEval == plainTextPolyEval)
+                {
+                    std::cout <<"Homeomorphic operation polynomeEval is a success: Decrypt(P(encrypt(x))) equal to P(x).\n"<<endl;
+                    isEncryptedEvaluationTrue = true;
+                }
+                else if(vect_polynomialEval != plainTextPolyEval)
+                {
+                    std::cout <<"Homeomorphic operation polynomeEval is a fail: Decrypt(P(encrypt(x))) not equal to P(x)."<<endl;
+                    isEncryptedEvaluationTrue = false;
+                    break;
+                }
+               else
+               {
+                  std::cout <<"Error: unexpected result during the comparison of vect_polynomialEval and plainTextPolyEval."<<endl;
+                  isEncryptedEvaluationTrue = false;
+                  break;
+               }
+            }
 
-		i++;//Increase counter. The counter is equal to degree of the polynome.
+            // If Decrypt(P(encrypt(x))) equal to P(x), the homeomorphic operation don't works, stop the benchmark.
+            if(!isEncryptedEvaluationTrue)
+            {
+                break;
+            }
+            
+            // Compute the average of execution time.
+            double averageOfExecutionTime = std::accumulate(vectorBenchmark.begin(), vectorBenchmark.end(), 0.0)/vectorBenchmark.size();
+            
+            // Write the double averageOfExecutionTime in the file Result_Benchmark_PolynomialEvalDegIncrease in the directory ResultOfBenchmark.
+            LibMatrix::writeDoubleInFileWithoutEraseData("Result_Benchmark_PolynomialEvalDegIncrease", averageOfExecutionTime);
 
-		// Increase vector of points for polynomial evaluation.
-		vectorPtsEval.push_back(i);
+            // Write the string verbose to transform the average of execution time in seconds to string verbose Years, Months, Weeks, Hours, Minutes, Seconds, Milliseconds in the file ResultVerbose_Benchmark_PolynomialEvalDegIncrease in the directory ResultOfBenchmark.
+            LibMatrix::writeStringInFileWithoutEraseData("ResultVerbose_Benchmark_PolynomialEvalDegIncrease", LibMatrix::transformSecondToYearMonthWeekHourMinSecMilli(averageOfExecutionTime));
 
-		// Increase vector of coefficients for polynome. Therefore, the degree of polynome increase.
-		coeffPoly.push_back(i+2);
-	}
+            //Increase counter. The counter is equal to degree of the polynome.
+            degree++;
+
+            // Increase vector of coefficients for polynome. Therefore, the degree of polynome increase.
+            coeffPoly.push_back(2);
+        }
+        nbEvalPts++;//Increase counter. The counter is equal to degree of size of vector.
+        // Increase vector of points for polynomial evaluation.
+        vectorPtsEval.push_back(nbEvalPts);
+        
+        // Write a separator in the benchmark file.
+        string separator = "******Test with " + std::to_string(nbEvalPts) + " evaluation points******";
+
+        LibMatrix::writeStringInFileWithoutEraseData("Result_Benchmark_PolynomialEvalDegIncrease", separator);
+
+        LibMatrix::writeStringInFileWithoutEraseData("ResultVerbose_Benchmark_PolynomialEvalDegIncrease", separator);
+    }
 
     // Skip a line.
     std::cout <<"\n"<<endl;

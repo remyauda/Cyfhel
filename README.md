@@ -7,6 +7,7 @@ Abstraction of Helib in C++ for homeomorphic encryption.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 INSTALLATION Linux Ubuntu (computer or virtual machine) :
+
 Install a Linux Ubuntu virtual machine or use your own computer if you are running Linux Ubuntu (tested version: Ubuntu 14.04.3 64 bit). -> https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/installez-linux-dans-une-machine-virtuelle
 
 To enable the share clipboard etc... on virtual machine -> https://forums.virtualbox.org/viewtopic.php?f=3&t=15679

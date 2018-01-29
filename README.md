@@ -42,7 +42,7 @@ make Demo_Cyfhel_x
 ./Demo_Cyfhel_x
 ```
 
-**ATTENTION:**
+**WARNING:**
 
 It is very important to do:
 make program_x et ./program_x

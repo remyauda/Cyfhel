@@ -45,7 +45,9 @@ make Demo_Cyfhel_x
 **WARNING:**
 
 It is very important to do:
+
 make program_x et ./program_x
+
 The _x is very important!
 If you don't put it, you will encounter some errors at the execution time (segmentation fault, etc...)
 

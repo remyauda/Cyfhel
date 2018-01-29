@@ -56,6 +56,11 @@ If you don't put it, you will encounter some errors at the execution time (segme
 sudo make Cyfhel
 ```
 
+**If you change the source code of the project HElib**, you must recompile it. Otherwise your changes will be ignored. To do this, go to the root of the project and do.
+```
+sudo make HElib
+```
+
 ## Prerequisites
 
 What things you need to install the software and how to install them: **No prerequisites**.
@@ -90,6 +95,11 @@ make Demo_Cyfhel_x
 **If you change the source code of the project Cyfhel**, you must recompile it. Otherwise your changes will be ignored. To do this, go to the root of the project and do.
 ```
 sudo make Cyfhel
+```
+
+**If you change the source code of the project HElib**, you must recompile it. Otherwise your changes will be ignored. To do this, go to the root of the project and do.
+```
+sudo make HElib
 ```
 
 ## Running the tests

@@ -6,11 +6,11 @@ Abstraction of Helib in C++ for homeomorphic encryption.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-INSTALLATION Linux Ubuntu (computer or virtual machine) :
+**INSTALLATION Linux Ubuntu (computer or virtual machine) :**
 
-Install a Linux Ubuntu virtual machine or use your own computer if you are running Linux Ubuntu (tested version: Ubuntu 14.04.3 64 bit). -> https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/installez-linux-dans-une-machine-virtuelle
+Install a Linux Ubuntu virtual machine or use your own computer if you are running Linux Ubuntu (tested version: Ubuntu 14.04.3 64 bit) -> [Install a Linux Ubuntu virtual machine](https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/installez-linux-dans-une-machine-virtuelle)
 
-To enable the share clipboard etc... on virtual machine -> https://forums.virtualbox.org/viewtopic.php?f=3&t=15679
+To enable the share clipboard etc... on virtual machine -> [https://forums.virtualbox.org/viewtopic.php?f=3&t=15679](https://forums.virtualbox.org/viewtopic.php?f=3&t=15679)
 
 If git is not install yet:
 ```
@@ -22,7 +22,7 @@ If git is not configured yet:
 git config --global user.email "you@example.com" and git config --global user.name "Your UserName"
 ```
 
-INSTALLATION Cyfhel:
+**INSTALLATION Cyfhel:**
 ```
 git clone https://github.com/remyauda/Cyfhel
 cd Cyfhel/
@@ -34,20 +34,20 @@ make Demo_Cyfhel_x
 ./Demo_Cyfhel_x
 ```
 
-COMPILATION:
+**COMPILATION:**
 Se placer à la racine du projet.
 ```
 sudo make Cyfhel
 ```
 
-EXECUTION DE LA DEMO:
+**EXECUTION DE LA DEMO:**
 Se placer dans le répertoire Demo_Test
 ```
 make Demo_Cyfhel_x
 ./Demo_Cyfhel_x
 ```
 
-ATTENTION: 
+**ATTENTION:**
 Il est très important de faire:
 make program_x et ./program_x
 Le _x est très important!
@@ -57,10 +57,11 @@ Ne pas le mettre provoquera des erreurs dans l'execution de votre code (segmenta
 
 What things you need to install the software and how to install them:
 
-INSTALLATION Linux Ubuntu (computer or virtual machine) :
-Install a Linux Ubuntu virtual machine or use your own computer if you are running Linux Ubuntu (tested version: Ubuntu 14.04.3 64 bit). -> https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/installez-linux-dans-une-machine-virtuelle
+**INSTALLATION Linux Ubuntu (computer or virtual machine) :**
 
-To enable the share clipboard etc... on virtual machine -> https://forums.virtualbox.org/viewtopic.php?f=3&t=15679
+Install a Linux Ubuntu virtual machine or use your own computer if you are running Linux Ubuntu (tested version: Ubuntu 14.04.3 64 bit) -> [Install a Linux Ubuntu virtual machine](https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/installez-linux-dans-une-machine-virtuelle)
+
+To enable the share clipboard etc... on virtual machine -> [https://forums.virtualbox.org/viewtopic.php?f=3&t=15679](https://forums.virtualbox.org/viewtopic.php?f=3&t=15679)
 
 If git is not install yet:
 ```
@@ -76,7 +77,7 @@ git config --global user.email "you@example.com" and git config --global user.na
 
 A step by step series of examples that tell you have to get a development env running
 
-INSTALLATION Cyfhel:
+**INSTALLATION Cyfhel:**
 ```
 git clone https://github.com/remyauda/Cyfhel
 cd Cyfhel/
@@ -88,7 +89,7 @@ make Demo_Cyfhel_x
 ./Demo_Cyfhel_x
 ```
 
-COMPILATION:
+**COMPILATION:**
 Se placer à la racine du projet.
 ```
 sudo make Cyfhel

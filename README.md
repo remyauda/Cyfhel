@@ -41,11 +41,36 @@ cd src/Demo_Test/
 make Demo_Cyfhel_x
 ./Demo_Cyfhel_x
 ```
+More generally, you can run every Demo which are in the folder DemoTest. To do it you have just to go in the folder DemoTest and then run the following command:
+```
+make demoYouWantToRun_x
+```
+The previous command will compile the demoYouWantToRun.cpp you want to run and will create an executable called demoYouWantToRun_x. Then, just run the following command to run your demo:
+```
+./demoYouWantToRun_x
+```
 
-**ATTENTION:**
+**Important note:** To make your life easier, we have provided two batch files:
+
+- removeAllExecutable.sh: this batch removed all the executable_x in the directory DemoTest.
+- compileAll.sh: this batch compile all the cpp file in the directory DemoTest to create executable_x for every Demo presents in the folder DemoTest.
+
+The first batch could be run with:
+```
+./removeAllExecutable.sh
+```
+
+The second batch could be run with:
+```
+./compileAll.sh
+```
+
+**WARNING:**
 
 It is very important to do:
+
 make program_x et ./program_x
+
 The _x is very important!
 If you don't put it, you will encounter some errors at the execution time (segmentation fault, etc...)
 
@@ -89,6 +114,38 @@ cd src/Demo_Test/
 make Demo_Cyfhel_x
 ./Demo_Cyfhel_x
 ```
+More generally, you can run every Demo which are in the folder DemoTest. To do it you have just to go in the folder DemoTest and then run the following command:
+```
+make demoYouWantToRun_x
+```
+The previous command will compile the demoYouWantToRun.cpp you want to run and will create an executable called demoYouWantToRun_x. Then, just run the following command to run your demo:
+```
+./demoYouWantToRun_x
+```
+
+**Important note:** To make your life easier, we have provided two batch files:
+
+- removeAllExecutable.sh: this batch removed all the executable_x in the directory DemoTest.
+- compileAll.sh: this batch compile all the cpp file in the directory DemoTest to create executable_x for every Demo presents in the folder DemoTest.
+
+The first batch could be run with:
+```
+./removeAllExecutable.sh
+```
+
+The second batch could be run with:
+```
+./compileAll.sh
+```
+
+**WARNING:**
+
+It is very important to do:
+
+make program_x et ./program_x
+
+The _x is very important!
+If you don't put it, you will encounter some errors at the execution time (segmentation fault, etc...)
 
 3. **COMPILATION:**
 
@@ -106,15 +163,58 @@ sudo make HElib
 
 Explain how to run the automated tests for this system:
 
-
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+To test if Cyfhel works, you can run the main demo of the project called Demo_Cyfhel. To do this, go in the folder Demo_Test and do:
 ```
-Give an example
+cd src/Demo_Test/
+make Demo_Cyfhel_x
+./Demo_Cyfhel_x
 ```
+More generally, you can run every Demo which are in the folder DemoTest. To do it you have just to go in the folder DemoTest and then run the following command:
+```
+make demoYouWantToRun_x
+```
+The previous command will compile the demoYouWantToRun.cpp you want to run and will create an executable called demoYouWantToRun_x. Then, just run the following command to run your demo:
+```
+./demoYouWantToRun_x
+```
+
+**Important note:** To make your life easier, we have provided two batch files:
+
+- removeAllExecutable.sh: this batch removed all the executable_x in the directory DemoTest.
+- compileAll.sh: this batch compile all the cpp file in the directory DemoTest to create executable_x for every Demo presents in the folder DemoTest.
+
+The first batch could be run with:
+```
+./removeAllExecutable.sh
+```
+
+The second batch could be run with:
+```
+./compileAll.sh
+```
+
+**WARNING:**
+
+It is very important to do:
+
+make program_x et ./program_x
+
+The _x is very important!
+If you don't put it, you will encounter some errors at the execution time (segmentation fault, etc...)
+
+### Break down into Benchmark
+
+Appart from traditional Demo in DemoTest, we have provided some benchmarks of Cyfhel. In these Benchmark, we measure the time that Cyfhel takes to perform each homomorphic operation:
+- Time for the creation of an object Cyfhel (generation of the keys).
+- Time to perform an homomorphic addition.
+- Time to perform an homomorphic substraction.
+- Time to perform an homomorphic multiplication.
+- etc...
+The results of these Benchmarks are stored in txt files within the folder ResultOfBenchmark.
+You can then export them into a cvs file and perform some visualisation with some graphical softwares:
+SAP Lumira, Qlik, Webi, Tableau etc...
+
+
 
 ## Deployment
 

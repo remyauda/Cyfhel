@@ -210,6 +210,7 @@ Appart from traditional Demo in DemoTest, we have provided some benchmarks of Cy
 - Time to perform an homomorphic substraction.
 - Time to perform an homomorphic multiplication.
 - etc...
+
 The results of these Benchmarks are stored in txt files within the folder ResultOfBenchmark.
 You can then export them into a cvs file and perform some visualisation with some graphical softwares:
 SAP Lumira, Qlik, Webi, Tableau etc...

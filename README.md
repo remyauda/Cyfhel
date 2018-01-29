@@ -108,8 +108,9 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system: 
-nothing to add. Just perform the installation as described.
+Add additional notes about how to deploy this on a live system:
+
+**Nothing to add: just perform the installation as described**.
 
 ## Built With
 

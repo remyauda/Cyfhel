@@ -214,6 +214,10 @@ The results of these Benchmarks are stored in txt files within the folder Result
 You can then export them into a cvs file and perform some visualisation with some graphical softwares:
 SAP Lumira, Qlik, Webi, Tableau etc...
 
+![BasicOperation3](https://github.com/remyauda/Cyfhel/blob/master/src/Demo_Test/ResultOfBenchmark/Benchmark_graph/BasicOperation3.PNG)
+
+![PoynomialDegIncrease1](https://github.com/remyauda/Cyfhel/blob/master/src/Demo_Test/ResultOfBenchmark/Benchmark_graph/PoynomialDegIncrease1.PNG)
+
 
 
 ## Deployment

@@ -58,23 +58,7 @@ sudo make Cyfhel
 
 ### Prerequisites
 
-What things you need to install the software and how to install them:
-
-**INSTALLATION Linux Ubuntu (computer or virtual machine) :**
-
-Install a Linux Ubuntu virtual machine or use your own computer if you are running Linux Ubuntu (tested version: Ubuntu 14.04.3 64 bit) -> [Install a Linux Ubuntu virtual machine](https://openclassrooms.com/courses/reprenez-le-controle-a-l-aide-de-linux/installez-linux-dans-une-machine-virtuelle)
-
-To enable the share clipboard etc... on virtual machine -> [https://forums.virtualbox.org/viewtopic.php?f=3&t=15679](https://forums.virtualbox.org/viewtopic.php?f=3&t=15679)
-
-If git is not install yet:
-```
-sudo apt-get install git
-```
-
-If git is not configured yet:
-```
-git config --global user.email "you@example.com" and git config --global user.name "Your UserName"
-```
+What things you need to install the software and how to install them: **No prerequisites**.
 
 ### Installing
 

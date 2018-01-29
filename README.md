@@ -41,6 +41,29 @@ cd src/Demo_Test/
 make Demo_Cyfhel_x
 ./Demo_Cyfhel_x
 ```
+More generally, you can run every Demo which are in the folder DemoTest. To do it you have just to go in the folder DemoTest and then run the following command:
+```
+make demoYouWantToRun_x
+```
+The previous command will compile the demoYouWantToRun.cpp you want to run and will create an executable called demoYouWantToRun_x. Then, just run the following command to run your demo:
+```
+./demoYouWantToRun_x
+```
+
+**Important note:** To make your life easier, we have provided two batch files:
+
+- removeAllExecutable.sh: this batch removed all the executable_x in the directory DemoTest.
+- compileAll.sh: this batch compile all the cpp file in the directory DemoTest to create executable_x for every Demo presents in the folder DemoTest.
+
+The first batch could be run with:
+```
+./removeAllExecutable.sh
+```
+
+The second batch could be run with:
+```
+./compileAll.sh
+```
 
 **WARNING:**
 

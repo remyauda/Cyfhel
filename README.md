@@ -1,6 +1,16 @@
 # Cyfhel
 
-Abstraction of Helib in C++ for homeomorphic encryption.
+Abstraction of HElib in C++ for homeomorphic encryption to provide higher-level routines.
+
+* **_Description_**: Cyfhel is a software library that implements homomorphic encryption (HE). It is an abstraction of [HElib](https://github.com/shaih/HElib) in C++ for homeomorphic encryption to provide higher-level routines. Thus, this library aims to offer the same functionality as HElib but with higher level routines to facilitate the use of homorphic encryption features offered by [HElib](https://github.com/shaih/HElib).
+* **_Language_**: C++.
+* **_Dependencies_**: [HElib](https://github.com/shaih/HElib), [GMP](http://www.gmplib.org), [NTL](http://www.shoup.net/ntl/download.html)
+* **_License_**: [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
+## Summary
+**Cyfhel** implements higher level routines than [HElib](https://github.com/shaih/HElib) to facilitate the use of homorphic encryption features offered by HElib. This library is useful both for simple Homomorphic Encryption Demos as well as for complex problems such as implementing Machine Learning algorithms.
+
+Additionally, this project contains a large series of Demos & Tests for **Cyfhel**.
 
 ## Getting Started
 

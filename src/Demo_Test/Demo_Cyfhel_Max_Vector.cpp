@@ -269,6 +269,9 @@ int main(int argc, char *argv[])
   // get parameters from the command line
   amap.parse(argc, argv);
 
+  Timer tMethodTotal;
+  tMethodTotal.start();
+
   if (p<2) exit(0);
   double lBound = (double)FHE_p2Bound;
   if (lBound>40.0) lBound=20.0;
@@ -343,7 +346,11 @@ int main(int argc, char *argv[])
 
   tMethod2.stop();
 
-  std::cout << "\nMax of the vector (intrinsic calculation) is done in: " << tMethod2.elapsed_time() << "s." <<  std::endl;
+  std::cout << "\n     ***************RESULTS***************" <<  std::endl;
+
+  std::cout << "\nInitial vector: " << v1 <<  std::endl;
+
+  std::cout << "\nMax of the vector (intrinsic calculation on server) is done in: " << tMethod2.elapsed_time() << "s." <<  std::endl;
 
 
   //***CLIENT***
@@ -357,23 +364,24 @@ int main(int argc, char *argv[])
 
   cout << "result="<<result<<endl;
 
-
-  /*
-  vector<long> result;
-  result = cypherBits(x, y, p, r, m, noPrint, dry);
-  result.resize(1);
-
-  cout << "result="<<result<<endl;
-  if(result[0]){
-    cout << "x is greater than y."<<endl;
-    cout << "max="<<x<<endl;
+  // Get the index where is located the max.
+  long indexOfMax(0);
+  for(int i=0; i<10; i++){
+    if(result[i] == 1){
+      indexOfMax = i;
+	  break;
+    }
   }
-  else{
-cout << "y is greater than x."<<endl;
-    cout << "max="<<y<<endl;
-  }
-  * */
-  // Here: digits is a vector of CyCtxt that contain encrypted bits of plaintext.
 
+  vector<long> theMax;
+  CyCtxt encryptMax = c1[indexOfMax];
+  theMax = cy.decrypt(encryptMax);
+  cout << "The max of the vector is located at the position: "<< indexOfMax <<" and is equal to: "<<theMax[0]<< "." <<endl;
+
+  
+  tMethodTotal.stop();
+
+  std::cout << "\nMax of the vector (client+server) is done in: " << tMethodTotal.elapsed_time() << "s." <<  std::endl;
+  std::cout << "\n";
 
 } 

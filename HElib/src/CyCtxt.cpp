@@ -107,7 +107,7 @@ CyCtxt CyCtxt::encrypt(vector<long> &ptxt_vect) const {
 	CyCtxt ctxt_vect(*m_publicKey, vector_size);
 	// If the user try to encrypt a vector with a size greater than the maximum slots we can encrypt, then return an error.
 	if(vector_size>m_numberOfSlots){
-		cerr<<"Error: the size of the plaintext vector to encrypt cannot be greater than the number of slot"<<m_numberOfSlots<<"of the CyCtxt object."<<endl;
+		cerr<<"Error: the size of the plaintext vector ("<<vector_size <<") to encrypt cannot be greater than the number of slot: "<<m_numberOfSlots<<" of the CyCtxt object."<<endl;
 	}
 	// Add (m_numberOfSlots - vector_size) zeros after the original vector.
 	for(int i=0; i<m_numberOfSlots; i++)

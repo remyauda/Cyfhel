@@ -207,6 +207,7 @@ vector<CyCtxt> cypherBitsRandom(long p, long r, long m, bool noPrint, bool dry){
   return digits;
 }
 
+
 CyCtxt myGreaterThan(Cyfhel& cy, vector<CyCtxt> binary_x, vector<CyCtxt> binary_y, long nbits){
 
 	vector<long> v1;
@@ -222,12 +223,20 @@ CyCtxt myGreaterThan(Cyfhel& cy, vector<CyCtxt> binary_x, vector<CyCtxt> binary_
 return init;
 }
 
-CyCtxt myGreaterThan2(vector<CyCtxt> binary_x, vector<CyCtxt> binary_y){
-    return (binary_x[1]*binary_y[1]+binary_x[1])+(binary_x[1]+binary_y[1]+1)*(binary_x[0]*binary_y[0]+binary_x[0]);
+CyCtxt myGreaterThan2(Cyfhel& cy, vector<CyCtxt> binary_x, vector<CyCtxt> binary_y){
+	vector<long> v1;
+	v1.push_back(1);
+	CyCtxt c1 = cy.encrypt(v1);
+
+    return (binary_x[1]*binary_y[1]+binary_x[1])+(binary_x[1]+binary_y[1]+c1)*(binary_x[0]*binary_y[0]+binary_x[0]);
 }
 
-CyCtxt myGreaterThan3(vector<CyCtxt> binary_x, vector<CyCtxt> binary_y){
-    return (binary_x[2]*binary_y[2]+binary_x[2])+(binary_x[2]+binary_y[2]+1)*((binary_x[1]*binary_y[1]+binary_x[1])+(binary_x[1]+binary_y[1]+1)*(binary_x[0]*binary_y[0]+binary_x[0]));
+CyCtxt myGreaterThan3(Cyfhel& cy, vector<CyCtxt> binary_x, vector<CyCtxt> binary_y){
+	vector<long> v1;
+	v1.push_back(1);
+	CyCtxt c1 = cy.encrypt(v1);
+
+    return (binary_x[2]*binary_y[2]+binary_x[2])+(binary_x[2]+binary_y[2]+c1)*((binary_x[1]*binary_y[1]+binary_x[1])+(binary_x[1]+binary_y[1]+c1)*(binary_x[0]*binary_y[0]+binary_x[0]));
 }
 
 vector<long> cypherBits(long x, long y, long p, long r, long m, bool noPrint, bool dry){
@@ -362,12 +371,12 @@ vector<long> cypherBits(long x, long y, long p, long r, long m, bool noPrint, bo
   }
   cout << "digit extraction successful\n\n";
 
-  Timer tMethod2;
-  tMethod2.start();
+  Timer tMethod;
+  tMethod.start();
   CyCtxt max = myGreaterThan(cy, digits, digits2, r);
-  tMethod2.stop();
+  tMethod.stop();
 
-  std::cout << "Max done in: " << tMethod2.elapsed_time() << "s." <<  std::endl;
+  std::cout << "Max done in: " << tMethod.elapsed_time() << "s." <<  std::endl;
 
   vector<long> result;
   result = cy.decrypt(max);
@@ -415,9 +424,7 @@ int main(int argc, char *argv[])
 	cout << "y is greater than x."<<endl;
     cout << "max="<<y<<endl;
   }
-  // Here: digits is a vector of CyCtxt that contain encrypted bits of plaintext.
-
-
+  
 }
 
 

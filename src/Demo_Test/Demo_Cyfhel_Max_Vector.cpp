@@ -141,12 +141,20 @@ CyCtxt myGreaterThan(Cyfhel& cy, vector<CyCtxt> binary_x, vector<CyCtxt> binary_
 return init;
 }
 
-CyCtxt myGreaterThan2(vector<CyCtxt> binary_x, vector<CyCtxt> binary_y){
-    return (binary_x[1]*binary_y[1]+binary_x[1])+(binary_x[1]+binary_y[1]+1)*(binary_x[0]*binary_y[0]+binary_x[0]);
+CyCtxt myGreaterThan2(Cyfhel& cy, vector<CyCtxt> binary_x, vector<CyCtxt> binary_y){
+	vector<long> v1;
+	v1.push_back(1);
+	CyCtxt c1 = cy.encrypt(v1);
+
+    return (binary_x[1]*binary_y[1]+binary_x[1])+(binary_x[1]+binary_y[1]+c1)*(binary_x[0]*binary_y[0]+binary_x[0]);
 }
 
-CyCtxt myGreaterThan3(vector<CyCtxt> binary_x, vector<CyCtxt> binary_y){
-    return (binary_x[2]*binary_y[2]+binary_x[2])+(binary_x[2]+binary_y[2]+1)*((binary_x[1]*binary_y[1]+binary_x[1])+(binary_x[1]+binary_y[1]+1)*(binary_x[0]*binary_y[0]+binary_x[0]));
+CyCtxt myGreaterThan3(Cyfhel& cy, vector<CyCtxt> binary_x, vector<CyCtxt> binary_y){
+	vector<long> v1;
+	v1.push_back(1);
+	CyCtxt c1 = cy.encrypt(v1);
+
+    return (binary_x[2]*binary_y[2]+binary_x[2])+(binary_x[2]+binary_y[2]+c1)*((binary_x[1]*binary_y[1]+binary_x[1])+(binary_x[1]+binary_y[1]+c1)*(binary_x[0]*binary_y[0]+binary_x[0]));
 }
 
 
@@ -226,10 +234,12 @@ CyCtxt cypherBitsRemy(Cyfhel& cy, CyCtxt& x, CyCtxt& y, long p, long r, long m, 
 
   //******************************
 
-  Timer tMethod2;
-  tMethod2.start();
+  Timer tMethod;
+  tMethod.start();
   CyCtxt max = myGreaterThan(cy, digits, digits2, r);
-  tMethod2.stop();
+  tMethod.stop();
+
+  std::cout << "Max of the 2 elements of the vector is done in: " << tMethod.elapsed_time() << "s." <<  std::endl;
 
   return max;
 }
@@ -282,6 +292,8 @@ int main(int argc, char *argv[])
 
   /********************************************/
 
+  //***CLIENT***
+
   // Create a vector of random long that we want to know the max.
   vector<long> v1;
   for(int i=0; i<10 ; i++){
@@ -298,40 +310,43 @@ int main(int argc, char *argv[])
       c1.push_back(cy.encrypt(tmp));
   }
 
+  //***SERVER***
+
+  Timer tMethod2;
+  tMethod2.start();
   vector<CyCtxt> vectc2;
 
   vector<long> v3;
   v3.push_back(1);
 
-  cout << "step1"<<endl;
-  vector<long> vtest;
-  vector<long> vtest2;
+  //vector<long> vtest;
+  //vector<long> vtest2;
 
   for(int i=0; i<10; i++){
       // c2 is initialize as Encrypt(1).
       CyCtxt c2 = cy.encrypt(v3);
       int j= 0;
-      cout << "step2"<<endl;
       while(j!=10){
-		  cout << "step3"<<endl;
           if(i!=j){
-			 cout << "step4"<<endl;
-             //c2 *= cypherBitsRemy(c1[i], c1[j], p, r, m, noPrint, dry);
 			 CyCtxt maxij = cypherBitsRemy(cy, c1[i], c1[j], p, r, m, noPrint, dry);
-			 cout << "step5"<<endl;
-			 vtest = cy.decrypt(maxij);
-			 vtest.resize(1);
-			 cout <<"maxij = "<<vtest<<endl;
+			 //vtest = cy.decrypt(maxij);
+			 //vtest.resize(1);
+			 //cout <<"maxij = "<<vtest<<endl;
 			 c2 *= maxij;
-			 cout << "step6"<<endl;
-			 vtest2 = cy.decrypt(c2);
-			 cout <<"c2 = "<<vtest2<<endl;
+			 //vtest2 = cy.decrypt(c2);
+			 //cout <<"c2 = "<<vtest2<<endl;
               }
           j++;
           }
           vectc2.push_back(c2);
-		  cout << "step7"<<endl;
   }
+
+  tMethod2.stop();
+
+  std::cout << "\nMax of the vector (intrinsic calculation) is done in: " << tMethod2.elapsed_time() << "s." <<  std::endl;
+
+
+  //***CLIENT***
 
   vector<long> result;
   for(unsigned int i=0; i<vectc2.size(); i++){

@@ -31,6 +31,8 @@ NTL_CLIENT
 #include <cassert>
 #include <cstdio>
 
+#define VEC_SIZE 10
+
 
 // Simple class to measure time for each method
 class Timer
@@ -299,15 +301,15 @@ int main(int argc, char *argv[])
 
   // Create a vector of random long that we want to know the max.
   vector<long> v1;
-  for(int i=0; i<10 ; i++){
-      long r1 = (rand() % 10) + 1;
+  for(int i=0; i<VEC_SIZE ; i++){
+      long r1 = (rand() % VEC_SIZE) + 1;
       cout<<r1<<endl;
       v1.push_back(r1);
   }
 
   // Cypher each element of v1.
   vector<CyCtxt> c1;
-  for(int i=0; i<10 ; i++){
+  for(int i=0; i<VEC_SIZE ; i++){
       vector<long> tmp;
       tmp.push_back(v1[i]);
       c1.push_back(cy.encrypt(tmp));
@@ -325,11 +327,11 @@ int main(int argc, char *argv[])
   //vector<long> vtest;
   //vector<long> vtest2;
 
-  for(int i=0; i<10; i++){
+  for(int i=0; i<VEC_SIZE; i++){
       // c2 is initialize as Encrypt(1).
       CyCtxt c2 = cy.encrypt(v3);
       int j= 0;
-      while(j!=10){
+      while(j!=VEC_SIZE){
           if(i!=j){
 			 CyCtxt maxij = cypherBitsRemy(cy, c1[i], c1[j], p, r, m, noPrint, dry);
 			 //vtest = cy.decrypt(maxij);
@@ -366,7 +368,7 @@ int main(int argc, char *argv[])
 
   // Get the index where is located the max.
   long indexOfMax(0);
-  for(int i=0; i<10; i++){
+  for(int i=0; i<VEC_SIZE; i++){
     if(result[i] == 1){
       indexOfMax = i;
 	  break;

@@ -1,5 +1,5 @@
 /*
-#   Benchmark_PolynomialEvalDegIncrease
+#   Benchmark_PolynomialEvalDegIncrease_fast
 #   --------------------------------------------------------------------
 #   Perform tests on operation PolynomialEval with degree increase.
 #   --------------------------------------------------------------------

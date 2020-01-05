@@ -13,7 +13,7 @@
  *  the Context setup and Key generation into one single KeyGen function
  *  with multiple parameter selection.
  *  --------------------------------------------------------------------
- *  Author: Remy AUDA
+ *  Author: Remy AUDA & Alexandre AUDA
  *  Date: 17/12/2017  
  *  --------------------------------------------------------------------
  *  License: GNU GPL v3

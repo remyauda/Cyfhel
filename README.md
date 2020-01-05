@@ -42,6 +42,14 @@ cd Cyfhel/
 sudo make all
 (sudo make Cyfhel)->facultatif
 ```
+Or
+```
+git clone https://github.com/alexandreauda/Cyfhel
+cd Cyfhel/
+./configure
+sudo make all
+(sudo make Cyfhel)->facultatif
+```
 
 3. **EXECUTION OF THE DEMO:** 
 
@@ -109,6 +117,14 @@ A step by step series of examples that tell you have to get a development env ru
 In a terminal, perform the following command:
 ```
 git clone https://github.com/remyauda/Cyfhel
+cd Cyfhel/
+./configure
+sudo make all
+(sudo make Cyfhel)->facultatif
+```
+Or
+```
+git clone https://github.com/alexandreauda/Cyfhel
 cd Cyfhel/
 ./configure
 sudo make all
@@ -225,9 +241,9 @@ The results of these Benchmarks are stored in txt files within the folder Result
 You can then export them into a cvs file and perform some visualisation with some graphical softwares:
 SAP Lumira, Qlik, Webi, Tableau etc...
 
-![BasicOperation3](https://github.com/remyauda/Cyfhel/blob/master/src/Demo_Test/ResultOfBenchmark/Benchmark_graph/BasicOperation3.PNG)
+![BasicOperation3](https://github.com/alexandreauda/Cyfhel/blob/master/src/Demo_Test/ResultOfBenchmark/Benchmark_graph/BasicOperation3.PNG)
 
-![PoynomialDegIncrease1](https://github.com/remyauda/Cyfhel/blob/master/src/Demo_Test/ResultOfBenchmark/Benchmark_graph/PoynomialDegIncrease1.PNG)
+![PoynomialDegIncrease1](https://github.com/alexandreauda/Cyfhel/blob/master/src/Demo_Test/ResultOfBenchmark/Benchmark_graph/PoynomialDegIncrease1.PNG)
 
 
 
@@ -251,12 +267,13 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 ## Authors
 
 * **Rémy AUDA** - [GitHub](https://github.com/remyauda)
+* **Alexandre AUDA** - [GitHub](https://github.com/alexandreauda)
 
-See also the list of [contributors](https://github.com/remyauda/Cyfhel/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/alexandreauda/Cyfhel/graphs/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the GNU GPLv3 License - see the [LICENSE](https://github.com/remyauda/Cyfhel/tree/master/License) file for details.
+This project is licensed under the GNU GPLv3 License - see the [LICENSE](https://github.com/alexandreauda/Cyfhel/tree/master/License) file for details.
 
 ## Acknowledgments
 

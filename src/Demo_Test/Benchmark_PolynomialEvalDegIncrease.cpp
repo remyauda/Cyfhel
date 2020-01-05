@@ -3,7 +3,7 @@
 #   --------------------------------------------------------------------
 #   Perform tests on operation PolynomialEval with degree increase.
 #   --------------------------------------------------------------------
-#   Author: Remy AUDA
+#   Author: Remy AUDA & Alexandre AUDA
 #   Date: 31/12/2017
 #   --------------------------------------------------------------------
 #   License: GNU GPL v3
